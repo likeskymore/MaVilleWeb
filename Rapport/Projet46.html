@@ -874,7 +874,7 @@
                         <div class="cu-part">
                             <h5 class="cu-part-title">Postconditions</h5>
                             <ul class="bare-list cu-conditions">
-                                <li class="dash">Un compte résident est créé avec succès dans le système, permettant au résident de se connecter à l'application.</li>
+                                <li class="dash">Aucun</li>
                             </ul>
                         </div>
                         
@@ -905,7 +905,7 @@
                                 <li class="scenario-alt-step" value="6">
                                     Le système détecte une erreur
                                     <ol class="bare-list">
-                                        <li value="6">Le système un message d'erreur</li>
+                                        <li value="6">Le système envoie un message d'erreur</li>
                                         <li value="6">Le résident corrige le problème et soumet à nouveau le formulaire.</li>
                                     </ol>
                                 </li>
@@ -966,8 +966,8 @@
                     <div class="scenario-main">
                         <h5 class="scenario-main-title">Scénario principal</h5>
                         <ol class="scenario-main-steps">
-                            <li class="scenario-main-step">le résident ouvre l'application MaVille et accède à la page d'accueil.</li>
-                            <li class="scenario-main-step">Le système affiche le menu principal, proposant plusieurs options, dont "Consulter les travaux".</li>
+                            <li class="scenario-main-step">le résident ouvre l'application MaVille</li>
+                            <li class="scenario-main-step">Système affiche l'écran d'accueil avec les options disponibles.</li>
                             <li class="scenario-main-step">le résident sélectionne l'option "Consulter les travaux en cours ou à venir".</li>
                             <li class="scenario-main-step">Le système affiche une liste détaillée des travaux pour les trois prochains mois</li>
                             <li class="scenario-main-step">le résident souhaite filtrer sa recherche de travaux</li>
@@ -1008,7 +1008,7 @@
                             <strong>CU:</strong> Rechercher des travaux
                         </h4>
                         <p class="cu-goal">
-                            <strong>Objectif:</strong> Obtenir la liste des services et séances offerts et disponibles
+                            <strong>Objectif:</strong> Le résident recherche des travaux en utilisant les filtres disponibles pour obtenir une liste précise des projets en cours ou à venir.
                         </p>
                         
                         <hr>
@@ -1031,7 +1031,7 @@
                         <div class="cu-part">
                             <h5 class="cu-part-title">Postconditions</h5>
                             <ul class="bare-list cu-conditions">
-                                <li class="dash">Le système affiche une liste de travaux correspondant aux critères de recherche spécifiés par le résident.</li>
+                                <li class="dash">Aucun</li>
                             </ul>
                         </div>
                         
@@ -1083,7 +1083,7 @@
                             <strong>CU:</strong> Recevoir des notifications personnalisées
                         </h4>
                         <p class="cu-goal">
-                            <strong>Objectif:</strong> Obtenir la liste des services et séances offerts et disponibles
+                            <strong>Objectif:</strong> Le résident reçoit automatiquement des notifications sur les projets de travaux dans son quartier et peut choisir de s'abonner à des notifications pour d'autres projets spécifiques.
                         </p>
                         
                         <hr>
@@ -1091,14 +1091,15 @@
                         <div class="cu-part">
                             <h5 class="cu-part-title">Acteurs</h5>
                             <ul class="bare-list cu-actors">
-                                <li class="cu-actor">Agent (Principal)</li>
+                                <li class="cu-actor">Résident (Principal)</li>
+                                <li class="cu-actor">Système (Secondaire)</li>
                             </ul>
                         </div>
                         
                         <div class="cu-part">
                             <h5 class="cu-part-title">Préconditions</h5>
                             <ul class="bare-list cu-conditions">
-                                <li class="dash">Aucun.</li>
+                                <li class="dash">Le résident est inscrit et connecté à l'application MaVille.</li>
                             </ul>
                         </div>
                         
@@ -1117,25 +1118,28 @@
                     <div class="scenario-main">
                         <h5 class="scenario-main-title">Scénario principal</h5>
                         <ol class="scenario-main-steps">
-                            <li class="scenario-main-step">L’agent ouvre le Répertoire des services.</li>
-                            <li class="scenario-main-step">Le système affiche la liste des services offerts par GYM ainsi que toutes les séances disponibles durant la journée.</li>
+                            <li class="scenario-main-step">Le résident ouvre l'application « MaVille ».</li>
+                            <li class="scenario-main-step">Système affiche l'écran d'accueil avec les options disponibles.</li>
+                            <li class="scenario-main-step">Le résident accède à la section « Notifications ».</li>
+                            <li class="scenario-main-step">Le système affiche les paramètres de notification, incluant les abonnements actuels et les options de personnalisation.</li>
+                            <li class="scenario-main-step">Le résident voit qu'il est automatiquement abonné aux notifications pour son quartier.</li>
+                            <li class="scenario-main-step">Le résident choisit de s'abonner à des notifications pour une rue ou un autre quartier.</li>
+                            <li class="scenario-main-step">Le système affiche un champ pour entrer le nom d'une rue ou pour sélectionner un quartier dans une liste déroulante.</li>
+                            <li class="scenario-main-step">Le résident entre le nom d'une rue ou sélectionne un quartier.</li>
+                            <li class="scenario-main-step">Le système enregistre le nouvel abonnement du résident</li>
+                            <li class="scenario-main-step">Le système envoie automatiquement au résident des notifications concernant cette rue ou ce quartier.</li>
+                            <li class="scenario-main-step">Le résident reçoit des notifications sur son téléphone ou par courriel.</li>
                         </ol>
 
                         <div class="scenario-alt">
                             <h5 class="scenario-alt-title">Scénarios alternatifs</h5>
                             <ol class="bare-list scenario-alt-steps">
-                                <li class="scenario-alt-step" value="4">
-                                    Travaux imprévus ou d’urgence
+                                <li class="scenario-alt-step" value="3">
+                                    Le résident ne souhaite pas recevoir de notifications.
                                     <ol class="bare-list">
-                                        <li value="4">l'application met à jour la carte et la liste en temps réel</li>
-                                    </ol>
-                                </li>
-                            </ol>
-                            <ol class="bare-list scenario-alt-steps">
-                                <li class="scenario-alt-step" value="8">
-                                    Aucun travaux dans la zone sélectionnée
-                                    <ol class="bare-list">
-                                        <li value="8">L'application informe l'utilisateur qu'aucun travaux ne sont prévus dans la zone ou pour les critères sélectionnés, et lui propose de réinitialiser les filtres</li>
+                                        <li value="3">Le résident peut désactiver toutes les notifications via un bouton « Désactiver les notifications » dans la section des paramètres.
+                                        </li>
+                                        <li value="3">Le système confirme que le résident ne recevra plus aucune notification.</li>
                                     </ol>
                                 </li>
                             </ol>
@@ -1149,7 +1153,7 @@
                             <strong>CU:</strong> Participer à là planification des travaux
                         </h4>
                         <p class="cu-goal">
-                            <strong>Objectif:</strong> Obtenir la liste des services et séances offerts et disponibles
+                            <strong>Objectif:</strong> Permettre aux résidents de proposer des plages horaires préférées pour les travaux dans leur quartier, de consulter les préférences des autres résidents, et de partager leur avis après la fin d'un projet.
                         </p>
                         
                         <hr>
@@ -1157,14 +1161,15 @@
                         <div class="cu-part">
                             <h5 class="cu-part-title">Acteurs</h5>
                             <ul class="bare-list cu-actors">
-                                <li class="cu-actor">Agent (Principal)</li>
+                                <li class="cu-actor">Résident (Principal)</li>
+                                <li class="cu-actor">Système (Secondaire)</li>
                             </ul>
                         </div>
                         
                         <div class="cu-part">
                             <h5 class="cu-part-title">Préconditions</h5>
                             <ul class="bare-list cu-conditions">
-                                <li class="dash">Aucun.</li>
+                                <li class="dash">Le résident doit être inscrit et connecté à l'application MaVille.</li>
                             </ul>
                         </div>
                         
@@ -1183,25 +1188,37 @@
                     <div class="scenario-main">
                         <h5 class="scenario-main-title">Scénario principal</h5>
                         <ol class="scenario-main-steps">
-                            <li class="scenario-main-step">L’agent ouvre le Répertoire des services.</li>
-                            <li class="scenario-main-step">Le système affiche la liste des services offerts par GYM ainsi que toutes les séances disponibles durant la journée.</li>
+                            <li class="scenario-main-step">Résident ouvre l'application « MaVille ».</li>
+                            <li class="scenario-main-step">Système affiche l'écran d'accueil avec les options disponibles.</li>
+                            <li class="scenario-main-step">Résident sélectionne l'option "Planification participative".</li>
+                            <li class="scenario-main-step">Système affiche les projets de travaux prévus dans le quartier du résident.</li>
+                            <li class="scenario-main-step">Résident sélectionne un projet affectant son quartier.</li>
+                            <li class="scenario-main-step">Système affiche les détails du projet ainsi qu'une option pour proposer des plages horaires préférées.</li>
+                            <li class="scenario-main-step">Résident sélectionne les plages horaires qu'il préfère pour les travaux.</li>
+                            <li class="scenario-main-step">Système enregistre la sélection du résident et affiche un message de confirmation.</li>
+                            <li class="scenario-main-step">Système compile les préférences horaires des résidents du quartier.</li>
+                            <li class="scenario-main-step">Après la fin d'un projet de travaux, le résident reçoit une notification pour partager son avis.</li>
+                            <li class="scenario-main-step">Système affiche un formulaire d'évaluation des travaux réalisés et de l'intervenant responsable.</li>
+                            <li class="scenario-main-step">Résident remplit le formulaire et soumet son avis.</li>
+                            <li class="scenario-main-step">Système compile les avis reçus et les envoie aux responsables des travaux pour prise en compte dans les futurs projets.</li>
                         </ol>
 
                         <div class="scenario-alt">
                             <h5 class="scenario-alt-title">Scénarios alternatifs</h5>
                             <ol class="bare-list scenario-alt-steps">
-                                <li class="scenario-alt-step" value="4">
-                                    Travaux imprévus ou d’urgence
+                                <li class="scenario-alt-step" value="7">
+                                    Le résident ne trouve pas de plages horaires disponibles qui lui conviennent.
                                     <ol class="bare-list">
-                                        <li value="4">l'application met à jour la carte et la liste en temps réel</li>
+                                        <li value="7">Le résident peut choisir l'option de ne pas proposer de plages horaires.</li>
+                                        <li value="7">Système enregistre le choix et affiche un message de confirmation.</li>
                                     </ol>
                                 </li>
                             </ol>
                             <ol class="bare-list scenario-alt-steps">
-                                <li class="scenario-alt-step" value="8">
-                                    Aucun travaux dans la zone sélectionnée
+                                <li class="scenario-alt-step" value="10">
+                                    Le résident ne souhaite pas évaluer les travaux.
                                     <ol class="bare-list">
-                                        <li value="8">L'application informe l'utilisateur qu'aucun travaux ne sont prévus dans la zone ou pour les critères sélectionnés, et lui propose de réinitialiser les filtres</li>
+                                        <li value="10">Le résident peut choisir de ne pas remplir le formulaire.</li>
                                     </ol>
                                 </li>
                             </ol>
@@ -1215,7 +1232,7 @@
                             <strong>CU:</strong> Soumettre une requête de travail
                         </h4>
                         <p class="cu-goal">
-                            <strong>Objectif:</strong> Obtenir la liste des services et séances offerts et disponibles
+                            <strong>Objectif:</strong> Permettre aux résidents de soumettre une requête de travail pour leur quartier ou propriété, suivre l'avancement de la requête, et choisir un intervenant pour réaliser le travail proposé.
                         </p>
                         
                         <hr>
@@ -1223,14 +1240,16 @@
                         <div class="cu-part">
                             <h5 class="cu-part-title">Acteurs</h5>
                             <ul class="bare-list cu-actors">
-                                <li class="cu-actor">Agent (Principal)</li>
+                                <li class="cu-actor">Résident (Principal)</li>
+                                <li class="cu-actor">Système (Secondaire)</li>
+                                <li class="cu-actor">Intervenant (Secondaire)</li>
                             </ul>
                         </div>
                         
                         <div class="cu-part">
                             <h5 class="cu-part-title">Préconditions</h5>
                             <ul class="bare-list cu-conditions">
-                                <li class="dash">Aucun.</li>
+                                <li class="dash">Le résident doit être inscrit et connecté à l'application « MaVille ».</li>
                             </ul>
                         </div>
                         
@@ -1249,25 +1268,46 @@
                     <div class="scenario-main">
                         <h5 class="scenario-main-title">Scénario principal</h5>
                         <ol class="scenario-main-steps">
-                            <li class="scenario-main-step">L’agent ouvre le Répertoire des services.</li>
-                            <li class="scenario-main-step">Le système affiche la liste des services offerts par GYM ainsi que toutes les séances disponibles durant la journée.</li>
+                            <li class="scenario-main-step">Résident ouvre l'application « MaVille ».</li>
+                            <li class="scenario-main-step">Système affiche l'écran d'accueil avec les différentes options disponibles.</li>
+                            <li class="scenario-main-step">Résident sélectionne l'option "Soumettre une requête de travail".</li>
+                            <li class="scenario-main-step">Système affiche un formulaire permettant de soumettre une nouvelle requête.</li>
+                            <li class="scenario-main-step">Résident remplit les champs du formulaire.</li>
+                            <li class="scenario-main-step">Résident soumet la requête.</li>
+                            <li class="scenario-main-step">Système enregistre la requête et affiche un message de confirmation.</li>
+                            <li class="scenario-main-step">Système envoie une notification aux intervenants concernés par le type de travaux soumis.</li>
+                            <li class="scenario-main-step">Les intervenants reçoivent les détails de la requête et peuvent poser leur candidature pour réaliser les travaux.</li>
+                            <li class="scenario-main-step">Un intervenant soumet sa candidature pour réaliser les travaux.</li>
+                            <li class="scenario-main-step">Résident reçoit une notification indiquant qu'un intervenant a répondu à la requête.</li>
+                            <li class="scenario-main-step">
+                                Résident choisit d'accepter ou de refuser la candidature de l'intervenant.
+                                <ol class="bare-list">
+                                    <li>12.1. Si le résident accepte, le système notifie l'intervenant et met à jour l'état de la requête</li>
+                                    <li>12.2. Si le résident refuse, le système permet à d'autres intervenants de poser leur candidature.</li>
+                                </ol>
+                            </li>
+                            <li class="scenario-main-step">Système affiche une option "Terminer le travail" une fois que l'intervenant a déclaré que le travail est fini.</li>
+                            <li class="scenario-main-step">Résident confirme que le travail est terminé et peut laisser une évaluation de l'intervenant.</li>
+                            
                         </ol>
 
                         <div class="scenario-alt">
                             <h5 class="scenario-alt-title">Scénarios alternatifs</h5>
                             <ol class="bare-list scenario-alt-steps">
-                                <li class="scenario-alt-step" value="4">
-                                    Travaux imprévus ou d’urgence
+                                <li class="scenario-alt-step" value="5">
+                                    Le résident ne remplit pas tous les champs requis.
                                     <ol class="bare-list">
-                                        <li value="4">l'application met à jour la carte et la liste en temps réel</li>
+                                        <li value="5">Système affiche un message d'erreur indiquant les champs manquants.</li>
+                                        <li value="5">Le résident corrige les erreurs et soumet à nouveau la requête.</li>
                                     </ol>
                                 </li>
                             </ol>
                             <ol class="bare-list scenario-alt-steps">
-                                <li class="scenario-alt-step" value="8">
-                                    Aucun travaux dans la zone sélectionnée
+                                <li class="scenario-alt-step" value="10">
+                                    Aucun intervenant ne pose sa candidature dans un délai spécifié.
                                     <ol class="bare-list">
-                                        <li value="8">L'application informe l'utilisateur qu'aucun travaux ne sont prévus dans la zone ou pour les critères sélectionnés, et lui propose de réinitialiser les filtres</li>
+                                        <li value="10">Système envoie un rappel aux intervenants.</li>
+                                        <li value="10">Résident peut relancer ou modifier sa requête pour attirer plus d'intervenants.</li>
                                     </ol>
                                 </li>
                             </ol>
