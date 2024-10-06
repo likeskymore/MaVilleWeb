@@ -1321,7 +1321,7 @@
                             <strong>CU:</strong> Signaler un problème à la ville
                         </h4>
                         <p class="cu-goal">
-                            <strong>Objectif:</strong> Obtenir la liste des services et séances offerts et disponibles
+                            <strong>Objectif:</strong> Permettre aux résidents de signaler un problème à la ville en fournissant des informations précises, sans surcharger l'application avec le suivi des résolutions.
                         </p>
                         
                         <hr>
@@ -1329,21 +1329,24 @@
                         <div class="cu-part">
                             <h5 class="cu-part-title">Acteurs</h5>
                             <ul class="bare-list cu-actors">
-                                <li class="cu-actor">Agent (Principal)</li>
+                                <li class="cu-actor">Résident (Principal)</li>
+                                <li class="cu-actor">Système (Secondaire)</li>
+                                <li class="cu-actor">Ville (Secondaire)</li>
                             </ul>
                         </div>
                         
                         <div class="cu-part">
                             <h5 class="cu-part-title">Préconditions</h5>
                             <ul class="bare-list cu-conditions">
-                                <li class="dash">Aucun.</li>
+                                <li class="dash">Le résident doit être inscrit et connecté à l'application « MaVille ».</li>
                             </ul>
                         </div>
                         
                         <div class="cu-part">
                             <h5 class="cu-part-title">Postconditions</h5>
                             <ul class="bare-list cu-conditions">
-                                <li class="dash">Aucun</li>
+                                <li class="dash">Le problème est signalé à la ville avec succès.</li>
+                                <li class="dash">Le suivi de la résolution est géré directement par la ville en dehors de l'application.</li>
                             </ul>
                         </div>
                         
@@ -1355,25 +1358,26 @@
                     <div class="scenario-main">
                         <h5 class="scenario-main-title">Scénario principal</h5>
                         <ol class="scenario-main-steps">
-                            <li class="scenario-main-step">L’agent ouvre le Répertoire des services.</li>
-                            <li class="scenario-main-step">Le système affiche la liste des services offerts par GYM ainsi que toutes les séances disponibles durant la journée.</li>
+                            <li class="scenario-main-step">Résident ouvre l'application « MaVille ».</li>
+                            <li class="scenario-main-step">Système affiche l'écran d'accueil avec plusieurs options.</li>
+                            <li class="scenario-main-step">Résident sélectionne l'option "Signaler un problème".</li>
+                            <li class="scenario-main-step">Système affiche un formulaire de signalement de problème à la ville.</li>
+                            <li class="scenario-main-step">Résident remplit les champs obligatoires et soumettre le signalement.</li>
+                            <li class="scenario-main-step">Système enregistre le signalement et affiche un message de confirmation.</li>
+                            <li class="scenario-main-step">Système envoie le signalement à la ville avec toutes les informations.</li>
+                            <li class="scenario-main-step">Ville reçoit un rapport détaillé du problème.</li>
+                            <li class="scenario-main-step">Système affiche un message à l'utilisateur confirmant que le problème a été signalé.</li>
+                            <li class="scenario-main-step">La ville gère la résolution du problème et communique directement avec le résident par courriel ou téléphone pour le suivi et la résolution.</li>
                         </ol>
 
                         <div class="scenario-alt">
                             <h5 class="scenario-alt-title">Scénarios alternatifs</h5>
                             <ol class="bare-list scenario-alt-steps">
-                                <li class="scenario-alt-step" value="4">
-                                    Travaux imprévus ou d’urgence
+                                <li class="scenario-alt-step" value="5">
+                                    Le résident ne remplit pas tous les champs obligatoires.
                                     <ol class="bare-list">
-                                        <li value="4">l'application met à jour la carte et la liste en temps réel</li>
-                                    </ol>
-                                </li>
-                            </ol>
-                            <ol class="bare-list scenario-alt-steps">
-                                <li class="scenario-alt-step" value="8">
-                                    Aucun travaux dans la zone sélectionnée
-                                    <ol class="bare-list">
-                                        <li value="8">L'application informe l'utilisateur qu'aucun travaux ne sont prévus dans la zone ou pour les critères sélectionnés, et lui propose de réinitialiser les filtres</li>
+                                        <li value="5">Système affiche un message d'erreur indiquant les champs manquants.</li>
+                                        <li value="5">Le résident corrige les erreurs et soumet à nouveau le signalement.</li>
                                     </ol>
                                 </li>
                             </ol>
