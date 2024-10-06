@@ -886,8 +886,8 @@
                     <div class="scenario-main">
                         <h5 class="scenario-main-title">Scénario principal</h5>
                         <ol class="scenario-main-steps">
-                            <li class="scenario-main-step">Résident ouvre l'application « MaVille ».</li>
-                            <li class="scenario-main-step">Système affiche l'écran d'accueil avec les options : « Se connecter » ou « S'inscrire ».</li>
+                            <li class="scenario-main-step">Résident ouvre l'application MaVille.</li>
+                            <li class="scenario-main-step">Système affiche l'écran d'accueil avec les options : "Se connecter" ou "S'inscrire".</li>
                             <li class="scenario-main-step">Résident sélectionne l'option « S'inscrire ».</li>
                             <li class="scenario-main-step">Système affiche un formulaire d'inscription demandant les informations personnels d'utilisateur</li>
                             <li class="scenario-main-step">Résident remplit tous les champs requis et soumet le formulaire.</li>
@@ -926,10 +926,10 @@
                 <div class="scenario" id="cu-2">
                     <div class="scenario-meta">
                         <h4 class="cu-name">
-                            <strong>CU:</strong> Consulter les travaux en cours ou à venir
+                            <strong>CU:</strong> Consulter les travaux en cours ou à venir 
                         </h4>
                         <p class="cu-goal">
-                            <strong>Objectif:</strong> Obtenir la liste des services et séances offerts et disponibles
+                            <strong>Objectif:</strong> l'utilisateur pourra facilement consulter et filtrer les travaux en cours ou à venir dans son quartier, comprendre leurs impacts sur la circulation, et se préparer.
                         </p>
                         
                         <hr>
@@ -937,14 +937,17 @@
                         <div class="cu-part">
                             <h5 class="cu-part-title">Acteurs</h5>
                             <ul class="bare-list cu-actors">
-                                <li class="cu-actor">Agent (Principal)</li>
+                                <li class="cu-actor">Résident (Principal)</li>
+                                <li class="cu-actor">Système (Secondaire)</li>
                             </ul>
                         </div>
                         
                         <div class="cu-part">
                             <h5 class="cu-part-title">Préconditions</h5>
                             <ul class="bare-list cu-conditions">
-                                <li class="dash">Aucun.</li>
+                                <li class="dash">L'utilisateur est connecté à l'application MaVille avec un compte résident.</li>
+                                <li class="dash">Les informations sur les travaux en cours et à venir dans la ville sont disponibles dans la base de données de l'application.</li>
+                                <li class="dash">Les données sont à jour pour une période de 3 mois à venir.</li>
                             </ul>
                         </div>
                         
@@ -963,13 +966,38 @@
                     <div class="scenario-main">
                         <h5 class="scenario-main-title">Scénario principal</h5>
                         <ol class="scenario-main-steps">
-                            <li class="scenario-main-step">L’agent ouvre le Répertoire des services.</li>
-                            <li class="scenario-main-step">Le système affiche la liste des services offerts par GYM ainsi que toutes les séances disponibles durant la journée.</li>
+                            <li class="scenario-main-step">le résident ouvre l'application MaVille et accède à la page d'accueil.</li>
+                            <li class="scenario-main-step">Le système affiche le menu principal, proposant plusieurs options, dont "Consulter les travaux".</li>
+                            <li class="scenario-main-step">le résident sélectionne l'option "Consulter les travaux en cours ou à venir".</li>
+                            <li class="scenario-main-step">Le système affiche une liste détaillée des travaux pour les trois prochains mois</li>
+                            <li class="scenario-main-step">le résident souhaite filtrer sa recherche de travaux</li>
+                            <li class="scenario-main-step">Le système propose un menu de filtres avec des différentes options (par quartier, par type de travaux, par rue)</li>
+                            <li class="scenario-main-step">Le résident remplit les options de filtres </li>
+                            <li class="scenario-main-step">Le système met à jour la liste pour montrer les travaux correspondant aux critères sélectionnés.</li>
+                            <li class="scenario-main-step">le résident sélectionne un projet spécifique dans la liste pour en savoir plus</li>
+                            <li class="scenario-main-step">Le système affiche les détails complets du projet</li>
+                            <li class="scenario-main-step">Après avoir consulté les détails d’un projet, le résident revient à la liste générale des travaux pour explorer d'autres projets</li>
+                            <li class="scenario-main-step">Le système revient à la vue précédente tout en conservant les filtres appliqués.</li>
                         </ol>
 
                         <div class="scenario-alt">
                             <h5 class="scenario-alt-title">Scénarios alternatifs</h5>
-                            <p>Aucun</p>
+                            <ol class="bare-list scenario-alt-steps">
+                                <li class="scenario-alt-step" value="4">
+                                    Travaux imprévus ou d’urgence
+                                    <ol class="bare-list">
+                                        <li value="4">l'application met à jour la carte et la liste en temps réel</li>
+                                    </ol>
+                                </li>
+                            </ol>
+                            <ol class="bare-list scenario-alt-steps">
+                                <li class="scenario-alt-step" value="8">
+                                    Aucun travaux dans la zone sélectionnée
+                                    <ol class="bare-list">
+                                        <li value="8">L'application informe l'utilisateur qu'aucun travaux ne sont prévus dans la zone ou pour les critères sélectionnés, et lui propose de réinitialiser les filtres</li>
+                                    </ol>
+                                </li>
+                            </ol>
                         </div>
                     </div>
                 </div>
@@ -988,21 +1016,22 @@
                         <div class="cu-part">
                             <h5 class="cu-part-title">Acteurs</h5>
                             <ul class="bare-list cu-actors">
-                                <li class="cu-actor">Agent (Principal)</li>
+                                <li class="cu-actor">Résident (Principal)</li>
+                                <li class="cu-actor">Système (Secondaire)</li>
                             </ul>
                         </div>
                         
                         <div class="cu-part">
                             <h5 class="cu-part-title">Préconditions</h5>
                             <ul class="bare-list cu-conditions">
-                                <li class="dash">Aucun.</li>
+                                <li class="dash">Le résident doit être connecté à l'application MaVille</li>
                             </ul>
                         </div>
                         
                         <div class="cu-part">
                             <h5 class="cu-part-title">Postconditions</h5>
                             <ul class="bare-list cu-conditions">
-                                <li class="dash">Aucun</li>
+                                <li class="dash">Le système affiche une liste de travaux correspondant aux critères de recherche spécifiés par le résident.</li>
                             </ul>
                         </div>
                         
@@ -1014,13 +1043,36 @@
                     <div class="scenario-main">
                         <h5 class="scenario-main-title">Scénario principal</h5>
                         <ol class="scenario-main-steps">
-                            <li class="scenario-main-step">L’agent ouvre le Répertoire des services.</li>
-                            <li class="scenario-main-step">Le système affiche la liste des services offerts par GYM ainsi que toutes les séances disponibles durant la journée.</li>
+                            <li class="scenario-main-step">Le résident ouvre l'application MaVille.</li>
+                            <li class="scenario-main-step">Le système affiche l'écran d'accueil avec les options disponibles.</li>
+                            <li class="scenario-main-step">Le résident sélectionne l'option "Rechercher des travaux".</li>
+                            <li class="scenario-main-step">Le système redirige le résident vers l'écran de recherche.</li>                        
+                            <li class="scenario-main-step">Le résident voit plusieurs champs de filtrage pour sa recherche (titre de travaux, type de travaux).</li>
+                            <li class="scenario-main-step">Le résident remplit les filtres selon ses préférences.</li>
+                            <li class="scenario-main-step">Le système affiche une liste de résultats pertinents.</li>
+                            <li class="scenario-main-step">le résident sélectionne un projet spécifique dans la liste pour en savoir plus.</li>
+                            <li class="scenario-main-step">Le système affiche les détails complets du projet.</li>
                         </ol>
 
                         <div class="scenario-alt">
                             <h5 class="scenario-alt-title">Scénarios alternatifs</h5>
-                            <p>Aucun</p>
+                            <ol class="bare-list scenario-alt-steps">
+                                <li class="scenario-alt-step" value="6">
+                                    Aucun résultat trouvé
+                                    <ol class="bare-list">
+                                        <li value="6">Le système affiche un message informant le résident qu'aucun travail ne correspond à ses critères de recherche.</li>
+                                        <li value="6">Le résident peut choisir de modifier les critères de recherche.</li>
+                                    </ol>
+                                </li>
+                            </ol>
+                            <ol class="bare-list scenario-alt-steps">
+                                <li class="scenario-alt-step" value="7">
+                                    Erreur dans la recherche
+                                    <ol class="bare-list">
+                                        <li value="7">Si une erreur se produit lors de la recherche, le système affiche un message d'erreur et propose au résident de réessayer.</li>
+                                    </ol>
+                                </li>
+                            </ol>
                         </div>
                     </div>
                 </div>
@@ -1071,7 +1123,22 @@
 
                         <div class="scenario-alt">
                             <h5 class="scenario-alt-title">Scénarios alternatifs</h5>
-                            <p>Aucun</p>
+                            <ol class="bare-list scenario-alt-steps">
+                                <li class="scenario-alt-step" value="4">
+                                    Travaux imprévus ou d’urgence
+                                    <ol class="bare-list">
+                                        <li value="4">l'application met à jour la carte et la liste en temps réel</li>
+                                    </ol>
+                                </li>
+                            </ol>
+                            <ol class="bare-list scenario-alt-steps">
+                                <li class="scenario-alt-step" value="8">
+                                    Aucun travaux dans la zone sélectionnée
+                                    <ol class="bare-list">
+                                        <li value="8">L'application informe l'utilisateur qu'aucun travaux ne sont prévus dans la zone ou pour les critères sélectionnés, et lui propose de réinitialiser les filtres</li>
+                                    </ol>
+                                </li>
+                            </ol>
                         </div>
                     </div>
                 </div>
@@ -1122,7 +1189,22 @@
 
                         <div class="scenario-alt">
                             <h5 class="scenario-alt-title">Scénarios alternatifs</h5>
-                            <p>Aucun</p>
+                            <ol class="bare-list scenario-alt-steps">
+                                <li class="scenario-alt-step" value="4">
+                                    Travaux imprévus ou d’urgence
+                                    <ol class="bare-list">
+                                        <li value="4">l'application met à jour la carte et la liste en temps réel</li>
+                                    </ol>
+                                </li>
+                            </ol>
+                            <ol class="bare-list scenario-alt-steps">
+                                <li class="scenario-alt-step" value="8">
+                                    Aucun travaux dans la zone sélectionnée
+                                    <ol class="bare-list">
+                                        <li value="8">L'application informe l'utilisateur qu'aucun travaux ne sont prévus dans la zone ou pour les critères sélectionnés, et lui propose de réinitialiser les filtres</li>
+                                    </ol>
+                                </li>
+                            </ol>
                         </div>
                     </div>
                 </div>
@@ -1173,7 +1255,22 @@
 
                         <div class="scenario-alt">
                             <h5 class="scenario-alt-title">Scénarios alternatifs</h5>
-                            <p>Aucun</p>
+                            <ol class="bare-list scenario-alt-steps">
+                                <li class="scenario-alt-step" value="4">
+                                    Travaux imprévus ou d’urgence
+                                    <ol class="bare-list">
+                                        <li value="4">l'application met à jour la carte et la liste en temps réel</li>
+                                    </ol>
+                                </li>
+                            </ol>
+                            <ol class="bare-list scenario-alt-steps">
+                                <li class="scenario-alt-step" value="8">
+                                    Aucun travaux dans la zone sélectionnée
+                                    <ol class="bare-list">
+                                        <li value="8">L'application informe l'utilisateur qu'aucun travaux ne sont prévus dans la zone ou pour les critères sélectionnés, et lui propose de réinitialiser les filtres</li>
+                                    </ol>
+                                </li>
+                            </ol>
                         </div>
                     </div>
                 </div>
@@ -1224,7 +1321,22 @@
 
                         <div class="scenario-alt">
                             <h5 class="scenario-alt-title">Scénarios alternatifs</h5>
-                            <p>Aucun</p>
+                            <ol class="bare-list scenario-alt-steps">
+                                <li class="scenario-alt-step" value="4">
+                                    Travaux imprévus ou d’urgence
+                                    <ol class="bare-list">
+                                        <li value="4">l'application met à jour la carte et la liste en temps réel</li>
+                                    </ol>
+                                </li>
+                            </ol>
+                            <ol class="bare-list scenario-alt-steps">
+                                <li class="scenario-alt-step" value="8">
+                                    Aucun travaux dans la zone sélectionnée
+                                    <ol class="bare-list">
+                                        <li value="8">L'application informe l'utilisateur qu'aucun travaux ne sont prévus dans la zone ou pour les critères sélectionnés, et lui propose de réinitialiser les filtres</li>
+                                    </ol>
+                                </li>
+                            </ol>
                         </div>
                     </div>
                 </div>
@@ -1275,7 +1387,22 @@
 
                         <div class="scenario-alt">
                             <h5 class="scenario-alt-title">Scénarios alternatifs</h5>
-                            <p>Aucun</p>
+                            <ol class="bare-list scenario-alt-steps">
+                                <li class="scenario-alt-step" value="4">
+                                    Travaux imprévus ou d’urgence
+                                    <ol class="bare-list">
+                                        <li value="4">l'application met à jour la carte et la liste en temps réel</li>
+                                    </ol>
+                                </li>
+                            </ol>
+                            <ol class="bare-list scenario-alt-steps">
+                                <li class="scenario-alt-step" value="8">
+                                    Aucun travaux dans la zone sélectionnée
+                                    <ol class="bare-list">
+                                        <li value="8">L'application informe l'utilisateur qu'aucun travaux ne sont prévus dans la zone ou pour les critères sélectionnés, et lui propose de réinitialiser les filtres</li>
+                                    </ol>
+                                </li>
+                            </ol>
                         </div>
                     </div>
                 </div>
@@ -1326,7 +1453,22 @@
 
                         <div class="scenario-alt">
                             <h5 class="scenario-alt-title">Scénarios alternatifs</h5>
-                            <p>Aucun</p>
+                            <ol class="bare-list scenario-alt-steps">
+                                <li class="scenario-alt-step" value="4">
+                                    Travaux imprévus ou d’urgence
+                                    <ol class="bare-list">
+                                        <li value="4">l'application met à jour la carte et la liste en temps réel</li>
+                                    </ol>
+                                </li>
+                            </ol>
+                            <ol class="bare-list scenario-alt-steps">
+                                <li class="scenario-alt-step" value="8">
+                                    Aucun travaux dans la zone sélectionnée
+                                    <ol class="bare-list">
+                                        <li value="8">L'application informe l'utilisateur qu'aucun travaux ne sont prévus dans la zone ou pour les critères sélectionnés, et lui propose de réinitialiser les filtres</li>
+                                    </ol>
+                                </li>
+                            </ol>
                         </div>
                     </div>
                 </div>
@@ -1352,14 +1494,14 @@
                         <div class="cu-part">
                             <h5 class="cu-part-title">Préconditions</h5>
                             <ul class="bare-list cu-conditions">
-                                <li class="dash">Aucun.</li>
+                                <li class="dash">Le résident doit avoir accès à un appareil (smartphone, tablette ou ordinateur) connecté à Internet.</li>
                             </ul>
                         </div>
                         
                         <div class="cu-part">
                             <h5 class="cu-part-title">Postconditions</h5>
                             <ul class="bare-list cu-conditions">
-                                <li class="dash">Aucun</li>
+                                <li class="dash">Un compte résident est créé avec succès dans le système, permettant au résident de se connecter à l'application.</li>
                             </ul>
                         </div>
                         
@@ -1377,7 +1519,22 @@
 
                         <div class="scenario-alt">
                             <h5 class="scenario-alt-title">Scénarios alternatifs</h5>
-                            <p>Aucun</p>
+                            <ol class="bare-list scenario-alt-steps">
+                                <li class="scenario-alt-step" value="4">
+                                    Travaux imprévus ou d’urgence
+                                    <ol class="bare-list">
+                                        <li value="4">l'application met à jour la carte et la liste en temps réel</li>
+                                    </ol>
+                                </li>
+                            </ol>
+                            <ol class="bare-list scenario-alt-steps">
+                                <li class="scenario-alt-step" value="8">
+                                    Aucun travaux dans la zone sélectionnée
+                                    <ol class="bare-list">
+                                        <li value="8">L'application informe l'utilisateur qu'aucun travaux ne sont prévus dans la zone ou pour les critères sélectionnés, et lui propose de réinitialiser les filtres</li>
+                                    </ol>
+                                </li>
+                            </ol>
                         </div>
                     </div>
                 </div>
@@ -1428,7 +1585,22 @@
 
                         <div class="scenario-alt">
                             <h5 class="scenario-alt-title">Scénarios alternatifs</h5>
-                            <p>Aucun</p>
+                            <ol class="bare-list scenario-alt-steps">
+                                <li class="scenario-alt-step" value="4">
+                                    Travaux imprévus ou d’urgence
+                                    <ol class="bare-list">
+                                        <li value="4">l'application met à jour la carte et la liste en temps réel</li>
+                                    </ol>
+                                </li>
+                            </ol>
+                            <ol class="bare-list scenario-alt-steps">
+                                <li class="scenario-alt-step" value="8">
+                                    Aucun travaux dans la zone sélectionnée
+                                    <ol class="bare-list">
+                                        <li value="8">L'application informe l'utilisateur qu'aucun travaux ne sont prévus dans la zone ou pour les critères sélectionnés, et lui propose de réinitialiser les filtres</li>
+                                    </ol>
+                                </li>
+                            </ol>
                         </div>
                     </div>
                 </div>
