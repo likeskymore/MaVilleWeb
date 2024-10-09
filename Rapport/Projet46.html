@@ -1629,22 +1629,42 @@
                 <div>
                     <h3 class="subsection-title">Risques</h3>
                     <ol class="risks">
-                        <li>Problèmes de lenteur ou surcharge du système</li>
-                        <li>Responsabilité juridique en cas d'erreurs</li>
-                        <li>Bogues ou dysfonctionnements</li>
-                        <li>Fuites de données personnelles</li>
-                        <li>Attaques informatiques</li>
+                        <li>Lenteur ou surcharge du système : Si le nombre de requêtes est trop élevé, cela peut provoquer des retards et frustrer les résidents.
+                            Solution : Mettre en place des priorités pour le traitement des requêtes et renforcer l'équipe de support, ainsi qu'utiliser un système de suivi pour répondre rapidement.
+                        </li>
+                        <li>Retards dus à la météo : Les conditions météorologiques imprévues peuvent ralentir les travaux.
+                            Solution : Garder une communication ouverte avec les résidents pour les tenir au courant des nouveaux délais.
+                        </li>
+                        <li> Fuites de données personnelles : La gestion des informations personnelles, comme les adresses e-mail, expose le système à des cyberattaques.
+                            Solution : Utiliser le chiffrement des données et l'authentification à deux facteurs.
+                        </li>
+                        <li>Mauvaise communication entre résidents et intervenants : Une communication mauvaise peut mener à des malentendus sur les travaux et les attentes des résidents.
+                            Solution : Améliorer les canaux de communication pour clarifier les informations.
+                        </li>
+                        <li>Résistance des résidents aux changements : Certains résidents peuvent être contre certains travaux à cause du bruit ou d'autres préoccupations.
+                            Solution : Communiquer clairement avec les résidents pour expliquer les travaux et écouter leurs inquiétudes. 
+                        </li>
                     </ol>
                 </div>
 
                 <div>
                     <h3 class="subsection-title">Besoins non-fonctionnelles</h3>
                     <ol class="nf-requirements">
-                        <li>Fiabilité: Page est disponible à 99.999%</li>
-                        <li>Utilisabilité: Bon affichage sur mobile et PC</li>
-                        <li>Support: Offre des moyens de s’informer en dehors de l'appli</li>
-                        <li>Sécurité: Protection des données personnelles</li>
-                        <li>Performance: Temps de réponse de l'application</li>
+                        <li>Temps de réponse
+                            Justification : Maville doit répondre en moins de 2 secondes pour que les utilisateurs n'attendent pas longtemps et restent satisfaits.
+                        </li>
+                        <li>Fiabilité
+                            Justification : L'application doit être disponible 99,9 % du temps. Cela permet aux utilisateurs de l'utiliser sans interruption pour des tâches importantes.
+                        </li>
+                        <li>Utilisabilité
+                            Justification : L'interface doit être simple et facile à utiliser. Cela aide les utilisateurs à trouver ce qu'ils cherchent sans confusion.
+                        </li>
+                        <li>Sécurité
+                            Justification : L'application doit protéger les données personnelles des utilisateurs avec des mesures comme le chiffrement. Cela est important pour que les utilisateurs se sentent en sécurité.
+                        </li>
+                        <li>Capacité d'adaptation
+                            Justification : L'application doit pouvoir accueillir plus d'utilisateurs sans ralentir. Cela garantit qu'elle reste rapide même quand beaucoup de gens l'utilisent en même temps. 
+                        </li>
                     </ol>
                 </div>
                 
@@ -1653,13 +1673,13 @@
                     <ol class="nf-requirements">
                         <li>Les serveurs
                             <ol class="bare-list">
-                                <li>1.1. Serveur Web: l'hôte de l'application </li>
-                                <li>1.2. Serveur de base de données: Pour stocker les informations des travaux, des utilisateurs,...</li>
+                                <li>1.1. Serveur Web: l'hôte de l'application</li>
+                                <li>1.2. Serveur de base de données : Pour stocker les informations des travaux et les utilisateurs.</li>
                             </ol>
                         </li>
-                        <li>Postes de travail pour le développement
+                        <li>On a aussi besoin d’ordinateurs pour le développement :
                             <ol class="bare-list">
-                                <li>2.1. Ordinateurs pour les développeurs : Machines puissantes pour assurer une rapidité et efficacité de développement. </li>
+                                <li>2.1. Ordinateurs pour les développeurs : Machines puissantes pour assurer une rapidité et efficacité de développement.</li>
                                 <li>2.2. Environnements de test virtuels : Simulateurs et émulateurs pour tester l'application sur différents systèmes d'exploitation.</li>
                             </ol>
                         </li>
@@ -1669,7 +1689,7 @@
                 <div>
                     <h3 class="subsection-title">Solution de stockage</h3>
                     <p>
-                        <em>Une base de données relationnelle comme MySQL serait utilisée pour gérer les données structurées telles que les comptes utilisateurs, les informations sur les travaux, et les requêtes. Pour les grands fichiers, tels que des images ou des documents liés aux projets, on peut utiliser un service de stockage cloud comme Amazon S3. Enfin, des sauvegardes automatiques de la base de données garantiraient la sécurité des informations.</em>
+                        <em>Pour Maville, on va utiliser une base de données comme MySQL pour gérer les infos des utilisateurs et des travaux. Pour les fichiers lourds, comme les images ou les documents, on utilisera un service de stockage cloud comme Amazon S3. Des sauvegardes automatiques aideront à protéger toutes ces infos.</em>
                     </p>
                 </div>
 
@@ -1677,7 +1697,7 @@
                     <h3 class="subsection-title">Solution d'intégration</h3>
 
                     <p>
-                        <em>Description de votre solution d'intégration...</em>
+                        <em>C’est important d’utiliser des API pour connecter Maville à d’autres systèmes. Ça facilitera la synchronisation des données et rendra l'expérience des utilisateurs encore meilleure.</em>
                     </p>
                 </div>
             </section>
