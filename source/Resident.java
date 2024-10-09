@@ -49,9 +49,13 @@ public class Resident {
         System.out.println("  |---------------------------------------------|");
         System.out.println("  |4. Planification participative ~ ~ ~ ~ ~ ~ ~ |");
         System.out.println("  |---------------------------------------------|");
+        System.out.println("  |5. Soumettre une requête de travaux ~ ~ ~ ~ ~|");
+        System.out.println("  |---------------------------------------------|");
+        System.out.println("  |6. Signaler un problème  ~ ~ ~ ~ ~ ~ ~ |");
+        System.out.println("  |---------------------------------------------|");
         System.out.println("  |                                             |");
         System.out.println("  |---------------------------------------------|");
-        System.out.println("  |5. Retour au menu principal ~ ~ ~ ~ ~ ~ ~ ~ ~|");         // Pas necessaire ici mais il faudra l'ajouter dans les sous-menus
+        System.out.println("  |7. Retour au menu principal ~ ~ ~ ~ ~ ~ ~ ~ ~|");         // Pas necessaire ici mais il faudra l'ajouter dans les sous-menus
         System.out.println("  +---------------------------------------------+");
         System.out.print("\n");
         System.out.println("- - 6. Quitter l'application - -");
@@ -61,6 +65,7 @@ public class Resident {
 
             switch (choix) {
                 case "1":
+                    System.out.print("\n\n\n\n\n\n\n");
                     System.out.println("Consultation des travaux en cours ou à venir...");
                     valide = true;
                     break;
@@ -100,4 +105,5 @@ public class Resident {
             }
         }
     }
+
 }

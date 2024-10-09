@@ -32,6 +32,7 @@ public class Main {
                 case "1":
                     Resident resident = Resident.authentifier(scanner); 
                     if (resident != null) {
+                        authReussie = true;
                         resident.afficherMenuPrincipal(scanner); 
                     } else {
                         System.out.print("\n\n\n\n\n\n\n");
@@ -45,6 +46,7 @@ public class Main {
                 case "2": 
                     Intervenant intervenant = Intervenant.authentifier(scanner);
                     if (intervenant != null) {
+                        authReussie = true;
                         intervenant.afficherMenuPrincipal(scanner);  
                     } else {
                         System.out.print("\n\n\n\n\n\n\n");
