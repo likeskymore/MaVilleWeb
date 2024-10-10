@@ -17,13 +17,13 @@ public class Main {
             System.out.println("Veuillez vous connecter en tant que :");
             System.out.println("- - - - - - - - - - - - - - - - - - -");
             System.out.print( "\n" );
-            System.out.println("  +---------------+");
-            System.out.println("  |1. Résident ~ ~|");
-            System.out.println("  |---------------|");
-            System.out.println("  |2. Intervenant |");
-            System.out.println("  +---------------+");
-            System.out.print("\n");
-            System.out.println("- - 3. Quitter l'application - -");
+            System.out.println("  +----------------+");
+            System.out.println("  |[1] Résident ~ ~|");
+            System.out.println("  |----------------|");
+            System.out.println("  |[2] Intervenant |");
+            System.out.println("  +----------------+");
+            System.out.print("\n\n");
+            System.out.println("- - [Q] Quitter l'application - -");
 
             String choix = scanner.nextLine();
 
@@ -35,7 +35,7 @@ public class Main {
                         authReussie = true;
                         resident.afficherMenuPrincipal(scanner); 
                     } else {
-                        System.out.print("\n\n\n\n\n\n\n");
+                        System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                         System.out.println("!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!");
                         System.out.println("!~   Échec de l'authentification, veuillez réessayer   ~!");
                         System.out.println("!~          Retour à l'écran de connexion ...          ~!");
@@ -49,7 +49,7 @@ public class Main {
                         authReussie = true;
                         intervenant.afficherMenuPrincipal(scanner);  
                     } else {
-                        System.out.print("\n\n\n\n\n\n\n");
+                        System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                         System.out.println("!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!");
                         System.out.println("!~   Échec de l'authentification, veuillez réessayer   ~!");
                         System.out.println("!~          Retour à l'écran de connexion ...          ~!");
@@ -57,8 +57,8 @@ public class Main {
                     }
                     break;
                   
-                case "3": 
-                    System.out.print("\n\n\n\n\n\n\n");
+                case "Q": 
+                    System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     System.out.println("+--------------------------------+");
                     System.out.println("| Merci d'avoir utilisé MaVille. |");
                     System.out.println("|        À la prochaine!         |");
@@ -68,9 +68,9 @@ public class Main {
                     break;
 
                 default:
-                    System.out.print("\n\n\n\n\n\n\n");
+                    System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     System.out.println("!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!");
-                    System.out.println("!~ Choix invalide, veuillez choisir une option valide (ex : 1) ~!");
+                    System.out.println("!~ Choix invalide, veuillez entrer une option valide (ex : 1)  ~!");
                     System.out.println("!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!");
                     break;
             }
