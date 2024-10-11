@@ -33,17 +33,13 @@ Ce dossier contient tout ce qui concerne le projet. Voici comment il est organis
 
 ## Fonctionnalités
 ### Résidents :
-- Inscription et connexion sécurisées.
-- 
+- Se connecter avec un courriel personnel et accéder à un menu contient des options avec lesquelles le résident peut interagir
   
-
 ### Intervenants :
-- Inscription avec identifiant de la ville.
-- 
+- Se connecter avec un courriel personnel et accéder à un menu contient des options avec lesquelles l'intervenant peut interagir
 
 ## Prérequis
 - **Java 17** ou une version plus récente
 
-## Installation?
 
 
