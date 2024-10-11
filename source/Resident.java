@@ -41,19 +41,17 @@ public class Resident {
         System.out.println("Veuillez choisir ce que vous voulez accomplir");
         System.out.println("- - - - - - - - - - - - - - - - - - - - - - -");
         System.out.println();
-        System.out.println("  +----------------------------------------------+");
-        System.out.println("  |[1] Consulter les travaux en cours ou à venir |");                // Selon les cas d'utilisations, on devrait enlever
-        System.out.println("  |----------------------------------------------|");
-        System.out.println("  |[2] Rechercher des travaux ~ ~ ~ ~ ~ ~ ~ ~ ~ ~|");
-        System.out.println("  |----------------------------------------------|");
-        System.out.println("  |[3] Notifications ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ |");
-        System.out.println("  |----------------------------------------------|");
-        System.out.println("  |[4] Planification participative ~ ~ ~ ~ ~ ~ ~ |");
-        System.out.println("  |----------------------------------------------|");
-        System.out.println("  |[5] Soumettre une requête de travaux ~ ~ ~ ~ ~|");
-        System.out.println("  |----------------------------------------------|");
-        System.out.println("  |[6] Signaler un problème ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~|");
-        System.out.println("  +----------------------------------------------+");
+        System.out.println("  +-------------------------------------+");
+        System.out.println("  |[1] Soumettre une requête de travaux |");                
+        System.out.println("  |-------------------------------------|");
+        System.out.println("  |[2] Rechercher des travaux ~ ~ ~ ~ ~ |");
+        System.out.println("  |-------------------------------------|");
+        System.out.println("  |[3] Notifications ~ ~ ~ ~ ~ ~ ~ ~ ~ ~|");
+        System.out.println("  |-------------------------------------|");
+        System.out.println("  |[4] Planification participative ~ ~ ~|");
+        System.out.println("  |-------------------------------------|");
+        System.out.println("  |[5] Signaler un problème ~ ~ ~ ~ ~ ~ |");
+        System.out.println("  +-------------------------------------+");
         System.out.print("\n\n");
         System.out.println("- - [Q] Quitter l'application - -");
 
@@ -62,10 +60,10 @@ public class Resident {
             switch (choix) {
                 case "1":
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-                    System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - ");                 // Selon les cas d'utilisations, on devrait enlever
-                    System.out.println("Consultation des travaux en cours ou à venir... ");
-                    System.out.println("             Implémentation à venir             ");
-                    System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - ");
+                    System.out.println("- - - - - - - - - - - - - - - - - - -");
+                    System.out.println("Affichage du formulaire de requête...");
+                    System.out.println("       Implémentation à venir        ");
+                    System.out.println("- - - - - - - - - - - - - - - - - - -");
                     System.out.println();
                     System.out.println("  +------------------------------+");
                     System.out.println("  |[M]. Retour au menu principal |");         
@@ -128,24 +126,9 @@ public class Resident {
                     sousMenu(scanner);
                     break;
 
+                
+
                 case "5":
-                    System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-                    System.out.println("- - - - - - - - - - - - - - - - - - -");
-                    System.out.println("Affichage du formulaire de requête...");
-                    System.out.println("       Implémentation à venir        ");
-                    System.out.println("- - - - - - - - - - - - - - - - - - -");
-                    System.out.println();
-                    System.out.println("  +------------------------------+");
-                    System.out.println("  |[M]. Retour au menu principal |");         
-                    System.out.println("  +------------------------------+");
-                    System.out.print("\n\n");
-                    System.out.println("- - [Q] Quitter l'application - -");
-
-                    valide = true;
-                    sousMenu(scanner);
-                    break;
-
-                case "6":
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - - - -");
                     System.out.println("Affichage du formulaire de signalement de problème...");
@@ -162,7 +145,9 @@ public class Resident {
                     sousMenu(scanner);
                     break;
 
-                case "Q":
+                case "Q" :
+
+                case "q" :
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     System.out.println("+--------------------------------+");
                     System.out.println("| Merci d'avoir utilisé MaVille. |");
@@ -209,11 +194,15 @@ public class Resident {
             String choix = scanner.nextLine();
             switch(choix) {
                 case "M" :
+
+                case "m" :
                     afficherMenuPrincipal(scanner);
                     valide = true;
                     break;
                 
-                case "Q":
+                case "Q" :
+
+                case "q" :
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     System.out.println("+--------------------------------+");
                     System.out.println("| Merci d'avoir utilisé MaVille. |");

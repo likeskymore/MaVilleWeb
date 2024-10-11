@@ -57,7 +57,9 @@ public class Main {
                     }
                     break;
                   
-                case "Q": 
+                case "Q" :
+                
+                case "q" :
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     System.out.println("+--------------------------------+");
                     System.out.println("| Merci d'avoir utilisé MaVille. |");

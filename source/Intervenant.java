@@ -164,11 +164,15 @@ public class Intervenant {
             String choix = scanner.nextLine();
             switch(choix) {
                 case "M" :
+
+                case "m" :
                     afficherMenuPrincipal(scanner);
                     valide = true;
                     break;
                 
-                case "Q":
+                case "Q" :
+
+                case "q" :
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     System.out.println("+--------------------------------+");
                     System.out.println("| Merci d'avoir utilisé MaVille. |");
