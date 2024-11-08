@@ -835,36 +835,25 @@
                     <div class="scenario-main">
                         <h5 class="scenario-main-title">Scénario principal</h5>
                         <ol class="scenario-main-steps">
-                            <li class="scenario-main-step">Résident ouvre l’application et se connecte à son compte.</li>
-                            <li class="scenario-main-step">Système affiche l'écran d'accueil avec les options : "Se connecter" ou "S'inscrire".</li>
-                            <li class="scenario-main-step">Résident sélectionne l'option "S'inscrire".</li>
-                            <li class="scenario-main-step">Système affiche un formulaire d'inscription demandant les informations personnels d'utilisateur.</li>
-                            <li class="scenario-main-step">Résident remplit tous les champs requis et soumet le formulaire.</li>
-                            <li class="scenario-main-step">Système vérifie les champs de données d'utilisateur.</li>
-                            <li class="scenario-main-step">Système crée un nouveau compte résident avec les informations fournies.</li>
-                            <li class="scenario-main-step">Système envoie un courriel de confirmation à l'adresse courriel du résident.</li>
-                            <li class="scenario-main-step">Résident reçoit le courriel et clique sur le lien de confirmation pour vérifier son adresse courriel.</li>
-                            <li class="scenario-main-step">Système confirme l'adresse courriel et active le compte résident.</li>
-                            <li class="scenario-main-step">Système affiche un message confirmant la réussite de l'inscription et redirige le résident vers la page de connexion.</li>
+                            <li class="scenario-main-step">Le résident ouvre l'application.</li>
+                            <li class="scenario-main-step">Le système affiche les options : "Se connecter" ou "S'inscrire".</li>
+                            <li class="scenario-main-step">Le résident sélectionne "S'inscrire".</li>
+                            <li class="scenario-main-step">Le système affiche un formulaire d'inscription.</li>
+                            <li class="scenario-main-step">Le résident remplit le formulaire et le soumet.</li>
+                            <li class="scenario-main-step">Le système vérifie les informations et crée le compte résident.</li>
+                            <li class="scenario-main-step">Le système envoie un courriel de confirmation.</li>
+                            <li class="scenario-main-step">Le résident confirme son adresse courriel.</li>
+                            <li class="scenario-main-step">Le système active le compte et confirme la réussite de l'inscription.</li>
                         </ol>
 
                         <div class="scenario-alt">
                             <h5 class="scenario-alt-title">Scénarios alternatifs</h5>
                             <ol class="bare-list scenario-alt-steps">
-                                <li class="scenario-alt-step" value="6">
-                                    Le système détecte une erreur
-                                    <ol class="bare-list">
-                                        <li value="6">Le système envoie un message d'erreur.</li>
-                                        <li value="6">Le résident corrige le problème et soumet à nouveau le formulaire.</li>
-                                    </ol>
-                                </li>
-                            </ol>
-                            <ol class="bare-list scenario-alt-steps">
-                                <li class="scenario-alt-step" value="10">
+                                <li class="scenario-alt-step" value="8">
                                     Le résident ne confirme pas son adresse courriel.
                                     <ol class="bare-list">
-                                        <li value="10">Le compte reste inactif.</li>
-                                        <li value="10">L'utilisateur ne peut pas se connecter tant que l'email n'est pas vérifié.</li>
+                                        <li value="8">Le compte reste inactif.</li>
+                                        <li value="8">L'utilisateur ne peut pas se connecter tant que l'email n'est pas vérifié.</li>
                                     </ol>
                                 </li>
                             </ol>
@@ -872,7 +861,7 @@
                     </div>
                 </div>
 
-                <div class="scenario" id="cu-3">
+                <div class="scenario" id="cu-2">
                     <div class="scenario-meta">
                         <h4 class="cu-name">
                             <strong>CU:</strong> Rechercher des travaux
@@ -901,7 +890,7 @@
                         <div class="cu-part">
                             <h5 class="cu-part-title">Postconditions</h5>
                             <ul class="bare-list cu-conditions">
-                                <li class="dash">Le résident a pu effectuer une recherche de travaux et consulter les projets en fonction des critères appliqués.</li>
+                                <li class="dash">Le résident consulte les projets de travaux en fonction des critères sélectionnés.</li>
                             </ul>
                         </div>
                         
@@ -913,10 +902,8 @@
                     <div class="scenario-main">
                         <h5 class="scenario-main-title">Scénario principal</h5>
                         <ol class="scenario-main-steps">
-                            <li class="scenario-main-step">Le résident ouvre l’application et se connecte à son compte.</li>
-                            <li class="scenario-main-step">Le système affiche l'écran d'accueil avec les options disponibles.</li>
                             <li class="scenario-main-step">Le résident sélectionne l'option "Rechercher des travaux".</li>
-                            <li class="scenario-main-step">Le système redirige le résident vers l'écran de recherche.</li>                        
+                            <li class="scenario-main-step">Le système redirige vers la page de recherche.</li>                        
                             <li class="scenario-main-step">Le résident voit plusieurs champs de filtrage pour sa recherche (titre de travaux, type de travaux).</li>
                             <li class="scenario-main-step">Le résident remplit les filtres selon ses préférences.</li>
                             <li class="scenario-main-step">Le système affiche une liste de résultats pertinents.</li>
@@ -927,28 +914,85 @@
                         <div class="scenario-alt">
                             <h5 class="scenario-alt-title">Scénarios alternatifs</h5>
                             <ol class="bare-list scenario-alt-steps">
-                                <li class="scenario-alt-step" value="6">
+                                <li class="scenario-alt-step" value="5">
                                     Aucun résultat trouvé.
                                     <ol class="bare-list">
-                                        <li value="6">Le système affiche un message informant le résident qu'aucun travail ne correspond à ses critères de recherche.</li>
-                                        <li value="6">Le résident peut choisir de modifier les critères de recherche.</li>
+                                        <li value="5">Le système affiche un message informant le résident qu'aucun travail ne correspond à ses critères de recherche.</li>
+                                        <li value="5">Le résident peut choisir de modifier les critères de recherche.</li>
                                     </ol>
                                 </li>
                             </ol>
                             <ol class="bare-list scenario-alt-steps">
-                                <li class="scenario-alt-step" value="7">
-                                    Erreur dans la recherche.
-                                    <ol class="bare-list">
-                                        <li value="7">Si une erreur se produit lors de la recherche, le système affiche un message d'erreur et propose au résident de réessayer.</li>
-                                    </ol>
-                                </li>
-                            </ol>
-                            <ol class="bare-list scenario-alt-steps">
-                                <li class="scenario-alt-step" value="6">
+                                <li class="scenario-alt-step" value="4">
                                     Résident veut consulter les travaux en cours ou à venir
                                     <ol class="bare-list">
-                                        <li value="6">Le résident remplit le filtre de date (maximum 3 mois).</li>
-                                        <li value="6">Le système affiche une liste des travaux pertinentes</li>
+                                        <li value="4">Le résident remplit le filtre de date (maximum 3 mois).</li>
+                                        <li value="4">Le système affiche une liste des travaux pertinentes</li>
+                                    </ol>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="scenario" id="cu-3">
+                    <div class="scenario-meta">
+                        <h4 class="cu-name">
+                            <strong>CU:</strong> Consulter les entraves routières
+                        </h4>
+                        <p class="cu-goal">
+                            <strong>Objectif:</strong> Permettre à un résident de consulter les entraves routières causées par les travaux en cours, soit pour un projet spécifique, soit par rue.
+                        </p>
+                        
+                        <hr>
+
+                        <div class="cu-part">
+                            <h5 class="cu-part-title">Acteurs</h5>
+                            <ul class="bare-list cu-actors">
+                                <li class="cu-actor">Résident (Principal)</li>
+                                <li class="cu-actor">Système (Secondaire)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="cu-part">
+                            <h5 class="cu-part-title">Préconditions</h5>
+                            <ul class="bare-list cu-conditions">
+                                <li class="dash">Le résident doit être connecté à l'application MaVille.</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="cu-part">
+                            <h5 class="cu-part-title">Postconditions</h5>
+                            <ul class="bare-list cu-conditions">
+                                <li class="dash">Le résident peut visualiser les entraves routières associées aux travaux en cours.</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="cu-part cu-part--notes">
+                            <h5 class="cu-part-title">Notes</h5>
+                            <p class="cu-notes">Les filtres peuvent être combinés pour affiner les résultats.</p>
+                        </div>
+                    </div>
+                    <div class="scenario-main">
+                        <h5 class="scenario-main-title">Scénario principal</h5>
+                        <ol class="scenario-main-steps">
+                            <li class="scenario-main-step">Le résident sélectionne l'option "Consulter les entraves routières".</li>
+                            <li class="scenario-main-step">Le système redirige le résident vers la page des entraves routières.</li>                        
+                            <li class="scenario-main-step">Le résident voit des options de filtrage (par travail spécifique ou par rue).</li>
+                            <li class="scenario-main-step">Le résident applique les filtres selon son besoin.</li>
+                            <li class="scenario-main-step">Le système affiche la liste des entraves correspondantes.</li>
+                            <li class="scenario-main-step">Le résident sélectionne une entrave pour obtenir plus de détails.</li>
+                            <li class="scenario-main-step">Le système affiche les informations complètes de l'entrave.</li>
+                        </ol>
+
+                        <div class="scenario-alt">
+                            <h5 class="scenario-alt-title">Scénarios alternatifs</h5>
+                            <ol class="bare-list scenario-alt-steps">
+                                <li class="scenario-alt-step" value="5">
+                                    Aucune entrave trouvée.
+                                    <ol class="bare-list">
+                                        <li value="5">Le système affiche un message informant le résident qu'aucun entrave ne correspond à ses critères de recherche.</li>
+                                        <li value="5">Le résident peut choisir de modifier les critères de recherche.</li>
                                     </ol>
                                 </li>
                             </ol>
@@ -997,17 +1041,13 @@
                     <div class="scenario-main">
                         <h5 class="scenario-main-title">Scénario principal</h5>
                         <ol class="scenario-main-steps">
-                            <li class="scenario-main-step">Le résident ouvre l’application et se connecte à son compte.</li>
-                            <li class="scenario-main-step">Système affiche l'écran d'accueil avec les options disponibles.</li>
                             <li class="scenario-main-step">Le résident accède à la section "Notifications".</li>
-                            <li class="scenario-main-step">Le système affiche les paramètres de notification, incluant les abonnements actuels et les options de personnalisation.</li>
-                            <li class="scenario-main-step">Le résident voit qu'il est automatiquement abonné aux notifications pour son quartier.</li>
-                            <li class="scenario-main-step">Le résident choisit de s'abonner à des notifications pour une rue ou un autre quartier.</li>
-                            <li class="scenario-main-step">Le système affiche un champ pour entrer le nom d'une rue ou pour sélectionner un quartier dans une liste déroulante.</li>
-                            <li class="scenario-main-step">Le résident entre le nom d'une rue ou sélectionne un quartier.</li>
-                            <li class="scenario-main-step">Le système enregistre le nouvel abonnement du résident.</li>
-                            <li class="scenario-main-step">Le système envoie automatiquement au résident des notifications concernant cette rue ou ce quartier.</li>
-                            <li class="scenario-main-step">Le résident reçoit des notifications sur son téléphone ou par courriel.</li>
+                            <li class="scenario-main-step">Le système affiche les abonnements actuels (par défaut, son quartier est sélectionné).</li>
+                            <li class="scenario-main-step">Le résident choisit de personnaliser ses notifications et sélectionne "Ajouter une zone".</li>
+                            <li class="scenario-main-step">Le système affiche des options pour choisir un quartier ou une rue spécifique.</li>
+                            <li class="scenario-main-step">Le résident sélectionne un quartier ou entre le nom d’une rue.</li>
+                            <li class="scenario-main-step">Le système enregistre les zones sélectionnées pour les notifications.</li>
+                            <li class="scenario-main-step">Le résident commence à recevoir des notifications automatiques pour les zones choisies.</li>
                         </ol>
 
                         <div class="scenario-alt">
@@ -1066,37 +1106,22 @@
                     <div class="scenario-main">
                         <h5 class="scenario-main-title">Scénario principal</h5>
                         <ol class="scenario-main-steps">
-                            <li class="scenario-main-step">Résident ouvre l’application et se connecte à son compte.</li>
-                            <li class="scenario-main-step">Système affiche l'écran d'accueil avec les options disponibles.</li>
-                            <li class="scenario-main-step">Résident sélectionne l'option "Planification participative".</li>
-                            <li class="scenario-main-step">Système affiche les projets de travaux prévus dans le quartier du résident.</li>
-                            <li class="scenario-main-step">Résident sélectionne un projet affectant son quartier.</li>
-                            <li class="scenario-main-step">Système affiche les détails du projet ainsi qu'une option pour proposer des plages horaires préférées.</li>
-                            <li class="scenario-main-step">Résident sélectionne les plages horaires qu'il préfère pour les travaux.</li>
-                            <li class="scenario-main-step">Système enregistre la sélection du résident et affiche un message de confirmation.</li>
-                            <li class="scenario-main-step">Système compile les préférences horaires des résidents du quartier.</li>
-                            <li class="scenario-main-step">Après la fin d'un projet de travaux, le résident reçoit une notification pour partager son avis.</li>
-                            <li class="scenario-main-step">Système affiche un formulaire d'évaluation des travaux réalisés et de l'intervenant responsable.</li>
-                            <li class="scenario-main-step">Résident remplit le formulaire et soumet son avis.</li>
-                            <li class="scenario-main-step">Système compile les avis reçus et les envoie aux responsables des travaux pour prise en compte dans les futurs projets.</li>
+                            <li class="scenario-main-step">Le résident accède à la section "Planification des travaux" dans l'application.</li>
+                            <li class="scenario-main-step">Le système affiche les plages horaires proposées par défaut pour son quartier.</li>
+                            <li class="scenario-main-step">Le résident choisit une plage horaire qui lui convient et soumet sa préférence.</li>
+                            <li class="scenario-main-step">Le système enregistre la préférence du résident et l’ajoute à la liste des préférences du quartier.</li>
+                            <li class="scenario-main-step">Le résident reçoit une confirmation que sa préférence a bien été enregistrée.</li>
                         </ol>
 
                         <div class="scenario-alt">
                             <h5 class="scenario-alt-title">Scénarios alternatifs</h5>
                             <ol class="bare-list scenario-alt-steps">
-                                <li class="scenario-alt-step" value="7">
-                                    Le résident ne trouve pas de plages horaires disponibles qui lui conviennent.
+                                <li class="scenario-alt-step" value="3">
+                                    Consulter les préférences des autres résidents.
                                     <ol class="bare-list">
-                                        <li value="7">Le résident peut choisir l'option de ne pas proposer de plages horaires.</li>
-                                        <li value="7">Système enregistre le choix et affiche un message de confirmation.</li>
-                                    </ol>
-                                </li>
-                            </ol>
-                            <ol class="bare-list scenario-alt-steps">
-                                <li class="scenario-alt-step" value="10">
-                                    Le résident ne souhaite pas évaluer les travaux.
-                                    <ol class="bare-list">
-                                        <li value="10">Le résident peut choisir de ne pas remplir le formulaire.</li>
+                                        <li value="3">Le résident accède à la section "Préférences des résidents".</li>
+                                        <li value="3">Le système affiche une liste des plages horaires proposées par les autres résidents de son quartier.</li>
+                                        <li value="3">Le résident peut consulter ces préférences et ajuster sa propre plage horaire en fonction des tendances des autres.</li>
                                     </ol>
                                 </li>
                             </ol>
@@ -1135,7 +1160,74 @@
                         <div class="cu-part">
                             <h5 class="cu-part-title">Postconditions</h5>
                             <ul class="bare-list cu-conditions">
-                                <li class="dash">Le résident a soumis une requête de travail et suit son avancement via l'application.</li>
+                                <li class="dash">La candidature sélectionnée par le résident est acceptée ou refusée.</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="cu-part cu-part--notes">
+                            <h5 class="cu-part-title">Notes</h5>
+                            <p class="cu-notes">Le résident peut également poser des questions ou demander des précisions à un intervenant avant de répondre à la candidature (si cette fonctionnalité est activée).</p>
+                        </div>
+                    </div>
+                    <div class="scenario-main">
+                        <h5 class="scenario-main-title">Scénario principal</h5>
+                        <ol class="scenario-main-steps">
+                            <li class="scenario-main-step">Le résident ouvre l’application et se connecte.</li>
+                            <li class="scenario-main-step">Le résident choisit "Soumettre une requête de travail".</li>
+                            <li class="scenario-main-step">Le système affiche un formulaire.</li>
+                            <li class="scenario-main-step">Le résident remplit les informations nécessaires (titre, description, type de travail, date de début).</li>
+                            <li class="scenario-main-step">Le résident soumet la requête.</li>
+                            <li class="scenario-main-step">Le système envoie la requête aux intervenants.</li>
+                            <li class="scenario-main-step">Le résident reçoit une notification lorsqu'un intervenant postule.</li>
+                        </ol>
+
+                        <div class="scenario-alt">
+                            <h5 class="scenario-alt-title">Scénarios alternatifs</h5>
+                            <ol class="bare-list scenario-alt-steps">
+                                <li class="scenario-alt-step" value="4">
+                                    Le résident ne remplit pas tous les champs requis.
+                                    <ol class="bare-list">
+                                        <li value="4">Système affiche un message d'erreur indiquant les champs manquants.</li>
+                                        <li value="4">Le résident corrige les erreurs et soumet à nouveau la requête.</li>
+                                    </ol>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="scenario" id="cu-7">
+                    <div class="scenario-meta">
+                        <h4 class="cu-name">
+                            <strong>CU:</strong> Répondre à une candidature
+                        </h4>
+                        <p class="cu-goal">
+                            <strong>Objectif:</strong> Permettre à un résident de répondre à une candidature soumise par un intervenant pour un projet de travail.
+                        </p>
+                        
+                        <hr>
+
+                        <div class="cu-part">
+                            <h5 class="cu-part-title">Acteurs</h5>
+                            <ul class="bare-list cu-actors">
+                                <li class="cu-actor">Résident (Principal)</li>
+                                <li class="cu-actor">Système (Secondaire)</li>
+                                <li class="cu-actor">Intervenant (Secondaire)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="cu-part">
+                            <h5 class="cu-part-title">Préconditions</h5>
+                            <ul class="bare-list cu-conditions">
+                                <li class="dash">Le résident doit être inscrit et connecté à l'application "MaVille".</li>
+                                <li class="dash">Le résident connaît les détails du travail qu'il souhaite soumettre.</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="cu-part">
+                            <h5 class="cu-part-title">Postconditions</h5>
+                            <ul class="bare-list cu-conditions">
+                                <li class="dash">Aucune</li>
                             </ul>
                         </div>
                         
@@ -1148,116 +1240,26 @@
                     <div class="scenario-main">
                         <h5 class="scenario-main-title">Scénario principal</h5>
                         <ol class="scenario-main-steps">
-                            <li class="scenario-main-step">Résident ouvre l’application et se connecte à son compte.</li>
-                            <li class="scenario-main-step">Système affiche l'écran d'accueil avec les différentes options disponibles.</li>
-                            <li class="scenario-main-step">Résident sélectionne l'option "Soumettre une requête de travail".</li>
-                            <li class="scenario-main-step">Système affiche un formulaire permettant de soumettre une nouvelle requête.</li>
-                            <li class="scenario-main-step">Résident remplit les champs du formulaire.</li>
-                            <li class="scenario-main-step">Résident soumet la requête.</li>
-                            <li class="scenario-main-step">Système enregistre la requête et affiche un message de confirmation.</li>
-                            <li class="scenario-main-step">Système envoie une notification aux intervenants concernés par le type de travaux soumis.</li>
-                            <li class="scenario-main-step">Les intervenants reçoivent les détails de la requête et peuvent poser leur candidature pour réaliser les travaux.</li>
-                            <li class="scenario-main-step">Un intervenant soumet sa candidature pour réaliser les travaux.</li>
-                            <li class="scenario-main-step">Résident reçoit une notification indiquant qu'un intervenant a répondu à la requête.</li>
-                            <li class="scenario-main-step">
-                                Résident choisit d'accepter ou de refuser la candidature de l'intervenant.
+                            <li class="scenario-main-step">Le résident accède à la liste de ses requêtes de travail soumises.</li>
+                            <li class="scenario-main-step">Le système affiche les détails de la requête et les candidatures des intervenants.</li>
+                            <li class="scenario-main-step">Le résident sélectionne une candidature pour en savoir plus.</li>
+                            <li class="scenario-main-step">Le système affiche les détails de la candidature (nom de l’intervenant, proposition de dates, etc.).</li>
+                            <li class="scenario-main-step">Le résident choisit de accepter ou refuser la candidature.
                                 <ol class="bare-list">
-                                    <li>12.1. Si le résident accepte, le système notifie l'intervenant et met à jour l'état de la requête.</li>
-                                    <li>12.2. Si le résident refuse, le système permet à d'autres intervenants de poser leur candidature.</li>
+                                    <li>5.1. Si le résident accepte, le système notifie l'intervenant et met à jour le statut de la requête.</li>
+                                    <li>5.2. Si le résident refuse, le système permet à d'autres intervenants de poser leur candidature.</li>
                                 </ol>
                             </li>
-                            <li class="scenario-main-step">Système affiche une option "Terminer le travail" une fois que l'intervenant a déclaré que le travail est fini.</li>
-                            <li class="scenario-main-step">Résident confirme que le travail est terminé et peut laisser une évaluation de l'intervenant.</li>
-                            
                         </ol>
 
                         <div class="scenario-alt">
                             <h5 class="scenario-alt-title">Scénarios alternatifs</h5>
                             <ol class="bare-list scenario-alt-steps">
-                                <li class="scenario-alt-step" value="5">
-                                    Le résident ne remplit pas tous les champs requis.
+                                <li class="scenario-alt-step" value="2">
+                                    Aucune candidature.
                                     <ol class="bare-list">
-                                        <li value="5">Système affiche un message d'erreur indiquant les champs manquants.</li>
-                                        <li value="5">Le résident corrige les erreurs et soumet à nouveau la requête.</li>
-                                    </ol>
-                                </li>
-                            </ol>
-                            <ol class="bare-list scenario-alt-steps">
-                                <li class="scenario-alt-step" value="10">
-                                    Aucun intervenant ne pose sa candidature dans un délai spécifié.
-                                    <ol class="bare-list">
-                                        <li value="10">Système envoie un rappel aux intervenants.</li>
-                                        <li value="10">Résident peut relancer ou modifier sa requête pour attirer plus d'intervenants.</li>
-                                    </ol>
-                                </li>
-                            </ol>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="scenario" id="cu-7">
-                    <div class="scenario-meta">
-                        <h4 class="cu-name">
-                            <strong>CU:</strong> Signaler un problème à la ville
-                        </h4>
-                        <p class="cu-goal">
-                            <strong>Objectif:</strong> Permettre aux résidents de signaler un problème à la ville en fournissant des informations précises, sans surcharger l'application avec le suivi des résolutions.
-                        </p>
-                        
-                        <hr>
-
-                        <div class="cu-part">
-                            <h5 class="cu-part-title">Acteurs</h5>
-                            <ul class="bare-list cu-actors">
-                                <li class="cu-actor">Résident (Principal)</li>
-                                <li class="cu-actor">Système (Secondaire)</li>
-                                <li class="cu-actor">Ville (Secondaire)</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="cu-part">
-                            <h5 class="cu-part-title">Préconditions</h5>
-                            <ul class="bare-list cu-conditions">
-                                <li class="dash">Le résident doit être inscrit et connecté à l'application "MaVille".</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="cu-part">
-                            <h5 class="cu-part-title">Postconditions</h5>
-                            <ul class="bare-list cu-conditions">
-                                <li class="dash">Le problème est signalé à la ville avec succès.</li>
-                                <li class="dash">Le suivi de la résolution est géré directement par la ville en dehors de l'application.</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="cu-part cu-part--notes">
-                            <h5 class="cu-part-title">Notes</h5>
-                            <p class="cu-notes">Le suivi du problème n'est pas géré directement dans l'application pour éviter de la surcharger avec des données de suivi complexes.</p>
-                        </div>
-                    </div>
-                    <div class="scenario-main">
-                        <h5 class="scenario-main-title">Scénario principal</h5>
-                        <ol class="scenario-main-steps">
-                            <li class="scenario-main-step">Résident ouvre l’application et se connecte à son compte.</li>
-                            <li class="scenario-main-step">Système affiche l'écran d'accueil avec plusieurs options.</li>
-                            <li class="scenario-main-step">Résident sélectionne l'option "Signaler un problème".</li>
-                            <li class="scenario-main-step">Système affiche un formulaire de signalement de problème à la ville.</li>
-                            <li class="scenario-main-step">Résident remplit les champs obligatoires et soumettre le signalement.</li>
-                            <li class="scenario-main-step">Système enregistre le signalement et affiche un message de confirmation.</li>
-                            <li class="scenario-main-step">Système envoie le signalement à la ville avec toutes les informations.</li>
-                            <li class="scenario-main-step">Ville reçoit un rapport détaillé du problème.</li>
-                            <li class="scenario-main-step">Système affiche un message à l'utilisateur confirmant que le problème a été signalé.</li>
-                            <li class="scenario-main-step">La ville gère la résolution du problème et communique directement avec le résident par courriel ou téléphone pour le suivi et la résolution.</li>
-                        </ol>
-
-                        <div class="scenario-alt">
-                            <h5 class="scenario-alt-title">Scénarios alternatifs</h5>
-                            <ol class="bare-list scenario-alt-steps">
-                                <li class="scenario-alt-step" value="5">
-                                    Le résident ne remplit pas tous les champs obligatoires.
-                                    <ol class="bare-list">
-                                        <li value="5">Système affiche un message d'erreur indiquant les champs manquants.</li>
-                                        <li value="5">Le résident corrige les erreurs et soumet à nouveau le signalement.</li>
+                                        <li value="2">le système affiche un message informant le résident qu'il n'y a pas de candidatures.</li>
+                                        <li value="2">Le résident corrige les erreurs et soumet à nouveau la requête.</li>
                                     </ol>
                                 </li>
                             </ol>
@@ -1307,36 +1309,23 @@
                     <div class="scenario-main">
                         <h5 class="scenario-main-title">Scénario principal</h5>
                         <ol class="scenario-main-steps">
-                            <li class="scenario-main-step">Intervenant ouvre l’application et se connecte à son compte.</li>
-                            <li class="scenario-main-step">Système affiche l'écran d'accueil des options : "Se connecter", "S'inscrire".</li>
-                            <li class="scenario-main-step">Intervenant sélectionne l'option "S'inscrire comme intervenant".</li>
-                            <li class="scenario-main-step">Système affiche un formulaire d'inscription demandant les informations personnels d'intervenant.</li>
-                            <li class="scenario-main-step">Résident remplit tous les champs requis et soumet le formulaire.</li>
-                            <li class="scenario-main-step">Système vérifie les champs de données d'intervenant.</li>
-                            <li class="scenario-main-step">Système enregistre les informations et crée un compte pour l’intervenant.</li>
-                            <li class="scenario-main-step">Système envoie un courriel de confirmation à l’intervenant.</li>
-                            <li class="scenario-main-step">L'intervenant reçoit le courriel et clique sur le lien de confirmation pour vérifier son adresse courriel.</li>
-                            <li class="scenario-main-step">Système confirme l'adresse courriel et active le compte intervenant.</li>
-                            <li class="scenario-main-step">Système affiche un message confirmant la réussite de l'inscription et redirige le résident vers la page de connexion.</li>
+                            <li class="scenario-main-step">L'intervenant ouvre l’application et se connecte.</li>
+                            <li class="scenario-main-step">L'intervenant sélectionne "S'inscrire comme intervenant".</li>
+                            <li class="scenario-main-step">Le système affiche un formulaire d'inscription.</li>
+                            <li class="scenario-main-step">L'intervenant remplit les champs et soumet le formulaire.</li>
+                            <li class="scenario-main-step">Le système enregistre les informations et envoie un courriel de confirmation.li>
+                            <li class="scenario-main-step">L'intervenant clique sur le lien de confirmation.</li>
+                            <li class="scenario-main-step">Le système active le compte et redirige l'intervenant vers la page de connexion.</li>
                         </ol>
 
                         <div class="scenario-alt">
                             <h5 class="scenario-alt-title">Scénarios alternatifs</h5>
                             <ol class="bare-list scenario-alt-steps">
-                                <li class="scenario-alt-step" value="5">
+                                <li class="scenario-alt-step" value="4">
                                     Intervenant ne remplit pas tous les champs requis.
                                     <ol class="bare-list">
-                                        <li value="5">Système affiche un message d’erreur précisant quels champs sont manquants ou incorrects.</li>
-                                        <li value="5">Intervenant corrige les erreurs et soumet à nouveau le formulaire.</li>
-                                    </ol>
-                                </li>
-                            </ol>
-                            <ol class="bare-list scenario-alt-steps">
-                                <li class="scenario-alt-step" value="9">
-                                    L’intervenant ne confirme pas son adresse courriel.
-                                    <ol class="bare-list">
-                                        <li value="9">Le compte reste inactif jusqu'à ce que la confirmation soit effectuée.</li>
-                                        <li value="9">L'intervenant ne peut pas se connecter tant que le compte n'est pas activé.</li>
+                                        <li value="4">Système affiche un message d’erreur précisant quels champs sont manquants ou incorrects.</li>
+                                        <li value="4">Intervenant corrige les erreurs et soumet à nouveau le formulaire.</li>
                                     </ol>
                                 </li>
                             </ol>
@@ -1387,40 +1376,25 @@
                     <div class="scenario-main">
                         <h5 class="scenario-main-title">Scénario principal</h5>
                         <ol class="scenario-main-steps">
-                            <li class="scenario-main-step">Intervenant ouvre l’application et se connecte à son compte.</li>
-                            <li class="scenario-main-step">Système affiche l'écran d'accueil avec les options disponibles.</li>
-                            <li class="scenario-main-step">Intervenant sélectionne l’option "Consulter les requêtes de travail".</li>
-                            <li class="scenario-main-step">Système affiche la liste des requêtes de travaux disponibles.</li>
-                            <li class="scenario-main-step">Intervenant filtre les requêtes par critères spécifiques.</li>
-                            <li class="scenario-main-step">Système affiche les requêtes correspondant aux critères de filtrage.</li>
-                            <li class="scenario-main-step">Intervenant clique sur une requête de travail spécifique pour consulter les détails.</li>
-                            <li class="scenario-main-step">Système affiche les détails de la requête.</li>
-                            <li class="scenario-main-step">Intervenant souhaite soumettre sa candidature pour cette requête.</li>
-                            <li class="scenario-main-step">Système affiche un formulaire permettant à l’intervenant de soumettre sa candidature.</li>
-                            <li class="scenario-main-step">Intervenant remplit les informations et soumet sa candidature.</li>
-                            <li class="scenario-main-step">Système confirme que la candidature a bien été soumise et l’intervenant est redirigé vers la liste des requêtes.</li>
+                            <li class="scenario-main-step">L'intervenant sélectionne "Consulter les requêtes de travail".</li>
+                            <li class="scenario-main-step">Le système affiche la liste des requêtes disponibles.</li>
+                            <li class="scenario-main-step">L’intervenant applique des filtres pour affiner la recherche.</li>
+                            <li class="scenario-main-step">Le système affiche les requêtes filtrées.</li>
+                            <li class="scenario-main-step">L’intervenant choisit une requête et consulte les détails.</li>
+                            <li class="scenario-main-step">Le système affiche les détails de la requête choisie.</li>
+                            <li class="scenario-main-step">Si l'intervenant veux postuler pour cette requête, on passe à <a href="cu-12">Soumettre une candidature </a></li>
                         </ol>
 
                         <div class="scenario-alt">
                             <h5 class="scenario-alt-title">Scénarios alternatifs</h5>
                             <ol class="bare-list scenario-alt-steps">
-                                <li class="scenario-alt-step" value="5">
+                                <li class="scenario-alt-step" value="4">
                                     Aucune requête ne correspond aux critères de filtrage.
                                     <ol class="bare-list">
-                                        <li value="5">Système affiche un message indiquant qu'aucune requête ne correspond aux critères sélectionnés.</li>
-                                        <li value="5">Intervenant peut ajuster les filtres pour effectuer une nouvelle recherche.</li>
+                                        <li value="4">Système affiche un message indiquant qu'aucune requête ne correspond aux critères sélectionnés.</li>
+                                        <li value="4">Intervenant peut ajuster les filtres pour effectuer une nouvelle recherche.</li>
                                     </ol>
                                 </li>
-                            </ol>
-                            <ol class="bare-list scenario-alt-steps">
-                                <li class="scenario-alt-step" value="11">
-                                    L’intervenant souhaite annuler la candidature avant de la soumettre.
-                                    <ol class="bare-list">
-                                        <li value="11">Intervenant clique sur "Annuler" dans le formulaire de candidature.</li>
-                                        <li value="11">Système abandonne la candidature et l’intervenant est redirigé vers la liste des requêtes.</li>
-                                    </ol>
-                                </li>
-                            </ol>
                         </div>
                     </div>
                 </div>
@@ -1468,37 +1442,34 @@
                     <div class="scenario-main">
                         <h5 class="scenario-main-title">Scénario principal</h5>
                         <ol class="scenario-main-steps">
-                            <li class="scenario-main-step">Intervenant ouvre l’application et se connecte à son compte.</li>
-                            <li class="scenario-main-step">Système affiche l'écran d'accueil avec les options disponibles.</li>
-                            <li class="scenario-main-step">Intervenant sélectionne l’option "Soumettre un nouveau projet".</li>
-                            <li class="scenario-main-step">Système affiche un formulaire de soumission de projet.</li>
-                            <li class="scenario-main-step">Intervenant remplit les informations obligatoires du projet.</li>
-                            <li class="scenario-main-step">Intervenant consulte les préférences des résidents avant de valider la date de début.</li>
-                            <li class="scenario-main-step">Système affiche les plages horaires préférées par les résidents des quartiers affectés.</li>
-                            <li class="scenario-main-step">Intervenant soumet le projet.</li>
-                            <li class="scenario-main-step">Système vérifie les informations fournies.</li>
-                            <li class="scenario-main-step">Système accepte le projet et l'enregistre avec le statut <i>Prévu</i>.</li>
-                            <li class="scenario-main-step">Système affiche un message confirmant la création du projet.</li>
-                            <li class="scenario-main-step">Intervenant reçoit une notification confirmant que le projet a été soumis avec succès.</li>
+                            <li class="scenario-main-step">L'intervenant sélectionne "Soumettre un nouveau projet".</li>
+                            <li class="scenario-main-step">Le système affiche le formulaire de soumission du projet.</li>
+                            <li class="scenario-main-step">L'intervenant remplit les informations du projet.</li>
+                            <li class="scenario-main-step">L'intervenant soumet le projet.</li>
+                            <li class="scenario-main-step">Le système vérifie et enregistre le projet avec le statut "Prévu".</li>
+                            <li class="scenario-main-step">Le système confirme la soumission et envoie une notification à l'intervenant.</li>
                         </ol>
 
                         <div class="scenario-alt">
                             <h5 class="scenario-alt-title">Scénarios alternatifs</h5>
                             <ol class="bare-list scenario-alt-steps">
-                                <li class="scenario-alt-step" value="9">
-                                    Système détecte des conflits avec les préférences des résidents.
+                                <li class="scenario-alt-step" value="4">
+                                    L’intervenant décide d’annuler la soumission.
                                     <ol class="bare-list">
-                                        <li value="9">Système affiche un message à l’intervenant l’informant des conflits potentiels entre les dates/horaire du projet et les préférences des résidents.</li>
-                                        <li value="9">Intervenant ajuste la date ou l’horaire en fonction des suggestions et soumet à nouveau.</li>
+                                        <li value="4">Intervenant clique sur "Annuler" dans le formulaire.</li>
+                                        <li value="4">Système abandonne la soumission et redirige l’intervenant vers le tableau de bord.</li>
                                     </ol>
                                 </li>
                             </ol>
+                        </div>
+                        <div class="scenario-alt">
+                            <h5 class="scenario-alt-title">Scénarios alternatifs</h5>
                             <ol class="bare-list scenario-alt-steps">
-                                <li class="scenario-alt-step" value="8">
-                                    L’intervenant décide d’annuler la soumission.
+                                <li class="scenario-alt-step" value="3">
+                                    L’intervenant veut consulter les préférences des résidents.
                                     <ol class="bare-list">
-                                        <li value="8">Intervenant clique sur "Annuler" dans le formulaire.</li>
-                                        <li value="8">Système abandonne la soumission et redirige l’intervenant vers le tableau de bord.</li>
+                                        <li value="3">L'intervenant consulte les préférences des résidents pour la planification.</li>
+                                        <li value="3">Le système affiche les plages horaires préférées des résidents.</li>
                                     </ol>
                                 </li>
                             </ol>
@@ -1549,36 +1520,87 @@
                     <div class="scenario-main">
                         <h5 class="scenario-main-title">Scénario principal</h5>
                         <ol class="scenario-main-steps">
-                            <li class="scenario-main-step">Intervenant ouvre l’application et se connecte à son compte.</li>
-                            <li class="scenario-main-step">Système affiche l'écran d'accueil avec les options disponibles.</li>
-                            <li class="scenario-main-step">Intervenant accède à la liste des projets.</li>
-                            <li class="scenario-main-step">Intervenant sélectionne un chantier dans la liste des projets.</li>
-                            <li class="scenario-main-step">Système affiche les détails du chantier sélectionné avec les informations actuelles.</li>
-                            <li class="scenario-main-step">Intervenant clique sur l’option "Modifier le projet".</li>
-                            <li class="scenario-main-step">Système affiche un formulaire d’édition contenant les champs d'informations.</li>
-                            <li class="scenario-main-step">Intervenant met à jour des informations nécessaires.</li>
-                            <li class="scenario-main-step">Intervenant clique sur "Enregistrer les modifications".</li>
-                            <li class="scenario-main-step">Système affiche un message de confirmation de la mise à jour.</li>
-                            <li class="scenario-main-step">Système informe les résidents concernés.</li>
+                            <li class="scenario-main-step">L’intervenant sélectionne un chantier dans la liste des projets.</li>
+                            <li class="scenario-main-step">Le système affiche les détails du chantier.</li>
+                            <li class="scenario-main-step">L’intervenant modifie les informations (description, date de fin, statut).</li>
+                            <li class="scenario-main-step">L’intervenant sauvegarde les modifications.</li>
+                            <li class="scenario-main-step">Le système confirme la mise à jour et informe les résidents concernés.</li>
                         </ol>
 
                         <div class="scenario-alt">
                             <h5 class="scenario-alt-title">Scénarios alternatifs</h5>
                             <ol class="bare-list scenario-alt-steps">
-                                <li class="scenario-alt-step" value="8">
-                                    L’intervenant des informations non valides.
+                                <li class="scenario-alt-step" value="3">
+                                    L’intervenant mets des informations non valides.
                                     <ol class="bare-list">
-                                        <li value="8">Système affiche un message d’erreur demandant à l’intervenant de corriger l'erreur.</li>
-                                        <li value="8">Intervenant corrige la date et la soumet à nouveau.</li>
+                                        <li value="3">Système affiche un message d’erreur demandant à l’intervenant de corriger l'erreur.</li>
+                                        <li value="3">Intervenant corrige la date et la soumet à nouveau.</li>
                                     </ol>
                                 </li>
                             </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="scenario" id="cu-12">
+                    <div class="scenario-meta">
+                        <h4 class="cu-name">
+                            <strong>CU:</strong> Soumettre une candidature
+                        </h4>
+                        <p class="cu-goal">
+                            <strong>Objectif:</strong> Permettre à un intervenant de soumettre une candidature pour un projet de travail
+                        </p>
+                        
+                        <hr>
+
+                        <div class="cu-part">
+                            <h5 class="cu-part-title">Acteurs</h5>
+                            <ul class="bare-list cu-actors">
+                                <li class="cu-actor">Intervenant (Principal)</li>
+                                <li class="cu-actor">Système (Secondaire)</li>
+                                <li class="cu-actor">Résident (Secondaire)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="cu-part">
+                            <h5 class="cu-part-title">Préconditions</h5>
+                            <ul class="bare-list cu-conditions">
+                                <li class="dash">L’intervenant est connecté à l’application "MaVille".</li>
+                                <li class="dash">Le résident a soumis une requête de travail et celle-ci est disponible pour candidature.</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="cu-part">
+                            <h5 class="cu-part-title">Postconditions</h5>
+                            <ul class="bare-list cu-conditions">
+                                <li class="dash">Le résident est informé de la candidature et peut choisir d'accepter ou de refuser.</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="cu-part cu-part--notes">
+                            <h5 class="cu-part-title">Notes</h5>
+                            <p class="cu-notes">Un intervenant peut soumettre plusieurs candidatures, mais pas à la même requête de travail en même temps.</p>
+                        </div>
+                    </div>
+                    <div class="scenario-main">
+                        <h5 class="scenario-main-title">Scénario principal</h5>
+                        <ol class="scenario-main-steps">
+                            <li class="scenario-main-step">L'intervenant sélectionne une requête à laquelle il souhaite postuler.</li>
+                            <li class="scenario-main-step">Le système affiche les détails de la requête.</li>
+                            <li class="scenario-main-step">L'intervenant clique sur "Soumettre ma candidature".</li>
+                            <li class="scenario-main-step">Le système affiche un formulaire avec les champs nécessaires</li>
+                            <li class="scenario-main-step">L'intervenant remplit le formulaire et clique sur "Soumettre".</li>
+                            <li class="scenario-main-step">Le système confirme que la candidature a été soumise et notifie le résident.</li>
+                        </ol>
+
+                        <div class="scenario-alt">
+                            <h5 class="scenario-alt-title">Scénarios alternatifs</h5>
                             <ol class="bare-list scenario-alt-steps">
-                                <li class="scenario-alt-step" value="9">
-                                    L’intervenant décide d’annuler les modifications.
+                                <li class="scenario-alt-step" value="5">
+                                    Intervenant ne remplit pas tous les champs requis.
                                     <ol class="bare-list">
-                                        <li value="9">Intervenant clique sur "Annuler" avant de soumettre.</li>
-                                        <li value="9">Système annule les changements et redirige l’intervenant vers la page des détails du projet sans enregistrer les modifications.</li>
+                                        <li value="5">Système affiche un message d’erreur précisant quels champs sont manquants ou incorrects.</li>
+                                        <li value="5">Intervenant corrige les erreurs et soumet à nouveau le formulaire.</li>
                                     </ol>
                                 </li>
                             </ol>
