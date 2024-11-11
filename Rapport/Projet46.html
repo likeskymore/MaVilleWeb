@@ -1727,6 +1727,54 @@
             <section class="main-section">
                 <h2 id="conception" class="section-title">Conception</h2>
                 <h3 class="subsection-title">Architecture</h3>
+                <p>Pour le projet MaVille, nous avons choisi une architecture 3-tier, qui est bien adaptée aux applications nécessitant une interaction utilisateur et une gestion centralisée des données</p>
+                <h5>Présentation de l'Architecture 3-tier dans l'appli Maville</h5>
+                <ol>
+                    <li>
+                        <strong style="color: #555;">Niveau 1 : Client (Frontend)</strong>
+                        <ul>
+                            <li>Utilisateurs : Les résidents et intervenants interagissent avec l'application via une interface utilisateur, accessible depuis une application web ou mobile.</li>
+                            <li>Moyen de communication : L'interface communique avec le serveur d'application via des requêtes HTTP/REST ou GraphQL pour envoyer et recevoir des données.</li>
+                            <li>Technologies possibles : React.js ou Vue.js pour une application web ; Flutter ou React Native pour une application mobile.</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong style="color: #555;">Niveau 2 : Serveur d'Application (Backend)</strong>
+                        <ul>
+                            <li>Rôle : Centralise la logique métier, applique les règles d'application et gère la coordination avec la base de données et les services externes</li>
+                            <li>
+                                Composantes clés:
+                                <ul>
+                                    <li>API RESTful ou GraphQL : Permet de gérer les requêtes provenant du frontend.</li>
+                                    <li>Gestion des utilisateurs : Authentification et autorisation pour les résidents et intervenants.</li>
+                                    <li>Notifications : Envoi de notifications personnalisées aux utilisateurs.</li>
+                                </ul>
+                            </li>
+                            <li>Technologies possibles : Node.js avec Express, Django, ou Spring Boot.</li>
+                            <li>Communication : Échange de données avec le frontend et accès aux données de la base.</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong style="color: #555;">Niveau 3 : Base de Données (Stockage)</strong>
+                        <ul>
+                            <li>Rôle : Stockage de toutes les informations sur les utilisateurs, les travaux en cours, les requêtes, et les notifications.</li>
+                            <li>Technologie : PostgreSQL ou MySQL pour une base de données relationnelle.</li>
+                            <li>
+                                Données gérées :
+                                <ul>
+                                    <li>Informations des utilisateurs (résidents, intervenants)</li>
+                                    <li>Détails des projets et travaux</li>
+                                    <li>Préférences des résidents pour les horaires de travaux</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ol>
+                <h5>Composantes Additionnelles</h5>
+                <ul>
+                    <li>Service de Notifications : Un service externe, comme Firebase Cloud Messaging, pour envoyer des notifications en temps réel aux utilisateurs.</li>
+                    <li>API de Géolocalisation : Utilisation d’une API externe (comme Google Maps API) pour localiser les travaux sur une carte et fournir une interface visuelle pour les résidents.</li>
+                </ul>
 
                 <h3 class="subsection-title">Diagrammes de classes</h3>
                 <div class="activity">
@@ -1748,7 +1796,12 @@
                 </div>
 
                 <h3 class="subsection-title">Choix du design</h3>
-                <p></p>
+                <p>
+                    Nous avons choisi l'architecture 3-tier pour l'application MaVille afin de séparer les responsabilités et assurer une bonne évolutivité. 
+                    Cette structure permet de diviser l'application en trois couches : l’interface utilisateur (frontend) pour l'expérience directe des résidents et intervenants, le serveur d'application (backend) pour la logique métier, et la base de données pour le stockage des informations. 
+                    Cette séparation facilite la maintenance et les mises à jour, car chaque couche peut évoluer indépendamment. De plus, elle permet une intégration aisée avec des services externes (notifications, géolocalisation) et garantit une sécurité renforcée, puisque le backend contrôle l'accès aux données. 
+                    L'architecture 3-tier offre ainsi une solution adaptable et scalable, essentielle pour une application dynamique comme MaVille, où les utilisateurs doivent interagir en temps réel avec des informations constamment mises à jour.
+                </p>
             </section>
 
             <section class="main-section">
@@ -1763,7 +1816,7 @@
     </main>
     <footer class="report-footer">
         <p>
-            Devoir 1 &ndash; Analyse des exigences<br>
+            Devoir 2 &ndash; Analyse des exigences<br>
             IFT2255 (Génie logiciel) <br>
             Automne 2024
         </p>
