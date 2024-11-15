@@ -759,13 +759,13 @@
                     <dt class="glossary-term">Soumission de requête</dt>
                     <dd class="glossary-def">Action de signaler un besoin de travaux ou un problème à la ville.</dd>
                     <dt class="glossary-term">Notification</dt>
-                    <dd class="glossary-def">Alerte envoyée aux utilisateurs concernant des changements ou des nouvelles.</dd>
+                    <dd class="glossary-def">Alerte envoyée aux utilisateurs concernant des changements ou des nouvelles. Types de notifications : notifications de changements de projets, de nouveaux projets, de retards ou d'annulations, ou de nouvelles entraves.</dd>
                     <dt class="glossary-term">Infos techniques</dt>
                     <dd class="glossary-def">Détails sur l'architecture, la sécurité et les fonctionnalités de l'application.</dd>
                     <dt class="glossary-term">Informations personnelles</dt>
                     <dd class="glossary-def">Données des utilisateurs, telles que nom, adresse et contact.</dd>
                     <dt class="glossary-term">Types de travaux</dt>
-                    <dd class="glossary-def">Catégories d'interventions (ex. routiers, construction, entretien).</dd>
+                    <dd class="glossary-def">Catégories d'interventions : travaux routiers, travaux de gaz ou électricité, construction ou rénovation, entretien paysager, travaux liés aux transports en commun, travaux de signalisation et éclairage, travaux souterrains, travaux résidentiels, entretien urbain, entretien des réseaux de télécommunication.</dd>
                     <dt class="glossary-term">Information de projet</dt>
                     <dd class="glossary-def">Détails spécifiques sur chaque projet de travaux.</dd>
                     <dt class="glossary-term">S'inscrire comme résident</dt>
@@ -773,9 +773,9 @@
                     <dt class="glossary-term">Consulter les travaux en cours ou à venir</dt>
                     <dd class="glossary-def">Fonctionnalité permettant aux utilisateurs de voir les projets en cours et prévus.</dd>
                     <dt class="glossary-term">Recherche de travaux</dt>
-                    <dd class="glossary-def">Outil pour trouver des projets par mots-clés ou filtres.</dd>
+                    <dd class="glossary-def">Outil pour trouver des projets par mots-clés ou filtres (type de travaux, quartier, rue).</dd>
                     <dt class="glossary-term">Recevoir des notifications</dt>
-                    <dd class="glossary-def">Fonction pour alerter les utilisateurs sur des informations pertinentes.</dd>
+                    <dd class="glossary-def">Fonction pour alerter les utilisateurs sur des informations pertinentes (modifications de projets, nouvelles entraves, etc.).</dd>
                     <dt class="glossary-term">Soumettre requête de travail</dt>
                     <dd class="glossary-def">Action de demander la réalisation de travaux spécifiques.</dd>
                     <dt class="glossary-term">Permettre une planification participative</dt>
@@ -790,8 +790,8 @@
                     <dd class="glossary-def">Action de proposer un projet de travaux à la ville.</dd>
                     <dt class="glossary-term">Mettre à jour les informations d'un chantier</dt>
                     <dd class="glossary-def">Modifier les détails d’un projet en cours via l'application.</dd>
-
                 </dl>
+
   
                 <h3 class="subsection-title">Cas d'utilisation</h3>
                 <div class="use-case">
@@ -986,7 +986,8 @@
                         <h5 class="scenario-main-title">Scénario principal</h5>
                         <ol class="scenario-main-steps">
                             <li class="scenario-main-step">Le résident sélectionne l'option "Consulter les entraves routières".</li>
-                            <li class="scenario-main-step">Le système redirige le résident vers la page des entraves routières.</li>                        
+                            <li class="scenario-main-step">Le système redirige le résident vers la page des entraves routières.</li> 
+                            <li class="scenario-main-step">Le résident fait une recherche.</li>                     
                             <li class="scenario-main-step">Le résident voit des options de filtrage (par travail spécifique ou par rue).</li>
                             <li class="scenario-main-step">Le résident applique les filtres selon son besoin.</li>
                             <li class="scenario-main-step">Le système affiche la liste des entraves correspondantes.</li>
@@ -1267,8 +1268,7 @@
                                 <li class="scenario-alt-step" value="2">
                                     Aucune candidature.
                                     <ol class="bare-list">
-                                        <li value="2">le système affiche un message informant le résident qu'il n'y a pas de candidatures.</li>
-                                        <li value="2">Le résident corrige les erreurs et soumet à nouveau la requête.</li>
+                                        <li value="2">le système affiche un message informant le résident qu'il n'y a pas de candidatures.</li>                                  
                                     </ol>
                                 </li>
                             </ol>
@@ -1622,6 +1622,14 @@
                 <div class="activity">
                     <h4>Ouverture application </h4>
                     <img class="activity-diagram" src="images/interface.png" alt="Diagramme d'activités">
+                </div>
+                <div class="activity">
+                    <h4>Répondre à une candidature </h4>
+                    <img class="activity-diagram" src="images/Candidature.png" alt="Diagramme d'activités">
+                </div>
+                <div class="activity">
+                    <h4>Consulter les entraves routières  </h4>
+                    <img class="activity-diagram" src="images/RechercheEntrave.png" alt="Diagramme d'activités">
                 </div>
                 <div class="activity">
                     <h4>S'inscrire comme résident </h4>
