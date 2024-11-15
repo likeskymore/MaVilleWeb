@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Resident {
 
     // Gestion temporaire des user/password qui sont valides)
-    private static String[] residents = {"resident1@mail.com:password1", "resident2@mail.com:password2"};
+    private static String[] residents = {"resident1@mail.com:password1", "resident2@mail.com:password2", "resident3@mail.com:password3", "resident4@mail.com:password4"};
     private String username;
 
     public Resident(String username) {
@@ -53,6 +53,7 @@ public class Resident {
         System.out.println("  |[5] Signaler un problème ~ ~ ~ ~ ~ ~ |");
         System.out.println("  +-------------------------------------+");
         System.out.print("\n\n");
+        System.out.println("- - [D] Se déconnecter - -");
         System.out.println("- - [Q] Quitter l'application - -");
 
         while (!valide) {
@@ -145,8 +146,17 @@ public class Resident {
                     sousMenu(scanner);
                     break;
 
-                case "Q" :
+                case "d":
+                case "D":
+                    System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+                    System.out.println("+----------------------------+");
+                    System.out.println("| Vous êtes bien déconnecté. |");
+                    System.out.println("|       À la prochaine!      |");
+                    System.out.println("+----------------------------+");
+                    System.out.print("\n\n");
+                    return;
 
+                case "Q" :
                 case "q" :
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     System.out.println("+--------------------------------+");
@@ -164,27 +174,28 @@ public class Resident {
                     System.out.println("!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!");
                     break;
             }
+            System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+            System.out.println("\nBienvenue résident!");
             System.out.println("\n");
             System.out.println("- - - - - - - - - - - - - - - - - - - - - - -");
             System.out.println("Veuillez choisir ce que vous voulez accomplir");
             System.out.println("- - - - - - - - - - - - - - - - - - - - - - -");
             System.out.println();
-            System.out.println("  +----------------------------------------------+");
-            System.out.println("  |[1] Consulter les travaux en cours ou à venir |");                // Selon les cas d'utilisations, on devrait enlever
-            System.out.println("  |----------------------------------------------|");
-            System.out.println("  |[2] Rechercher des travaux ~ ~ ~ ~ ~ ~ ~ ~ ~ ~|");
-            System.out.println("  |----------------------------------------------|");
-            System.out.println("  |[3] Notifications ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ |");
-            System.out.println("  |----------------------------------------------|");
-            System.out.println("  |[4] Planification participative ~ ~ ~ ~ ~ ~ ~ |");
-            System.out.println("  |----------------------------------------------|");
-            System.out.println("  |[5] Soumettre une requête de travaux ~ ~ ~ ~ ~|");
-            System.out.println("  |----------------------------------------------|");
-            System.out.println("  |[6] Signaler un problème ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~|");
-            System.out.println("  +----------------------------------------------+");
+            System.out.println("  +-------------------------------------+");
+            System.out.println("  |[1] Soumettre une requête de travaux |");                
+            System.out.println("  |-------------------------------------|");
+            System.out.println("  |[2] Rechercher des travaux ~ ~ ~ ~ ~ |");
+            System.out.println("  |-------------------------------------|");
+            System.out.println("  |[3] Notifications ~ ~ ~ ~ ~ ~ ~ ~ ~ ~|");
+            System.out.println("  |-------------------------------------|");
+            System.out.println("  |[4] Planification participative ~ ~ ~|");
+            System.out.println("  |-------------------------------------|");
+            System.out.println("  |[5] Signaler un problème ~ ~ ~ ~ ~ ~ |");
+            System.out.println("  +-------------------------------------+");
             System.out.print("\n\n");
+            System.out.println("- - [D] Se déconnecter - -");
             System.out.println("- - [Q] Quitter l'application - -");
-        }
+            }
     }
 
     private void sousMenu(Scanner scanner) {

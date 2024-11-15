@@ -3,8 +3,15 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
+        afficherAccueil();
+            }
+
+
+
+    private static void afficherAccueil() {
         Scanner scanner = new Scanner(System.in);
         boolean authReussie = false;
+
         System.out.println("+------------------------------------------+");
         System.out.println("|       Bienvenue dans l'application       |");
         System.out.println("|                 MaVille!                 |");
@@ -34,6 +41,8 @@ public class Main {
                     if (resident != null) {
                         authReussie = true;
                         resident.afficherMenuPrincipal(scanner); 
+                        afficherAccueil();
+
                     } else {
                         System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                         System.out.println("!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!");
@@ -47,7 +56,9 @@ public class Main {
                     Intervenant intervenant = Intervenant.authentifier(scanner);
                     if (intervenant != null) {
                         authReussie = true;
-                        intervenant.afficherMenuPrincipal(scanner);  
+                        intervenant.afficherMenuPrincipal(scanner);
+                        afficherAccueil();
+
                     } else {
                         System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                         System.out.println("!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!");
@@ -77,5 +88,6 @@ public class Main {
                     break;
             }
         }
+    
     }
 }

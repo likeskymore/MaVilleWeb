@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Intervenant {
 
     // Gestion temporaire des user/password qui sont valides)
-    private static String[] intervenants = {"intervenant1@mail.com:password1", "intervenant2@mail.com:password2"};
+    private static String[] intervenants = {"intervenant1@mail.com:password1", "intervenant2@mail.com:password2", "intervenant3@mail.com:password3", "intervenant4@mail.com:password4"};
     private String username;
 
     public Intervenant(String username) {
@@ -49,6 +49,7 @@ public class Intervenant {
         System.out.println("  |[3] Mettre à jour les informations d'un chantier |");
         System.out.println("  +-------------------------------------------------+");
         System.out.print("\n\n");
+        System.out.println("- - [D] Se déconnecter - -");
         System.out.println("- - [Q] Quitter l'application - -");
         
 
@@ -123,6 +124,17 @@ public class Intervenant {
                     sousMenu(scanner);
                     break;
 
+                case "d":
+                case "D":
+                    System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+                    System.out.println("+----------------------------+");
+                    System.out.println("| Vous êtes bien déconnecté. |");
+                    System.out.println("|       À la prochaine!      |");
+                    System.out.println("+----------------------------+");
+                    System.out.print("\n\n");
+                    return;
+
+                case "q":
                 case "Q":
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     System.out.println("+--------------------------------+");
@@ -153,6 +165,7 @@ public class Intervenant {
             System.out.println("  |[3] Mettre à jour les informations d'un chantier |");
             System.out.println("  +-------------------------------------------------+");
             System.out.print("\n\n");
+            System.out.println("- - [D] Se déconnecter - -");
             System.out.println("- - [Q] Quitter l'application - -");
         }
     }
