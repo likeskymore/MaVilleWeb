@@ -1678,22 +1678,22 @@
                 </div>
 
                 <div>
-                    <h3 class="subsection-title">Besoins non-fonctionnelles</h3>
+                    <h3 class="subsection-title">Besoins non-fonctionnels</h3>
                     <ol class="nf-requirements">
                         <li>Temps de réponse
-                            Justification : Maville doit répondre en moins de 2 secondes pour que les utilisateurs n'attendent pas longtemps et restent satisfaits.
+                            Justification : L'application doit répondre en moins de 2 secondes afin d'éviter une attente trop longue et d'assurer la satisfaction des utilisateurs. Exemple : Lors de la consultation des projets de travaux, les résultats doivent s'afficher presque instantanément.
                         </li>
                         <li>Fiabilité
-                            Justification : L'application doit être disponible 99,9 % du temps. Cela permet aux utilisateurs de l'utiliser sans interruption pour des tâches importantes.
+                            Justification : L'application doit être disponible 99,9 % du temps, garantissant ainsi une utilisation sans interruption. Exemple : Si un utilisateur consulte des informations urgentes sur les travaux à venir, l'application doit être accessible sans panne.
                         </li>
                         <li>Utilisabilité
-                            Justification : L'interface doit être simple et facile à utiliser. Cela aide les utilisateurs à trouver ce qu'ils cherchent sans confusion.
+                            Justification : L'interface doit être simple, intuitive et facile à naviguer, afin que les utilisateurs trouvent ce qu'ils cherchent rapidement et sans confusion. Exemple : La recherche de travaux doit être facilement accessible avec des filtres simples comme le type de travaux et le quartier.
                         </li>
                         <li>Sécurité
-                            Justification : L'application doit protéger les données personnelles des utilisateurs avec des mesures comme le chiffrement. Cela est important pour que les utilisateurs se sentent en sécurité.
+                            Justification : L'application doit protéger les données personnelles des utilisateurs grâce à des mesures de sécurité avancées, telles que le chiffrement des données sensibles. Exemple : Les informations personnelles des résidents doivent être cryptées pour éviter toute fuite de données.
                         </li>
                         <li>Capacité d'adaptation
-                            Justification : L'application doit pouvoir accueillir plus d'utilisateurs sans ralentir. Cela garantit qu'elle reste rapide même quand beaucoup de gens l'utilisent en même temps. 
+                            Justification : L'application doit pouvoir gérer une augmentation du nombre d'utilisateurs sans ralentir ou se bloquer. Exemple : L’application doit être capable de fonctionner normalement même si le nombre d’utilisateurs dépasse 100 000 personnes simultanément.
                         </li>
                     </ol>
                 </div>
@@ -1703,34 +1703,36 @@
                     <ol class="nf-requirements">
                         <li>Les serveurs
                             <ol class="bare-list">
-                                <li>1.1. Serveur Web: l'hôte de l'application</li>
-                                <li>1.2. Serveur de base de données : Pour stocker les informations des travaux et les utilisateurs.</li>
+                                <li>1.1. Serveur Web : Pour héberger l'application et gérer les requêtes des utilisateurs. Exemple : Un serveur capable de traiter des milliers de connexions simultanées.</li>
+                                <li>1.2. Serveur de base de données : Pour stocker les informations sur les utilisateurs et les projets. Exemple : Un serveur dédié à la gestion des requêtes de travail des résidents.</li>
                             </ol>
                         </li>
-                        <li>On a aussi besoin d’ordinateurs pour le développement :
+                        <li>Ordinateurs pour le développement
                             <ol class="bare-list">
-                                <li>2.1. Ordinateurs pour les développeurs : Machines puissantes pour assurer une rapidité et efficacité de développement.</li>
-                                <li>2.2. Environnements de test virtuels : Simulateurs et émulateurs pour tester l'application sur différents systèmes d'exploitation.</li>
+                                <li>2.1. Ordinateurs pour les développeurs : Des machines performantes pour garantir un développement rapide de l’application. Exemple : Des machines avec des processeurs puissants et une grande capacité de mémoire pour tester et déployer les nouvelles fonctionnalités.</li>
+                                <li>2.2. Environnements de test virtuels : Des simulateurs pour tester l'application sur différents systèmes d'exploitation. Exemple : Tester l’application sur Android, iOS, et des environnements web pour assurer une compatibilité maximale.</li>
                             </ol>
+                        </li>
+                        <li>Matériel utilisateur
+                            <p>L'application nécessite Java pour fonctionner correctement sur certains appareils. Exemple : Un utilisateur doit avoir la dernière version de <strong>Java Runtime Environment (JRE)</strong> pour installer l’application sur son ordinateur.</p>
                         </li>
                     </ol>
                 </div>
-
+                
                 <div>
                     <h3 class="subsection-title">Solution de stockage</h3>
                     <p>
-                        <em>Pour Maville, on va utiliser une base de données comme MySQL pour gérer les infos des utilisateurs et des travaux. Pour les fichiers lourds, comme les images ou les documents, on utilisera un service de stockage cloud comme Amazon S3. Des sauvegardes automatiques aideront à protéger toutes ces infos.</em>
+                        Pour Maville, on va utiliser une base de données comme MySQL pour gérer les infos des utilisateurs et des travaux. Pour les fichiers lourds, comme les images ou les documents, on utilisera un service de stockage cloud comme Amazon S3. Des sauvegardes automatiques aideront à protéger toutes ces infos.
                     </p>
                 </div>
-
+                
                 <div>
                     <h3 class="subsection-title">Solution d'intégration</h3>
-
                     <p>
-                        <em>C’est important d’utiliser des API pour connecter Maville à d’autres systèmes. Ça facilitera la synchronisation des données et rendra l'expérience des utilisateurs encore meilleure.</em>
+                        C’est important d’utiliser des API pour connecter Maville à d’autres systèmes. Ça facilitera la synchronisation des données et rendra l'expérience des utilisateurs encore meilleure. Exemple :L'intégration d'une API de cartographie (comme Google Maps) pour afficher les projets de travaux et les entraves routières sur une carte interactive.
                     </p>
                 </div>
-            </section>
+                
 
             <section class="main-section">
                 <h2 id="conception" class="section-title">Conception</h2>
