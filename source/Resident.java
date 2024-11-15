@@ -49,8 +49,6 @@ public class Resident {
         System.out.println("  |[3] Notifications ~ ~ ~ ~ ~ ~ ~ ~ ~ ~|");
         System.out.println("  |-------------------------------------|");
         System.out.println("  |[4] Planification participative ~ ~ ~|");
-        System.out.println("  |-------------------------------------|");
-        System.out.println("  |[5] Signaler un problème ~ ~ ~ ~ ~ ~ |");
         System.out.println("  +-------------------------------------+");
         System.out.print("\n\n");
         System.out.println("- - [D] Se déconnecter - -");
@@ -127,25 +125,7 @@ public class Resident {
                     sousMenu(scanner);
                     break;
 
-                
-
-                case "5":
-                    System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-                    System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - - - -");
-                    System.out.println("Affichage du formulaire de signalement de problème...");
-                    System.out.println("               Implémentation à venir                ");
-                    System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - - - -");
-                    System.out.println();
-                    System.out.println("  +------------------------------+");
-                    System.out.println("  |[M]. Retour au menu principal |");         
-                    System.out.println("  +------------------------------+");
-                    System.out.print("\n\n");
-                    System.out.println("- - [Q] Quitter l'application - -");
-                    
-                    valide = true;
-                    sousMenu(scanner);
-                    break;
-
+            
                 case "d":
                 case "D":
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
@@ -189,8 +169,6 @@ public class Resident {
             System.out.println("  |[3] Notifications ~ ~ ~ ~ ~ ~ ~ ~ ~ ~|");
             System.out.println("  |-------------------------------------|");
             System.out.println("  |[4] Planification participative ~ ~ ~|");
-            System.out.println("  |-------------------------------------|");
-            System.out.println("  |[5] Signaler un problème ~ ~ ~ ~ ~ ~ |");
             System.out.println("  +-------------------------------------+");
             System.out.print("\n\n");
             System.out.println("- - [D] Se déconnecter - -");
