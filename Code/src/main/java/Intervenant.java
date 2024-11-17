@@ -197,7 +197,6 @@ public class Intervenant {
             System.out.println("- - [Q] Quitter l'application - -");
             
         }
-
         afficherMenuPrincipal(scanner);
     }
 }
