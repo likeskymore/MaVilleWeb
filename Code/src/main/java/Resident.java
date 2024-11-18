@@ -187,9 +187,9 @@ public class Resident {
     
                 while (true) { // Loop to allow returning to the project list
     int counter = 1;
-    System.out.println("\nListe des projets en cours :");
+    System.out.println("\nListe des projets en cours : (Type Travaux - Rue affectées)");
     for (Projet projet : projetEnCours) {
-        System.out.println(counter + ". " + projet.getId() + " - " + projet.getTitre());
+        System.out.println(counter + ". " + projet.getTitre());
         counter++;
     }
 
