@@ -89,7 +89,7 @@ public class Resident {
                     break;
                 case "2":
                     clearScreen();
-                    System.out.println("Recherche des travaux avec filtres...");
+                    rechercherParFiltres(scanner);
                     break;
                 case "M":
                 case "m":
@@ -127,7 +127,6 @@ public class Resident {
 
     // Exits the application
     private void exitApplication() {
-        clearScreen();
         System.out.println("Merci d'avoir utilisé MaVille. À la prochaine!");
         System.exit(0);
     }
@@ -186,42 +185,179 @@ public class Resident {
                 }
     
                 while (true) { // Loop to allow returning to the project list
-    int counter = 1;
-    System.out.println("\nListe des projets en cours : (Type Travaux - Rue affectées)");
-    for (Projet projet : projetEnCours) {
-        System.out.println(counter + ". " + projet.getTitre());
-        counter++;
-    }
-
-    // Allow user to select a project by index
-    System.out.println("\nEntrez le numéro du projet pour voir les détails ou '0' pour revenir au menu precedent :");
-    try {
-        String input = scanner.nextLine();
-        int index = Integer.parseInt(input);
-
-        if (index == 0) {
-            return; // Exit to the previous menu immediately
-        }
-
-        if (index >= 1 && index <= projetEnCours.size()) {
-            Projet selectedProjet = projetEnCours.get(index - 1);
-            selectedProjet.afficherDetails();
-
-            System.out.println("\nAppuyez sur 'Enter' pour retourner à la liste des projets...");
-            scanner.nextLine(); // Wait for user input to return to the list
-        } else {
-            System.out.println("Index invalide. Veuillez entrer un numéro valide.");
-        }
-    } catch (NumberFormatException e) {
-        System.out.println("Entrée invalide. Veuillez entrer un numéro.");
-    }
-}
+                    int counter = 1;
+                    System.out.println("\nListe des projets en cours : (Type Travaux --- Rue affectées)");
+                    for (Projet projet : projetEnCours) {
+                        System.out.println(counter + ". " + projet.getTitre());
+                        counter++;
+                    }
+    
+                    // Allow user to select a project by index
+                    System.out.println("\nEntrez le numéro du projet pour voir les détails ou '0' pour revenir au menu precedent :");
+                    try {
+                        String input = scanner.nextLine();
+                        int index = Integer.parseInt(input);
+    
+                        if (index == 0) {
+                            return; // Exit to the previous menu immediately
+                        }
+    
+                        if (index >= 1 && index <= projetEnCours.size()) {
+                            Projet selectedProjet = projetEnCours.get(index - 1);
+                            selectedProjet.afficherDetails();
+    
+                            System.out.println("\nAppuyez sur 'Enter' pour retourner à la liste des projets...");
+                            scanner.nextLine(); // Wait for user input to return to the list
+                        } else {
+                            System.out.println("Index invalide. Veuillez entrer un numéro valide.");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Entrée invalide. Veuillez entrer un numéro.");
+                    }
+                }
             } catch (JsonSyntaxException e) {
                 System.err.println("Error parsing response body: " + e.getMessage());
             }
         } else {
             System.err.println("Failed to fetch data or invalid response: " + (response != null ? response.getMessage() : "No response"));
         }
+    }
+
+    private void rechercherParFiltres(Scanner scanner) {
+        while (true) {
+            clearScreen();
+            System.out.println("Rechercher des travaux par filtres.");
+            System.out.println("1. Filtrer par quartier");
+            System.out.println("2. Filtrer par type de projet");
+            System.out.println("0. Retour au menu précédent");
+    
+            String input = scanner.nextLine();
+            switch (input) {
+                case "1":
+                    selectBorough(scanner); // Display the borough menu and filter
+                    break;
+                case "2":
+                    System.out.println("Filtrer par type de projet. (À implémenter)");
+                    break;
+                case "0":
+                    return; // Exit back to the Travaux menu
+                default:
+                    System.out.println("Choix invalide. Veuillez entrer un numéro valide.");
+            }
+        }
+    }
+
+    private void selectBorough(Scanner scanner) {
+        String[] boroughs = {
+            "Ahuntsic-Cartierville", "Anjou", "Côte-des-Neiges–Notre-Dame-de-Grâce",
+            "Lachine", "LaSalle", "Le Plateau-Mont-Royal", "Le Sud-Ouest",
+            "L'Île-Bizard–Sainte-Geneviève", "Mercier–Hochelaga-Maisonneuve",
+            "Montréal-Nord", "Outremont", "Pierrefonds-Roxboro", "Rivière-des-Prairies–Pointe-aux-Trembles",
+            "Rosemont–La Petite-Patrie", "Saint-Laurent", "Saint-Léonard", "Verdun",
+            "Ville-Marie", "Villeray–Saint-Michel–Parc-Extension"
+        };
+    
+        while (true) {
+            clearScreen();
+            System.out.println("Choisissez un quartier :");
+            for (int i = 0; i < boroughs.length; i++) {
+                System.out.println((i + 1) + ". " + boroughs[i]);
+            }
+            System.out.println("0. Retour au menu précédent");
+    
+            try {
+                String input = scanner.nextLine();
+                int choice = Integer.parseInt(input);
+    
+                if (choice == 0) {
+                    return; // Return to the previous menu
+                } else if (choice >= 1 && choice <= boroughs.length) {
+                    String selectedBorough = boroughs[choice - 1];
+                    filterByBorough(selectedBorough, scanner); // Call filter method with selected borough
+                    break;
+                } else {
+                    System.out.println("Choix invalide. Veuillez entrer un numéro valide.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Entrée invalide. Veuillez entrer un numéro.");
+            }
+        }
+    }
+
+    private void filterByBorough(String borough, Scanner scanner) {
+        HttpClientApi api = new HttpClientApi();
+        String resourceId = "cc41b532-f12d-40fb-9f55-eb58c9a2b12b";
+        String category = "Travaux";
+    
+        // Fetch the data using the HttpClientApi
+        ApiResponse response = api.getData(resourceId);
+    
+        if (response != null && response.getStatusCode() == 200) {
+            try {
+                JsonObject jsonResponse = JsonParser.parseString(response.getBody()).getAsJsonObject();
+                JsonArray records = jsonResponse.getAsJsonObject("result").getAsJsonArray("records");
+    
+                Gson gson = new GsonBuilder()
+                    .registerTypeAdapter(Projet.class, new TravailDeserializer(category))
+                    .create();
+    
+                List<Projet> filteredProjects = new ArrayList<>();
+                for (JsonElement jsonElement : records) {
+                    try {
+                        Projet projet = gson.fromJson(jsonElement, Projet.class);
+                        if (projet != null && projet.getQuartiersAffectes().contains(borough)) {
+                            filteredProjects.add(projet);
+                        }
+                    } catch (JsonParseException e) {
+                        System.err.println("Erreur de désérialisation : " + e.getMessage());
+                    }
+                }
+    
+                if (filteredProjects.isEmpty()) {
+                    System.out.println("Aucun projet trouvé pour le quartier " + borough + ".");
+                } 
+
+                while (true) { // Loop to allow returning to the project list
+                    int counter = 1;
+                    System.out.println("\nListe des projets en cours : (Type Travaux --- Rue affectées)");
+                    for (Projet projet : filteredProjects) {
+                        System.out.println(counter + ". " + projet.getTitre());
+                        counter++;
+                    }
+    
+                    // Allow user to select a project by index
+                    System.out.println("\nEntrez le numéro du projet pour voir les détails ou '0' pour revenir au menu precedent :");
+                    try {
+                        String input = scanner.nextLine();
+                        int index = Integer.parseInt(input);
+    
+                        if (index == 0) {
+                            return; // Exit to the previous menu immediately
+                        }
+    
+                        if (index >= 1 && index <= filteredProjects.size()) {
+                            Projet selectedProjet = filteredProjects.get(index - 1);
+                            selectedProjet.afficherDetails();
+    
+                            System.out.println("\nAppuyez sur 'Enter' pour retourner à la liste des projets...");
+                            scanner.nextLine(); // Wait for user input to return to the list
+                        } else {
+                            System.out.println("Index invalide. Veuillez entrer un numéro valide.");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Entrée invalide. Veuillez entrer un numéro.");
+                    }
+                }
+    
+            } catch (JsonSyntaxException e) {
+                System.err.println("Erreur d'analyse de la réponse : " + e.getMessage());
+            }
+        } else {
+            System.err.println("Échec de récupération des données ou réponse invalide.");
+        }
+    
+        System.out.println("\nAppuyez sur 'Entrée' pour revenir au menu précédent...");
+        scanner.nextLine(); // Wait for user input to continue
     }
 
     // Helper Methods
@@ -242,6 +378,5 @@ public class Resident {
     private void clearScreen() {
         System.out.print("\n".repeat(20)); // Simulates clearing the console
     }
-
 
 }

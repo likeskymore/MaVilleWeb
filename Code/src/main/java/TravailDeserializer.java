@@ -18,7 +18,7 @@ public class TravailDeserializer implements JsonDeserializer<Travail> {
         String id = jsonObject.get("id").getAsString();
         String reasonCategory = jsonObject.get("reason_category").getAsString();
         String occupancyName = jsonObject.get("occupancy_name").getAsString();
-        String titre = reasonCategory + " - " + occupancyName;
+        String titre = reasonCategory + " --- " + occupancyName;
         String description = jsonObject.get("reason_category").getAsString();
         LocalDate dateDebut = LocalDate.parse(jsonObject.get("duration_start_date").getAsString(), DateTimeFormatter.ISO_DATE_TIME);
         LocalDate dateFin = LocalDate.parse(jsonObject.get("duration_end_date").getAsString(), DateTimeFormatter.ISO_DATE_TIME);
