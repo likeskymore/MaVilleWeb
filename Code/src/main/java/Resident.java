@@ -62,6 +62,9 @@ public class Resident {
                 case "4":
                     handlePlanification(scanner);
                     break;
+                case "5":
+                    handleEntraves(scanner);
+                    break;
                 case "Q":
                 case "q":
                     exitApplication();
@@ -106,23 +109,97 @@ public class Resident {
 
     // Handles "Soumettre une requete"
     private void handleSoumissionRequete(Scanner scanner) {
-        clearScreen();
-        System.out.println("Soumettre une requete...");
-        System.out.println("Implémentation à venir.");
+        while (true) {
+            clearScreen();
+            System.out.println("Soumission Requete...");
+            System.out.println("Implementation à venir.");
+            System.out.println("[M]. Retour au menu principal");
+            System.out.println("[Q]. Quitter l'application");
+            
+            String choix = scanner.nextLine();
+            switch (choix) {
+                case "M":
+                case "m":
+                    return; // Return to main menu
+                case "Q":
+                case "q":
+                    exitApplication();
+                    break;
+                default:
+                    printInvalidChoiceMessage();
+            }
+        }
     }
 
     // Handles "Notifications"
     private void handleNotifications(Scanner scanner) {
-        clearScreen();
-        System.out.println("Consultations des notifications...");
-        System.out.println("Implémentation à venir.");
+        while (true) {
+            clearScreen();
+            System.out.println("Personaliser les notifications...");
+            System.out.println("Implementation à venir.");
+            System.out.println("[M]. Retour au menu principal");
+            System.out.println("[Q]. Quitter l'application");
+            
+            String choix = scanner.nextLine();
+            switch (choix) {
+                case "M":
+                case "m":
+                    return; // Return to main menu
+                case "Q":
+                case "q":
+                    exitApplication();
+                    break;
+                default:
+                    printInvalidChoiceMessage();
+            }
+        }
     }
 
     // Handles "Planification participative"
     private void handlePlanification(Scanner scanner) {
-        clearScreen();
-        System.out.println("Affichage des travaux à planifier...");
-        System.out.println("Implémentation à venir.");
+        while (true) {
+            clearScreen();
+            System.out.println("Planification participative...");
+            System.out.println("Implementation à venir.");
+            System.out.println("[M]. Retour au menu principal");
+            System.out.println("[Q]. Quitter l'application");
+            
+            String choix = scanner.nextLine();
+            switch (choix) {
+                case "M":
+                case "m":
+                    return; // Return to main menu
+                case "Q":
+                case "q":
+                    exitApplication();
+                    break;
+                default:
+                    printInvalidChoiceMessage();
+            }
+        }
+    }
+
+    private void handleEntraves(Scanner scanner) {
+        while (true) {
+            clearScreen();
+            System.out.println("Consulter les entraves...");
+            System.out.println("Implementation à venir.");
+            System.out.println("[M]. Retour au menu principal");
+            System.out.println("[Q]. Quitter l'application");
+            
+            String choix = scanner.nextLine();
+            switch (choix) {
+                case "M":
+                case "m":
+                    return; // Return to main menu
+                case "Q":
+                case "q":
+                    exitApplication();
+                    break;
+                default:
+                    printInvalidChoiceMessage();
+            }
+        }
     }
 
     // Exits the application
@@ -367,7 +444,7 @@ public class Resident {
         System.out.println("2. Rechercher des travaux");
         System.out.println("3. Notifications");
         System.out.println("4. Planification participative");
-        System.out.println("5. Signaler un problème");
+        System.out.println("5. Consulter les entraves");
         System.out.println("[Q]. Quitter l'application");
     }
 
