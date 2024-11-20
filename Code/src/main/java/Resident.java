@@ -182,13 +182,19 @@ public class Resident {
     private void handleEntraves(Scanner scanner) {
         while (true) {
             clearScreen();
-            System.out.println("Consulter les entraves...");
-            System.out.println("Implementation à venir.");
+            System.out.println("1. Consulter les entraves routières causées par les travaux en cours.");
+            System.out.println("2. Filtrer les entraves par travail particulier ou par rue.");
             System.out.println("[M]. Retour au menu principal");
             System.out.println("[Q]. Quitter l'application");
             
             String choix = scanner.nextLine();
             switch (choix) {
+                case "1":
+                    consulterEntraves(scanner);
+                    clearScreen();
+                    break;
+                case "2":
+                    System.out.println("filtrer les entrave. (à implémenter)");
                 case "M":
                 case "m":
                     return; // Return to main menu
@@ -213,23 +219,15 @@ public class Resident {
         String resourceId = "cc41b532-f12d-40fb-9f55-eb58c9a2b12b";
         String category = "Travaux";
     
-        // Fetch the data using the HttpClientApi
         ApiResponse response = api.getData(resourceId);
-    
         if (response != null && response.getStatusCode() == 200) {
             try {
-                // Parse the response body into JSON
                 JsonObject jsonResponse = JsonParser.parseString(response.getBody()).getAsJsonObject();
-    
-                // Get the "records" array from the JSON response
                 JsonArray records = jsonResponse.getAsJsonObject("result").getAsJsonArray("records");
-    
-                // Set up Gson with the custom deserializer
                 Gson gson = new GsonBuilder()
-                    .registerTypeAdapter(Projet.class, new TravailDeserializer(category))
-                    .create();
+                        .registerTypeAdapter(Projet.class, new TravailDeserializer(category))
+                        .create();
     
-                // Deserialize and filter the projects
                 List<Projet> projetEnCours = new ArrayList<>();
                 LocalDate now = LocalDate.now();
                 LocalDate threeMonthsFromNow = now.plusMonths(3);
@@ -237,12 +235,9 @@ public class Resident {
                 for (JsonElement jsonElement : records) {
                     try {
                         Projet projet = gson.fromJson(jsonElement, Projet.class);
-    
                         if (projet != null) {
                             LocalDate dateDebut = projet.getDateDebut();
                             LocalDate dateFin = projet.getDateFin();
-    
-                            // Apply the filter: Start date is in the next 3 months or End date is ongoing
                             boolean isInNextThreeMonths = (dateDebut.isEqual(now) || dateDebut.isAfter(now)) && dateDebut.isBefore(threeMonthsFromNow);
                             boolean isEndDateOngoing = dateFin.isAfter(now);
     
@@ -255,12 +250,12 @@ public class Resident {
                     }
                 }
     
-                // Display the filtered projects
                 if (projetEnCours.isEmpty()) {
                     System.out.println("Aucun projet ne correspond aux critères.");
                     return;
                 }
     
+                // Display the list of projects
                 while (true) { // Loop to allow returning to the project list
                     int counter = 1;
                     System.out.println("\nListe des projets en cours : (Type Travaux --- Rue affectées)");
@@ -269,8 +264,8 @@ public class Resident {
                         counter++;
                     }
     
-                    // Allow user to select a project by index
-                    System.out.println("\nEntrez le numéro du projet pour voir les détails ou '0' pour revenir au menu precedent :");
+                    // Allow user to select a project by index or return to the previous menu
+                    System.out.println("\nEntrez le numéro du projet pour voir les détails ou '0' pour revenir au menu précédent :");
                     try {
                         String input = scanner.nextLine();
                         int index = Integer.parseInt(input);
@@ -281,7 +276,7 @@ public class Resident {
     
                         if (index >= 1 && index <= projetEnCours.size()) {
                             Projet selectedProjet = projetEnCours.get(index - 1);
-                            selectedProjet.afficherDetails();
+                            selectedProjet.afficherDetails(); // Display details of the selected project
     
                             System.out.println("\nAppuyez sur 'Enter' pour retourner à la liste des projets...");
                             scanner.nextLine(); // Wait for user input to return to the list
@@ -437,6 +432,84 @@ public class Resident {
         scanner.nextLine(); // Wait for user input to continue
     }
 
+    private void consulterEntraves(Scanner scanner) {
+        HttpClientApi api = new HttpClientApi();
+        String resourceId = "a2bc8014-488c-495d-941b-e7ae1999d1bd";
+        String category = "Entraves";
+    
+        // Fetch the data using the HttpClientApi
+        ApiResponse response = api.getData(resourceId);
+    
+        if (response != null && response.getStatusCode() == 200) {
+            try {
+                JsonObject jsonResponse = JsonParser.parseString(response.getBody()).getAsJsonObject();
+                JsonArray records = jsonResponse.getAsJsonObject("result").getAsJsonArray("records");
+    
+                // Create Gson instance with custom deserializer for Entraves
+                Gson gson = new GsonBuilder()
+                    .registerTypeAdapter(Entraves.class, new TravailDeserializer(category))
+                    .create();
+    
+                List<Entraves> entravesEnCours = new ArrayList<>();
+                for (JsonElement jsonElement : records) {
+                    try {
+                        Entraves entrave = gson.fromJson(jsonElement, Entraves.class);
+                        if (entrave != null) {
+                            entravesEnCours.add(entrave);
+                        }
+                    } catch (JsonParseException e) {
+                        System.err.println("Erreur de désérialisation : " + e.getMessage());
+                    }
+                }
+    
+                if (entravesEnCours.isEmpty()) {
+                    System.out.println("Aucune entrave trouvée.");
+                    return;
+                }
+    
+                while (true) { // Loop to allow returning to the entrave list
+                    int counter = 1;
+                    System.out.println("\nListe des entraves en cours : (Type Entrave --- Rue affectées)");
+                    for (Entraves entrave : entravesEnCours) {
+                        System.out.println(counter + ". " + entrave.getTitre());
+                        counter++;
+                    }
+    
+                    // Allow user to select an entrave by index
+                    System.out.println("\nEntrez le numéro de l'entrave pour voir les détails ou '0' pour revenir au menu precedent :");
+                    try {
+                        String input = scanner.nextLine();
+                        int index = Integer.parseInt(input);
+    
+                        if (index == 0) {
+                            return; // Exit to the previous menu immediately
+                        }
+    
+                        if (index >= 1 && index <= entravesEnCours.size()) {
+                            Entraves selectedEntrave = entravesEnCours.get(index - 1);
+                            selectedEntrave.afficherDetails();
+    
+                            System.out.println("\nAppuyez sur 'Enter' pour retourner à la liste des entraves...");
+                            scanner.nextLine(); // Wait for user input to return to the list
+                        } else {
+                            System.out.println("Index invalide. Veuillez entrer un numéro valide.");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Entrée invalide. Veuillez entrer un numéro.");
+                    }
+                }
+    
+            } catch (JsonSyntaxException e) {
+                System.err.println("Erreur d'analyse de la réponse : " + e.getMessage());
+            }
+        } else {
+            System.err.println("Échec de récupération des données ou réponse invalide.");
+        }
+    
+        System.out.println("\nAppuyez sur 'Entrée' pour revenir au menu précédent...");
+        scanner.nextLine(); // Wait for user input to continue
+    }
+
     // Helper Methods
     private void printMenuOptions() {
         System.out.println("Veuillez choisir ce que vous voulez accomplir");
@@ -453,7 +526,6 @@ public class Resident {
     }
 
     private void clearScreen() {
-        System.out.print("\n".repeat(20)); // Simulates clearing the console
+        System.out.print("\n".repeat(5)); // Simulates clearing the console
     }
-
 }

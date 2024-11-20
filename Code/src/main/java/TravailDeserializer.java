@@ -14,38 +14,79 @@ public class TravailDeserializer implements JsonDeserializer<Travail> {
     public Travail deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         JsonObject jsonObject = json.getAsJsonObject();
 
-        // Extract shared attributes
-        String id = jsonObject.get("id").getAsString();
-        String reasonCategory = jsonObject.get("reason_category").getAsString();
-        String occupancyName = jsonObject.get("occupancy_name").getAsString();
+        // Extract shared attributes with null checks
+        String id = jsonObject.has("id") && !jsonObject.get("id").isJsonNull()
+                ? jsonObject.get("id").getAsString()
+                : "Unknown ID";
+
+        String reasonCategory = jsonObject.has("reason_category") && !jsonObject.get("reason_category").isJsonNull()
+                ? jsonObject.get("reason_category").getAsString()
+                : "Unknown Category";
+
+        String occupancyName = jsonObject.has("occupancy_name") && !jsonObject.get("occupancy_name").isJsonNull()
+                ? jsonObject.get("occupancy_name").getAsString()
+                : "Unknown Occupancy";
+
         String titre = reasonCategory + " --- " + occupancyName;
-        String description = jsonObject.get("reason_category").getAsString();
-        LocalDate dateDebut = LocalDate.parse(jsonObject.get("duration_start_date").getAsString(), DateTimeFormatter.ISO_DATE_TIME);
-        LocalDate dateFin = LocalDate.parse(jsonObject.get("duration_end_date").getAsString(), DateTimeFormatter.ISO_DATE_TIME);
+        String description = reasonCategory;
+
+        LocalDate dateDebut = jsonObject.has("duration_start_date") && !jsonObject.get("duration_start_date").isJsonNull()
+                ? LocalDate.parse(jsonObject.get("duration_start_date").getAsString(), DateTimeFormatter.ISO_DATE_TIME)
+                : LocalDate.now();
+
+        LocalDate dateFin = jsonObject.has("duration_end_date") && !jsonObject.get("duration_end_date").isJsonNull()
+                ? LocalDate.parse(jsonObject.get("duration_end_date").getAsString(), DateTimeFormatter.ISO_DATE_TIME)
+                : LocalDate.now();
+
         StatutProjet statut = StatutProjet.EN_COURS;
         TypeTravail type = TypeTravail.ENTRETIEN_PAYSAGER;
 
-        // Use the specified category
         if (category.equalsIgnoreCase("Travaux")) {
             // Create and populate a Projet instance
             String horaires = generateHoraires(jsonObject);
             Projet projet = new Projet(id, titre, description, dateDebut, dateFin, statut, type, horaires);
 
-            // Add specific attributes
-            String quartier = jsonObject.get("boroughid").getAsString();
-            String rue = jsonObject.get("occupancy_name").getAsString();
-            projet.ajouterQuartierAffecte(quartier);
-            projet.ajouterRueAffectee(rue);
+            // Add specific attributes with null checks
+            if (jsonObject.has("boroughid") && !jsonObject.get("boroughid").isJsonNull()) {
+                String quartier = jsonObject.get("boroughid").getAsString();
+                projet.ajouterQuartierAffecte(quartier);
+            }
+
+            if (jsonObject.has("occupancy_name") && !jsonObject.get("occupancy_name").isJsonNull()) {
+                String rue = jsonObject.get("occupancy_name").getAsString();
+                projet.ajouterRueAffectee(rue);
+            }
 
             return projet;
-        // } else if (category.equalsIgnoreCase("Entraves")) {
-        //     // Create and populate an Entraves instance
-        //     Entraves entrave = new Entraves(id, titre, description, dateDebut, dateFin, statut, type);
 
-        //     // Add specific attributes for Entraves (if any exist in the JSON)
-        //     return entrave;
+        } else if (category.equalsIgnoreCase("Entraves")) {
+            // Create and populate an Entraves instance
+            String entraveId = jsonObject.has("id_request") && !jsonObject.get("id_request").isJsonNull()
+                    ? jsonObject.get("id_request").getAsString()
+                    : "Unknown Entrave ID";
+
+            String streetImpactWidth = jsonObject.has("streetimpactwidth") && !jsonObject.get("streetimpactwidth").isJsonNull()
+                    ? jsonObject.get("streetimpactwidth").getAsString()
+                    : "Unknown Width";
+            
+            String streetImpactType = jsonObject.has("streetimpacttype") && !jsonObject.get("streetimpacttype").isJsonNull()
+                    ? jsonObject.get("streetimpacttype").getAsString()
+                    : "Unknown Type";
+
+            String niveauImpact = "width: "+ streetImpactWidth + " --- " + streetImpactType;
+            String entraveTitre = "L'entrave du projet " + entraveId;
+            String entraveDescription = "None";
+
+            Entraves entrave = new Entraves(entraveId, entraveTitre, entraveDescription, niveauImpact);
+
+            if (jsonObject.has("streetid") && !jsonObject.get("streetid").isJsonNull()) {
+                String street = jsonObject.get("streetid").getAsString();
+                entrave.ajouterRueAffectee(street);
+            }
+            return entrave;
+
         } else {
-            throw new JsonParseException("Unknown category: " + category);
+            throw new JsonParseException("Unsupported category: " + category);
         }
     }
 
