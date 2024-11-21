@@ -17,31 +17,32 @@
             scroll-behavior: smooth;
             background: #f5f5f5;
             overflow-x: hidden;
+            overflow-y: auto;  
         }
-
+    
         h1, h2 { margin: 0; }
-
+    
         h1 { font-size: 4em; font-weight: normal; }
-
+    
         h2 { font-size: 3em; }
-
+    
         h3 { font-size: 2.2em; font-weight: normal; }
-
+    
         h4 { font-size: 1.8em }
-
+    
         h5 { font-size: 1.6em; }
-
+    
         h6 { font-size: 1.5em; margin-top: 0; }
-
+    
         p, li, td, th { font-size: 1.5em; }
-
+    
         td p, td li, th li,
         li li, li p, li td, li th { font-size: 1em; }
-
+    
         table, th, td { border: 1px solid #555; border-collapse: collapse; }
-
+    
         th { text-align: center; }
-
+    
         .btn {
             font-family: 'Segoe UI', 'Droid Sans', Ubuntu, 'Lucida Grande', Arial, sans-serif;
             text-decoration: none; text-align: center;
@@ -49,17 +50,16 @@
             background: none;
             outline-width: 0;
         }
-
+    
         .font-ui { font-family: 'Segoe UI', 'Droid Sans', Ubuntu, 'Lucida Grande', Arial, sans-serif; }
-
-
+    
         /* Organization
         ---------------------------------------------------------------------------- */
-
+    
         .left { float: left; }
-
+    
         .right { float: right; }
-
+    
         .clear-fix { clear: both; display: block; }
             .clear-fix:after {
                 content: ".";
@@ -68,45 +68,44 @@
                 height: 0;
                 visibility: hidden;
             }
-
+    
         .row { display: table-row; }
-
+    
         .cell { display: table-cell; }
-
+    
         /* Reset */
-
+    
         .bare-list { margin: 0; padding: 0; list-style: none; }
-
+    
         .bare-link { text-decoration: none; color: inherit; }
-
+    
         .bare-table { border: none; table-layout: fixed; }
-
+    
         .bare-table td,
         .bare-table th { 
             border: none;
         }
-
+    
         .bare-table th {
             vertical-align: top;
             text-align: left;
         }
-
-
+    
         .inline-link { text-decoration: underline; }
-
+    
         .output { text-decoration: none; font-style: normal; }
-
+    
         /* State
         ---------------------------------------------------------------------------- */
-
+    
         .hidden { display: none; }
-
+    
         .fit-content { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
-
+    
         * {
             box-sizing: border-box;
         }
-
+    
         .helper {
             position: absolute;
             top: 100%; left: 0;
@@ -122,7 +121,7 @@
             transform: scale(0); transition-property: opacity, transform;
             z-index: 20;
         }
-
+    
         .ico-helper {
             display: inline-block;  text-align: center;
             font-size: 1.2rem; font-weight: bold;
@@ -132,11 +131,11 @@
             background-color: #6667AB;
             font-style: normal;
         }
-
+    
         .has-helper {
             position: relative;
         }
-
+    
             .has-helper:hover > .helper {
                 opacity: 1;   
                 transform: scale(1) translateY(2px);
@@ -145,12 +144,12 @@
                 opacity: 1;   
                 transform: scale(1) translateY(2px);
             }
-
+    
         .has-def {
             position: relative;
             display: inline-block;
         }
-
+    
         .def-term {
             position: relative;
             display: flex; align-items: center;
@@ -171,8 +170,7 @@
                 background-color: #6667AB;
                 color: #fff;
             }
-
-
+    
         .def {
             position: absolute;
             top: 100%; left: 0;
@@ -188,28 +186,28 @@
             transition: .2s; transition-property: opacity, transform;
             z-index: 20;
         }
-
+    
             .has-def:hover > .def {
                 opacity: 1;   
                 transform: scale(1) translateY(2px);
             }
-
+    
         .report-header {
             padding-top: 24px; padding-bottom: 24px;
             background-color: #fff;
         }
-
+    
         .title-section {
             display: flex; align-items: flex-start; justify-content: space-between;
-            padding-left: 5vw;
+            padding-left: 5vw;  
             padding-right: 5vw;
         }
-
+    
         .report-title {
             color: royalblue;
             font-family: Georgia, 'Times New Roman', Times, serif;
         }
-
+    
         .report-summary {
             max-width: 800px;
             font-size: 1.4em;
@@ -220,11 +218,11 @@
             display: flex;
             justify-content: flex-end;
         }
-
+    
             .report-resource {
                 margin-left: 12px;
             }
-
+    
             .report-resource-link {
                 padding: 8px 12px;
                 font-weight: bold;
@@ -236,57 +234,58 @@
                 .report-resource-link:hover {
                     background-color: #1b1f23;
                 }
-
+    
         .section-title {
             margin-bottom: 6px;
             text-transform: uppercase;
             font-size: 2.4em; font-weight: 300;
         }
-
+    
         .subsection-title {
             margin-bottom: 3px;
             font-size: 2em; font-weight: bold;
             color: #555;
         }
-
+    
         .team-section {
             padding-left: 5vw;
             padding-right: 5vw;
         }
-
+    
             .team-title {
                 font-weight: 500;
                 margin-bottom: 12px;
                 color: #1C3A94;
             }
-
+    
             .members {
                 display: flex; flex-direction: row;
             }
-
+    
             .member {
                 display: flex; flex-direction: column;
             }
                 .member:not(:last-child) {
                     margin-right: 12px;
                 }
-
+    
                 .member-pic {
                     display: block;
                     width: 120px;
                     height: 120px;
                     border-radius: 50%;
                 }
-
+    
                 .member-role {
                     font-size: 0.9em; font-weight: 500;
                     color: #555;
                 }
-
+    
         .report-body {
             display: flex;
+            flex-wrap: wrap;  
         }
-
+    
         .report-aside {
             padding-top: 24px; padding-right: 12px; padding-left: 5vw;
             min-width: 300px;
@@ -295,24 +294,24 @@
             .report-aside .section-title {
                 color: #fff;
             }
-
+    
         .report-main {
             padding-top: 24px; padding-left: 2%; padding-right: 5vw;
         }
-
+    
         .main-section {
             margin-bottom: 24px;
         }
-
+    
         .nav {
             color: #E87429;
         }
-
+    
             .nav-item-title {
                 font-size: 1.1em;
                 margin: 0;
             }
-
+    
             .nav-item-title__link {
                 display: block;
                 color: #fff;
@@ -320,260 +319,37 @@
                 padding: 6px;
                 text-decoration: none;
             }
-
+    
             .nav-item-details {
                 color: #f5f5f5;
-                padding-left: 6px;
-                line-height: 1.5;
+                font-weight: 300;
             }
-
-        .glossary-term {
-            font-weight: bold;
-            background: #222;
-            padding: 3px 6px;
-            display: inline-block;
-            border-radius: 2px;
-            color: #fff;
+    
+        .user-table {
+            border: none;
+            padding: 6px;
         }
-
-        .glossary-def {
-            margin-top: -6px; margin-left: 6px; margin-bottom: 6px;
-            padding: 12px 6px 4px;
-            background-color: #e5e4e2;
-            border-radius: 4px;
-        }
-
-        .personas {
-            display: flex;
-        }
-
-            .persona {
-                position: relative;
-                display: flex; flex-direction: column;
-                margin-right: 12px;
-                max-width: 360px;
-                padding: 6px 12px;
-                border-radius: 2px;
-                box-shadow: 0 1px 2px -1px #999;
-                background-color: #fff;
-                z-index: 2;
+    
+            .user-table th,
+            .user-table td {
+                text-align: center;
             }
-
-            .persona-stat {
-                display: flex;
-                justify-content: flex-end;
-            }
-
-            .persona-type {
-                display: flex; align-items: center; justify-content: center;
-                height: 40px; width: 40px; 
-                font-size: 1.3rem; font-weight: bold; 
-                border-radius: 50%;
-            }
-
-            .persona-type--pp {
-                background-color: #FF6F61;
-            }
-
-            .persona-type--eco {
-                background-color: #88B04B;
-            }
-
-            .persona-market {
-                display: flex; align-items: center; justify-content: center;
-                margin-left: 6px;
-                height: 40px; width: 40px; 
-                color: #444;
-                font-size: 1.3rem; font-weight: bold; 
-                border-radius: 50%;
-                background-color: #d5d5d5;
-            }
-
-            .persona-color {
-                display: flex; align-items: center; justify-content: center;
-                background-color: #FF6F61;
-                height: 42px; width: 42px; font-weight: bold;
-                justify-self: center; align-self: center;
-                font-size: 1.3rem;
-                border-radius: 50%;
-            }
-
-            .persona-identity {
-                display: flex; 
-            }
-            
-            .persona-name {
-                font-size: 1.2em; font-weight: 300;
-                flex-grow: 2;
-            }
-
-            .persona-demography-line {
-                display: flex;
-            }
-
-            .persona-background {
-                padding: 6px;
-                color: #555;
-            }
-
-            .persona-title {
-                margin-top: 6px; margin-bottom: 3px;
-                color: #222;
-                font-size: 1.1em; font-weight: 500;
-            }
-
-        .use-case {
-            display: flex; flex-wrap: wrap;
-        }
-
-        .use-case-diagram {
-            display: block;
-            height: 100%;
-            width: auto;
-            min-height: 800px;
-            min-width: 600px;
-            border-radius: 4px;
-            background-color: #d5d5d5;
-        }
-
-        .use-case-notes {
-            margin-left: 12px;
-        }
-
-        .scenario {
-            display: flex;
-            margin-bottom: 12px;
-            background-color: #fff;
-            border-radius: 3px;
-            box-shadow: 0 1px 2px #a9a9a9;
-        }
-
-        .scenario-meta {
-            padding: 12px;
-            max-width: 40%;
-            background-color: #e5e4e2;
-        }
-
-        .scenario-main {
-            flex-grow: 2;
-            padding: 12px;
-            margin-left: 12px;
-        }
-
-        .scenario-main-title {
-            margin: 0;
-            color: royalblue;
-        }
-
-        .scenario-alt-title {
-            margin: 0;
-            color: #FF6F61;
-        }
-        
-        .cu-actors {
-            display: flex;
-        }
-
-        .cu-actor {
-            margin-right: 6px;
-            padding: 4px 6px;
-            color: #fff; font-weight: 500;
-            background-color: #6667AB;
-            border-radius: 1px;
-        }
-
-        .cu-name {
-            margin: 0;
-            font-weight: 500;
-        }
-
-        .cu-goal {
-            margin: 0;
-            font-size: 1.6em;
-        }
-
-        .cu-part--notes {
-            margin-top: 12px;
-        }
-
-        .cu-part-title {
-            margin: 0;
-            margin-top: 6px;
-        }
-
-        .cu-conditions {
-            font-weight: 500;
-        }
-
-        .cu-notes {
-            color: #555;
-            margin: 0;
-            font-size: 1.4em;
-        }
-
-        .scenario-main-steps {
-            margin: 0; padding-left: 16px;        
-        }
-
-        .scenario-alt {
-            margin-top: 6px;
-        }
-
-        .scenario-alt p { margin: 0; }
-
-        .scenario-alt-steps { counter-reset: topLevel; }
-            .scenario-alt-steps:not(:last-child) { margin-bottom: 6px; }
-            .scenario-alt-step { counter-increment: topLevel; font-weight: 500; }
-            .scenario-alt-step:before { content: attr(value) counter(topLevel, lower-alpha) '. '; }
-            .scenario-alt-steps ol { font-weight: 400; counter-reset: secondLevel; }
-                .scenario-alt-steps ol li { counter-increment: secondLevel; margin-left: 12px; }
-                    .scenario-alt-steps ol li:before { content: attr(value) counter(topLevel, lower-alpha) '.' counter(secondLevel, decimal) '. '}
-
-        .glossary {
-            font-size: 1.4em;
-        }
-
+    
+        .use-case-diagram,
+        .activity-diagram,
         .preview-img {
             display: block;
-            width: 600px;
+            max-width: 100%;  
             height: auto;
         }
-
-        .report-footer {
-            padding: 24px 5vw 24px;
-            color: #fff;
-            background-color: #292723;
-        }
-
-            .report-footer p {
-                margin: 0; margin-bottom: 6px;
-            }
-
-        .activity-diagram {
-            display: block;
-            min-height: 600px;
-            min-width: 600px;
-            height: 100%;
-            width: auto;
-            background-color: #d5d5d5;
-        }
-
-        .dash:before { 
-            content: '-'; 
-            margin-left: 4px;
-            margin-right: 8px; 
-            font-weight: bold;
-            color: currentColor;
-        } 
-
-        .check:before {
-            margin-left: 2px;
-            margin-right: 4px; 
-            font-weight: bold;
-            content: '🗸'; 
-            color: currentColor;
+    
+        .fit-content { 
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
     </style>
+    
 </head>
 
 <body>
@@ -1807,11 +1583,21 @@
 
                 <h3 class="subsection-title">Choix du design</h3>
                 <p>
-                    Nous avons choisi l'architecture 3-tier pour l'application MaVille afin de séparer les responsabilités et assurer une bonne évolutivité. 
-                    Cette structure permet de diviser l'application en trois couches : l’interface utilisateur (frontend) pour l'expérience directe des résidents et intervenants, le serveur d'application (backend) pour la logique métier, et la base de données pour le stockage des informations. 
-                    Cette séparation facilite la maintenance et les mises à jour, car chaque couche peut évoluer indépendamment. De plus, elle permet une intégration aisée avec des services externes (notifications, géolocalisation) et garantit une sécurité renforcée, puisque le backend contrôle l'accès aux données. 
-                    L'architecture 3-tier offre ainsi une solution adaptable et scalable, essentielle pour une application dynamique comme MaVille, où les utilisateurs doivent interagir en temps réel avec des informations constamment mises à jour.
+                    Nous avons choisi une architecture 3-tier pour MaVille, car elle permet de bien structurer l'application et de répondre aux besoins spécifiques des résidents et des intervenants. Cette architecture est divisée en trois parties principales :  
                 </p>
+                <p>
+                    1. Interface utilisateur (frontend) / Vue : Cette couche est dédiée à l'expérience directe des utilisateurs. Les résidents y consultent les travaux, soumettent des requêtes ou reçoivent des notifications. Les intervenants, eux, l’utilisent pour gérer leurs projets, soumettre des réponses aux requêtes et mettre à jour les informations. Nous avons créé des vues spécifiques pour chaque type d’utilisateur, comme le <code>ResidentMenu</code> et l'<code>IntervenantMenu</code>, qui permettent de naviguer facilement à travers les différentes options disponibles.  
+                </p>
+                <p>
+                    2. Serveur d'application (backend) / Contrôleur : C’est ici que la logique et les processus de l'application sont gérés. Par exemple, le <code>UserController</code> s’occupe de la gestion des utilisateurs (résidents et intervenants), en vérifiant les informations à l'inscription et en contrôlant l'accès. Le <code>TravauxController</code> et le <code>ProjetController</code> gèrent les informations liées aux travaux et projets. D’autres contrôleurs comme le <code>CandidatController</code> et le <code>RequeteController</code> s'occupent respectivement des candidatures et des requêtes soumises par les résidents. Nous avons conçu une hiérarchie de classes où chaque contrôleur hérite d'une classe principale <code>Controller</code>, ce qui permet de centraliser les fonctionnalités communes et de simplifier la gestion de l’application.  
+                </p>
+                <p>
+                    3. Base de données (modèles): Cette partie s’occupe de stocker toutes les informations importantes, comme les profils, les projets, ou les entraves routières. Nous avons créé des modèles pour chaque entité, tels que <code>Candidat</code>, <code>RequeteTravail</code>, <code>Entrave</code>, <code>Travaux</code>, <code>Projet</code>, <code>Utilisateur</code>, et <code>Notification</code>. Ces modèles facilitent la gestion et l'accès aux données, permettant de récupérer rapidement les informations nécessaires pour afficher les travaux en cours, les projets soumis, ou les notifications envoyées aux utilisateurs.  
+                </p>
+                <p>
+                    Cette structure rend l'application facile à maintenir et à faire évoluer. Chaque couche et chaque composant (vue, contrôleur, modèle) peut être modifié indépendamment, ce qui garantit une grande flexibilité et réactivité aux besoins des utilisateurs. De plus, cette organisation permet d’intégrer des services externes (notifications, géolocalisation) et assure une bonne sécurité en centralisant le contrôle des accès via le backend. Avec cette architecture, MaVille peut offrir une expérience fluide et fiable, même avec des informations mises à jour en temps réel.  
+                </p>
+                              
             </section>
 
             <section class="main-section">
