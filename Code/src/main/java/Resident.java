@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.time.format.DateTimeParseException;
 import java.time.LocalDate;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -14,38 +15,49 @@ import com.google.gson.JsonSyntaxException;
 public class Resident {
 
     private static final String[] RESIDENTS = {
-        "resident1@mail.com:password1", 
-        "resident2@mail.com:password2"
+        "resident1@mail.com:password1:Verdun", 
+        "resident2@mail.com:password2:Anjou"
     };
-    private String username;
 
-    public Resident(String username) {
+    private String username;
+    private String quartier;
+    public Resident(String username, String quartier) {
         this.username = username;
+        this.quartier = quartier;
     }
 
     // Authenticates a resident
     public static Resident authentifier(Scanner scanner) {
+        clearScreen();
+        System.out.println("\n");
         System.out.println("Veuillez vous authentifier en tant que résident");
+        System.out.println();
         System.out.println("Adresse courriel :");
         String username = scanner.nextLine();
+        System.out.println();
         System.out.println("Mot de passe :");
         String password = scanner.nextLine();
 
         for (String user : RESIDENTS) {
             String[] details = user.split(":");
             if (details[0].equals(username) && details[1].equals(password)) {
-                return new Resident(username);
+                String quartier = details.length > 2 ? details[2] : "Quartier inconnu";
+                
+                return new Resident(username, quartier);
             }
         }
-        System.out.println("Échec de l'authentification. Veuillez réessayer.");
+        
         return null;
     }
 
     // Displays the main menu
     public void afficherMenuPrincipal(Scanner scanner) {
-        while (true) {
+        boolean enSession = true;
+        while (enSession) {
             clearScreen();
-            System.out.println("Bienvenue résident!");
+            System.out.print( "\n\n" );
+            System.out.println("-  -  -  Bienvenue résident!  -  -  -");
+            System.out.print( "\n" );
             printMenuOptions();
             
             String choix = scanner.nextLine();
@@ -65,6 +77,19 @@ public class Resident {
                 case "5":
                     handleEntraves(scanner);
                     break;
+                case "6":
+                    consulterMesRequetes(scanner);
+                    break;
+                case "D":
+                case "d":
+                    System.out.print("\n\n");
+                    System.out.println("+----------------------------+");
+                    System.out.println("| Vous êtes bien déconnecté. |");
+                    System.out.println("|       À la prochaine!      |");
+                    System.out.println("+----------------------------+");
+                    clearScreen();
+                    enSession = false;
+                    break;
                 case "Q":
                 case "q":
                     exitApplication();
@@ -74,6 +99,27 @@ public class Resident {
             }
         }
     }
+
+/*  //Test temporaire
+    public void afficherRequetes() {
+        List<RequeteTravail> toutesLesRequetes = RequeteTravailManager.getRequetes();
+    
+        if (toutesLesRequetes.isEmpty()) {
+            System.out.println("Aucune requête n'a encore été soumise.");
+            return;
+        }
+    
+        System.out.println("\n--- Liste des Requêtes de Travail ---");
+        for (int i = 0; i < toutesLesRequetes.size(); i++) {
+            System.out.println("[" + (i + 1) + "] " + toutesLesRequetes.get(i));
+        }
+        System.out.println("\nAppuyez sur 'Enter' pour revenir au menu principal.");
+        new Scanner(System.in).nextLine();
+    }*/
+        
+
+
+
 
     // Handles the Travaux submenu
     private void handleTravauxMenu(Scanner scanner) {
@@ -112,12 +158,16 @@ public class Resident {
         while (true) {
             clearScreen();
             System.out.println("Soumission Requete...");
-            System.out.println("Implementation à venir.");
+            System.out.println("1. pour soummettre une requete");
             System.out.println("[M]. Retour au menu principal");
             System.out.println("[Q]. Quitter l'application");
             
             String choix = scanner.nextLine();
             switch (choix) {
+                case "1":
+                    soumettreRequete(scanner);
+                    clearScreen();
+                    break;
                 case "M":
                 case "m":
                     return; // Return to main menu
@@ -510,22 +560,172 @@ public class Resident {
         scanner.nextLine(); // Wait for user input to continue
     }
 
+    public void soumettreRequete(Scanner scanner) {
+        System.out.println("                  --- Soumettre une Requête de Travail ---                 ");
+        System.out.println("* * * Vous pouvez annuler la soumission à tout moment en entrant 'A'. * * *");
+        
+        System.out.print("Titre du travail : ");
+        String titre = scanner.nextLine();
+        if (titre.equalsIgnoreCase("A")) {
+            System.out.println("Soumission annulée. Retour au menu principal.");
+            return;
+        }
+
+        System.out.print("Description détaillée : ");
+        String description = scanner.nextLine();
+        if (description.equalsIgnoreCase("A")) {
+            System.out.println("Soumission annulée. Retour au menu principal.");
+            return;
+        }
+
+        TypeTravail typeTravaux = null; 
+        while (typeTravaux == null) {
+            System.out.println("Entrez le numéro correspondant au type de travaux souhaité :");
+            System.out.println("1. Travaux Routiers");
+            System.out.println("2. Gaz et Électricité");
+            System.out.println("3. Construction / Rénovation");
+            System.out.println("4. Entretien Paysager");
+            System.out.println("5. Transport en Commun");
+            System.out.println("6. Signalisation et Éclairage");
+            System.out.println("7. Travaux Souterrains");
+            System.out.println("8. Travaux Résidentiels");
+            System.out.println("9. Entretien Urbain");
+            System.out.println("10. Réseaux de Télécommunication");
+            
+            String choix = scanner.nextLine();
+            if (choix.equalsIgnoreCase("A")) {
+                System.out.println("Soumission annulée. Retour au menu principal.");
+                return;
+            }
+            switch (choix) {
+                    case "1":
+                    typeTravaux = TypeTravail.ROUTIER;
+                    break;
+                    case "2":
+                    typeTravaux = TypeTravail.GAZ_ELECTRIQUE;
+                    break;
+                    case "3":
+                    typeTravaux = TypeTravail.CONSTRUCTION_RENOVATION;
+                    break;
+                    case "4":
+                    typeTravaux = TypeTravail.ENTRETIEN_PAYSAGER;
+                    break;
+                    case "5":
+                    typeTravaux = TypeTravail.TRANSPORT_COMMUN;
+                    break;
+                    case "6":
+                    typeTravaux = TypeTravail.SIGNALISATION_ECLAIRAGE;
+                    break;
+                    case "7":
+                    typeTravaux = TypeTravail.SOUTERRAINS;
+                    break;
+                    case "8":
+                    typeTravaux = TypeTravail.RESIDENTIEL;
+                    break;
+                    case "9":
+                    typeTravaux = TypeTravail.ENTRETIEN_URBAIN;
+                    break;
+                    case "10":
+                    typeTravaux = TypeTravail.ENTRETIEN_RESEAU_TELECOMMUNICATION;
+                    break;
+                    default :
+                    System.out.println("Choix invalide. Veuillez entrer un numéro entre 1 et 10");
+                    break;
+            }
+        }
+      
+
+        LocalDate dateDebut = null;
+        while (dateDebut == null) {
+            System.out.print("Date de début espérée (format yyyy-mm-dd) : ");
+            String dateInput = scanner.nextLine();
+            if (dateInput.equalsIgnoreCase("A")) {
+                System.out.println("Soumission annulée. Retour au menu principal.");
+                return; 
+            }
+            try {
+                LocalDate dateSaisie = LocalDate.parse(scanner.nextLine());
+                if (dateSaisie.isAfter(LocalDate.now())) {
+                    dateDebut = dateSaisie; // Date valide
+                } else {
+                    System.out.println("Erreur : La date doit être dans le futur. Veuillez réessayer.");
+                }
+            } catch (DateTimeParseException e) {
+                System.out.println("Format de date invalide. Veuillez entrer une date au format yyyy-mm-dd.");
+            }
+        }
+
+        // Création de la requête
+        RequeteTravail nouvelleRequete = new RequeteTravail(this, titre, description, typeTravaux, dateDebut);
+
+        // Ajout à la liste des requêtes
+        RequeteTravailManager.ajouterRequete(nouvelleRequete);
+
+        System.out.println("\nRequête soumise avec succès !");
+        System.out.println("\n");
+        System.out.println(nouvelleRequete);
+    }
+
+    public void consulterMesRequetes(Scanner scanner) {
+        List<RequeteTravail> mesRequetes = RequeteTravailManager.getRequetesParResident(this);
+    
+        if (mesRequetes.isEmpty()) {
+            System.out.println("\nVous n'avez soumis aucune requête de travail.");
+            return;
+        }
+    
+        System.out.println("\n--- Vos Requêtes de Travail ---");
+        for (int i = 0; i < mesRequetes.size(); i++) {
+            System.out.println("[" + (i + 1) + "] " + mesRequetes.get(i));
+        }
+    
+        System.out.println("\nAppuyez sur 'Enter' pour revenir au menu principal.");
+        scanner.nextLine();
+    }
+
+
+    public String getUsername() {
+        return username;
+    }
+    public String getQuartier() {
+        return quartier;
+    }
+
+
+
+
     // Helper Methods
     private void printMenuOptions() {
-        System.out.println("Veuillez choisir ce que vous voulez accomplir");
-        System.out.println("1. Soumettre une requête de travaux");
-        System.out.println("2. Rechercher des travaux");
-        System.out.println("3. Notifications");
-        System.out.println("4. Planification participative");
-        System.out.println("5. Consulter les entraves");
-        System.out.println("[Q]. Quitter l'application");
+        System.out.println("- - - - - - - - - - - - - - - - - - - - - - - -");
+        System.out.println("Veuillez choisir ce que vous voulez accomplir :");
+        System.out.println("- - - - - - - - - - - - - - - - - - - - - - - -");
+        System.out.println();
+        System.out.println("  +-------------------------------------+");
+        System.out.println("  |[1] Soumettre une requête de travaux |");
+        System.out.println("  |-------------------------------------|");
+        System.out.println("  |[2] Rechercher des travaux ~ ~ ~ ~ ~ |");
+        System.out.println("  |-------------------------------------|");
+        System.out.println("  |[3] Notifications ~ ~ ~ ~ ~ ~ ~ ~ ~ ~|");
+        System.out.println("  |-------------------------------------|");
+        System.out.println("  |[4] Planification participative ~ ~ ~|");
+        System.out.println("  |-------------------------------------|");
+        System.out.println("  |[5] Consulter les entraves ~ ~ ~ ~ ~ |");
+        System.out.println("  |-------------------------------------|");
+        System.out.println("  |[6] Consulter mes requêtes ~ ~ ~ ~ ~ |");
+        System.out.println("  +-------------------------------------+");
+        System.out.print("\n\n");
+        System.out.println("- - [D] Se déconnecter - -");
+        System.out.println("- - [Q] Quitter l'application - -");
     }
 
     private void printInvalidChoiceMessage() {
         System.out.println("Choix invalide, veuillez entrer une option valide.");
     }
 
-    private void clearScreen() {
+    public static void clearScreen() {
+        System.out.print("--------------------------------------------------------------------------------");
         System.out.print("\n".repeat(5)); // Simulates clearing the console
+        System.out.print("--------------------------------------------------------------------------------");
+        System.out.print("\n");
     }
 }

@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Scanner;
 
 public class Intervenant {
@@ -32,8 +33,9 @@ public class Intervenant {
     }
 
     public void afficherMenuPrincipal(Scanner scanner) {
-        boolean valide = false;  // Variable qui controle la boucle du menu. Elle devient 'true' lorsque le user fait un choix valide 
+        boolean enSession = true;  // Variable qui controle la boucle du menu.
 
+        while (enSession) {
         System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         System.out.println("\nBienvenue intervenant!");
         System.out.println("\n");
@@ -51,10 +53,8 @@ public class Intervenant {
         System.out.print("\n\n");
         System.out.println("- - [D] Se déconnecter - -");
         System.out.println("- - [Q] Quitter l'application - -");
-        
 
-        while (!valide) {
-            String choix = scanner.nextLine();
+        String choix = scanner.nextLine();
             switch (choix) {
                 case "1":
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
@@ -68,8 +68,7 @@ public class Intervenant {
                     System.out.println("  +------------------------------+");
                     System.out.print("\n\n");
                     System.out.println("- - [Q] Quitter l'application - -");
-
-                    valide = true;
+                    consulterRequetes(scanner);
                     sousMenu(scanner);
                     break;
 
@@ -85,8 +84,6 @@ public class Intervenant {
                     System.out.println("  +------------------------------+");
                     System.out.print("\n\n");
                     System.out.println("- - [Q] Quitter l'application - -");
-        
-                    valide = true;
                     sousMenu(scanner);
                     break;
 
@@ -102,8 +99,6 @@ public class Intervenant {
                     System.out.println("  +------------------------------+");
                     System.out.print("\n\n");
                     System.out.println("- - [Q] Quitter l'application - -");
-
-                    valide = true;
                     sousMenu(scanner);
                     break;
 
@@ -119,8 +114,6 @@ public class Intervenant {
                     System.out.println("  +------------------------------+");
                     System.out.print("\n\n");
                     System.out.println("- - [Q] Quitter l'application - -");
-
-                    valide = true;
                     sousMenu(scanner);
                     break;
 
@@ -132,7 +125,8 @@ public class Intervenant {
                     System.out.println("|       À la prochaine!      |");
                     System.out.println("+----------------------------+");
                     System.out.print("\n\n");
-                    return;
+                    enSession = false;
+                    break;
 
                 case "q":
                 case "Q":
@@ -150,41 +144,81 @@ public class Intervenant {
                     System.out.println("!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!");
                     System.out.println("!~ Choix invalide, veuillez entrer une option valide (ex : 1)  ~!");
                     System.out.println("!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!");
-                    break;
             }
-            System.out.println("\n");
-            System.out.println("- - - - - - - - - - - - - - - - - - - - - - -");
-            System.out.println("Veuillez choisir ce que vous voulez accomplir");
-            System.out.println("- - - - - - - - - - - - - - - - - - - - - - -");
-            System.out.println();
-            System.out.println("  +-------------------------------------------------+");
-            System.out.println("  |[1] Consulter les requêtes de travail ~ ~ ~ ~ ~ ~|");
-            System.out.println("  |-------------------------------------------------|");
-            System.out.println("  |[2] Soumettre un nouveau projet ~ ~ ~ ~ ~ ~ ~ ~ ~|");
-            System.out.println("  |-------------------------------------------------|");
-            System.out.println("  |[3] Mettre à jour les informations d'un chantier |");
-            System.out.println("  +-------------------------------------------------+");
-            System.out.print("\n\n");
-            System.out.println("- - [D] Se déconnecter - -");
-            System.out.println("- - [Q] Quitter l'application - -");
         }
     }
 
-    private void sousMenu(Scanner scanner) {
-        boolean valide = false; // Variable qui controle la boucle du menu. Elle devient 'true' lorsque le user fait un choix valide
+    public void consulterRequetes(Scanner scanner) {
+    System.out.println("\n--- Liste des Requêtes de Travail ---");
+    System.out.println("Voulez-vous appliquer un filtre ?");
+    System.out.println("1. Pas de filtre");
+    System.out.println("2. Filtrer par type de travaux");
+    System.out.println("3. Filtrer par date (plus récentes d'abord)");
+    System.out.println("4. Filtrer par quartier");
 
-        while (!valide) {
+    String choix = scanner.nextLine();
+    List<RequeteTravail> requetesFiltrees;
+
+    switch (choix) {
+        case "2":
+            System.out.print("Entrez le type de travaux (ex : ROUTIER, GAZ_ELECTRIQUE) : ");
+            try {
+                TypeTravail type = TypeTravail.valueOf(scanner.nextLine().toUpperCase());
+                requetesFiltrees = RequeteTravailManager.filtrerRequetesParType(type);
+            } catch (IllegalArgumentException e) {
+                System.out.println("Type invalide. Affichage de toutes les requêtes.");
+                requetesFiltrees = RequeteTravailManager.getRequetes();
+            }
+            break;
+        case "3":
+            requetesFiltrees = RequeteTravailManager.filtrerRequetesParDate();
+            break;
+        case "4":
+            System.out.print("Entrez le quartier : ");
+            String quartier = scanner.nextLine();
+            requetesFiltrees = RequeteTravailManager.filtrerRequetesParQuartier(quartier);
+            break;
+        default:
+            requetesFiltrees = RequeteTravailManager.getRequetes();
+            break;
+    }
+
+    if (requetesFiltrees.isEmpty()) {
+        System.out.println("\nAucune requête correspondant à vos critères.");
+    } else {
+        for (int i = 0; i < requetesFiltrees.size(); i++) {
+            System.out.println("[" + (i + 1) + "] " + requetesFiltrees.get(i));
+        }
+    }
+
+    System.out.println("\nAppuyez sur 'Enter' pour revenir au menu principal.");
+    scanner.nextLine();
+}
+
+
+
+
+
+    private void sousMenu(Scanner scanner) {
+        boolean enSousMenu = true; // Variable qui controle la boucle du menu. 
+
+        while (enSousMenu) {
+            System.out.println();
+            System.out.println("  +------------------------------+");
+            System.out.println("  |[M]. Retour au menu principal |");         
+            System.out.println("  +------------------------------+");
+            System.out.print("\n\n");
+            System.out.println("- - [Q] Quitter l'application - -");
+
             String choix = scanner.nextLine();
+
             switch(choix) {
                 case "M" :
-
                 case "m" :
-                    afficherMenuPrincipal(scanner);
-                    valide = true;
+                    enSousMenu = false;
                     break;
                 
                 case "Q" :
-
                 case "q" :
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     System.out.println("+--------------------------------+");
@@ -202,14 +236,9 @@ public class Intervenant {
                     System.out.println("!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!");
                     break;
             }
-            System.out.println();
-            System.out.println("  +------------------------------+");
-            System.out.println("  |[M]. Retour au menu principal |");         
-            System.out.println("  +------------------------------+");
-            System.out.print("\n\n");
-            System.out.println("- - [Q] Quitter l'application - -");
+            
             
         }
-        afficherMenuPrincipal(scanner);
+       
     }
 }

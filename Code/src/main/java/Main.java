@@ -3,75 +3,79 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        afficherAccueil();
+        Scanner scanner = new Scanner(System.in);
+        boolean applicationEnCours = true;
+
+        while (applicationEnCours) {
+            afficherAccueil(scanner);
             }
 
+        scanner.close();
+        }
 
+    private static void afficherErreurAuth() {
+        System.out.print( "\n\n" );
+        System.out.println("!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!");
+        System.out.println("!~   Échec de l'authentification, veuillez réessayer.  ~!");
+        System.out.println("!~          Retour à l'écran de connexion ...          ~!");
+        System.out.println("!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!");
+        System.out.print( "\n\n" );
+        }
 
-    private static void afficherAccueil() {
-        Scanner scanner = new Scanner(System.in);
-        boolean authReussie = false;
-
+    public static void clearScreen() {
+        System.out.print("--------------------------------------------------------------------------------");
+        System.out.print("\n".repeat(5)); // Simulates clearing the console
+        System.out.print("--------------------------------------------------------------------------------");
+        System.out.print("\n");
+    }
+    private static void afficherAccueil(Scanner scanner) {
+        
         System.out.println("+------------------------------------------+");
         System.out.println("|       Bienvenue dans l'application       |");
         System.out.println("|                 MaVille!                 |");
         System.out.println("+------------------------------------------+");
 
-        while (!authReussie) {
-            // Menu connexion
-            System.out.print( "\n\n" );
-            System.out.println("- - - - - - - - - - - - - - - - - - -");
-            System.out.println("Veuillez vous connecter en tant que :");
-            System.out.println("- - - - - - - - - - - - - - - - - - -");
-            System.out.print( "\n" );
-            System.out.println("  +----------------+");
-            System.out.println("  |[1] Résident ~ ~|");
-            System.out.println("  |----------------|");
-            System.out.println("  |[2] Intervenant |");
-            System.out.println("  +----------------+");
-            System.out.print("\n\n");
-            System.out.println("- - [Q] Quitter l'application - -");
+         // Menu connexion
+        System.out.print( "\n\n" );
+        System.out.println("- - - - - - - - - - - - - - - - - - -");
+        System.out.println("Veuillez vous connecter en tant que :");
+        System.out.println("- - - - - - - - - - - - - - - - - - -");
+        System.out.print( "\n" );
+        System.out.println("  +----------------+");
+        System.out.println("  |[1] Résident ~ ~|");
+        System.out.println("  |----------------|");
+        System.out.println("  |[2] Intervenant |");
+        System.out.println("  +----------------+");
+        System.out.print("\n\n");
+        System.out.println("- - [Q] Quitter l'application - -");
 
-            String choix = scanner.nextLine();
+        String choix = scanner.nextLine();
 
             // Selon l'input, on choisi le code à executer
-            switch (choix) {
-                case "1":
-                    Resident resident = Resident.authentifier(scanner); 
-                    if (resident != null) {
-                        authReussie = true;
-                        resident.afficherMenuPrincipal(scanner); 
-                        afficherAccueil();
-
+        switch (choix) {
+            case "1":
+                Resident resident = Resident.authentifier(scanner); 
+                if (resident != null) {
+                    resident.afficherMenuPrincipal(scanner); 
                     } else {
-                        System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-                        System.out.println("!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!");
-                        System.out.println("!~   Échec de l'authentification, veuillez réessayer   ~!");
-                        System.out.println("!~          Retour à l'écran de connexion ...          ~!");
-                        System.out.println("!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!");
+                        clearScreen();
+                        afficherErreurAuth();
                     }
                     break;
 
                 case "2": 
                     Intervenant intervenant = Intervenant.authentifier(scanner);
-                    if (intervenant != null) {
-                        authReussie = true;
+                    if (intervenant != null) { 
                         intervenant.afficherMenuPrincipal(scanner);
-                        afficherAccueil();
-
                     } else {
-                        System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-                        System.out.println("!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!");
-                        System.out.println("!~   Échec de l'authentification, veuillez réessayer   ~!");
-                        System.out.println("!~          Retour à l'écran de connexion ...          ~!");
-                        System.out.println("!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!");
+                        afficherErreurAuth();
                     }
                     break;
                   
                 case "Q" :
                 
                 case "q" :
-                    System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+                    System.out.print("\n\n");
                     System.out.println("+--------------------------------+");
                     System.out.println("| Merci d'avoir utilisé MaVille. |");
                     System.out.println("|        À la prochaine!         |");
@@ -81,13 +85,13 @@ public class Main {
                     break;
 
                 default:
-                    System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+                    clearScreen();
+                    System.out.print("\n\n");
                     System.out.println("!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!");
                     System.out.println("!~ Choix invalide, veuillez entrer une option valide (ex : 1)  ~!");
                     System.out.println("!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!");
-                    break;
+                    System.out.print("\n\n");
             }
         }
     
     }
-}
