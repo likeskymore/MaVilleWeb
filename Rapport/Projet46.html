@@ -1669,113 +1669,96 @@
                 </div>
                 
 
-            <section class="main-section">
-                <h2 id="conception" class="section-title">Conception</h2>
-                <h3 class="subsection-title">Architecture</h3>
-                <p>Pour le projet MaVille, nous avons choisi une architecture 3-tier, qui est bien adaptée aux applications nécessitant une interaction utilisateur et une gestion centralisée des données</p>
-                <h5>Présentation de l'Architecture 3-tier dans l'appli Maville</h5>
-                <ol>
-                    <li>
-                        <strong style="color: #555;">Niveau 1 : Client (Frontend)</strong>
-                        <ul>
-                            <li>Utilisateurs : Les résidents et intervenants interagissent avec l'application via une interface utilisateur, accessible depuis une application web ou mobile.</li>
-                            <li>Moyen de communication : L'interface communique avec le serveur d'application via des requêtes HTTP/REST ou GraphQL pour envoyer et recevoir des données.</li>
-                            <li>Technologies possibles : React.js ou Vue.js pour une application web ; Flutter ou React Native pour une application mobile.</li>
-                        </ul>
-                    </li>
-                    <li>
-                        <strong style="color: #555;">Niveau 2 : Serveur d'Application (Backend)</strong>
-                        <ul>
-                            <li>Rôle : Centralise la logique métier, applique les règles d'application et gère la coordination avec la base de données et les services externes</li>
-                            <li>
-                                Composantes clés:
-                                <ul>
-                                    <li>API RESTful ou GraphQL : Permet de gérer les requêtes provenant du frontend.</li>
-                                    <li>Gestion des utilisateurs : Authentification et autorisation pour les résidents et intervenants.</li>
-                                    <li>Notifications : Envoi de notifications personnalisées aux utilisateurs.</li>
-                                </ul>
-                            </li>
-                            <li>Technologies possibles : Node.js avec Express, Django, ou Spring Boot.</li>
-                            <li>Communication : Échange de données avec le frontend et accès aux données de la base.</li>
-                        </ul>
-                    </li>
-                    <li>
-                        <strong style="color: #555;">Niveau 3 : Base de Données (Stockage)</strong>
-                        <ul>
-                            <li>Rôle : Stockage de toutes les informations sur les utilisateurs, les travaux en cours, les requêtes, et les notifications.</li>
-                            <li>Technologie : PostgreSQL ou MySQL pour une base de données relationnelle.</li>
-                            <li>
-                                Données gérées :
-                                <ul>
-                                    <li>Informations des utilisateurs (résidents, intervenants)</li>
-                                    <li>Détails des projets et travaux</li>
-                                    <li>Préférences des résidents pour les horaires de travaux</li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                </ol>
-                <h5>Composantes Additionnelles</h5>
-                <ul>
-                    <li>Service de Notifications : Un service externe, comme Firebase Cloud Messaging, pour envoyer des notifications en temps réel aux utilisateurs.</li>
-                    <li>API de Géolocalisation : Utilisation d’une API externe (comme Google Maps API) pour localiser les travaux sur une carte et fournir une interface visuelle pour les résidents.</li>
-                </ul>
-
-                <h3 class="subsection-title">Diagrammes de classes</h3>
-                <div class="activity">
-                    <img class="activity-diagram" src="images/class_diagram.png" alt="Diagramme de classes">
-                </div>
-
-                <h3 class="subsection-title">Diagrammes de séquence</h3>
-                <div class="activity">
-                    <h4>Consulter les entraves</h4>
-                    <img class="activity-diagram" src="images/sequence_entraves.png" alt="Diagramme de séquence">
-                </div>
-                <div class="activity">
-                    <h4>Soumettre une requête de travail</h4>
-                    <img class="activity-diagram" src="images/sequence_SoumettreRequete.png" alt="Diagramme de séquence">
-                </div>
-                <div class="activity">
-                    <h4>Consulter la liste des requêtes de travail</h4>
-                    <img class="activity-diagram" src="images/sequence_ConsulterRequete.png" alt="Diagramme de séquence">
-                </div>
-
-                <h3 class="subsection-title">Choix du design</h3>
-                <p>
-                    Nous avons choisi une architecture 3-tier pour MaVille, car elle permet de bien structurer l'application et de répondre aux besoins spécifiques des résidents et des intervenants. Cette architecture est divisée en trois parties principales :  
-                </p>
-                <p>
-                    1. Interface utilisateur (frontend) / Vue : Cette couche est dédiée à l'expérience directe des utilisateurs. Les résidents y consultent les travaux, soumettent des requêtes ou reçoivent des notifications. Les intervenants, eux, l’utilisent pour gérer leurs projets, soumettre des réponses aux requêtes et mettre à jour les informations. Nous avons créé des vues spécifiques pour chaque type d’utilisateur, comme le <code>ResidentMenu</code> et l'<code>IntervenantMenu</code>, qui permettent de naviguer facilement à travers les différentes options disponibles.  
-                </p>
-                <p>
-                    2. Serveur d'application (backend) / Contrôleur : C’est ici que la logique et les processus de l'application sont gérés. Par exemple, le <code>UserController</code> s’occupe de la gestion des utilisateurs (résidents et intervenants), en vérifiant les informations à l'inscription et en contrôlant l'accès. Le <code>TravauxController</code> et le <code>ProjetController</code> gèrent les informations liées aux travaux et projets. D’autres contrôleurs comme le <code>CandidatController</code> et le <code>RequeteController</code> s'occupent respectivement des candidatures et des requêtes soumises par les résidents. Nous avons conçu une hiérarchie de classes où chaque contrôleur hérite d'une classe principale <code>Controller</code>, ce qui permet de centraliser les fonctionnalités communes et de simplifier la gestion de l’application.  
-                </p>
-                <p>
-                    3. Base de données (modèles): Cette partie s’occupe de stocker toutes les informations importantes, comme les profils, les projets, ou les entraves routières. Nous avons créé des modèles pour chaque entité, tels que <code>Candidat</code>, <code>RequeteTravail</code>, <code>Entrave</code>, <code>Travaux</code>, <code>Projet</code>, <code>Utilisateur</code>, et <code>Notification</code>. Ces modèles facilitent la gestion et l'accès aux données, permettant de récupérer rapidement les informations nécessaires pour afficher les travaux en cours, les projets soumis, ou les notifications envoyées aux utilisateurs.  
-                </p>
-                <p>
-                    Cette structure rend l'application facile à maintenir et à faire évoluer. Chaque couche et chaque composant (vue, contrôleur, modèle) peut être modifié indépendamment, ce qui garantit une grande flexibilité et réactivité aux besoins des utilisateurs. De plus, cette organisation permet d’intégrer des services externes (notifications, géolocalisation) et assure une bonne sécurité en centralisant le contrôle des accès via le backend. Avec cette architecture, MaVille peut offrir une expérience fluide et fiable, même avec des informations mises à jour en temps réel.  
-                </p>
-                              
-            </section>
-
-            <section class="main-section">
-                <h2 id="prototype" class="section-title">Prototype</h2>
-
-                <p>
-                    <em>
-                        Ouvrir la ligne de commande et naviguer jusqu'à l'emplacement du fichier MaVille-Groupe-46.jar, exécuter la commande <b>java -jar MaVille-Groupe-46.jar</b> pour commencer le prototype. Les comptes préconfigurées pour l'intervenant/le résident (courriel:mot de passe) : (intervenant1@mail.com:password1), (intervenant2@mail.com:password2), (resident1@mail.com:password1), (resident2@mail.com:password2) </em>.
-                </p>
-            </section>
-        </div>
-    </main>
-    <footer class="report-footer">
-        <p>
-            Devoir 2 &ndash; Analyse des exigences<br>
-            IFT2255 (Génie logiciel) <br>
-            Automne 2024
-        </p>
-    </footer>
-</body>
-
+                <section class="main-section">
+                    <h2 id="conception" class="section-title">Conception</h2>
+                    <h3 class="subsection-title">Architecture</h3>
+                    <p>Pour le projet MaVille, nous avons choisi une architecture MVC (Modèle-Vue-Contrôleur) afin de séparer les différentes couches de l'application et rendre l’ensemble plus modulable et facile à maintenir.</p>
+                    <h5>Présentation de l'Architecture MVC dans l'appli MaVille</h5>
+                    <ol>
+                        <li>
+                            <strong style="color: #555;">Modèle (Model)</strong>
+                            <ul>
+                                <li>Rôle : Gère les données de l’application. Cela inclut les informations des utilisateurs, des travaux en cours et des requêtes soumises.</li>
+                                <li>Exemples de classes : <code>Utilisateur</code>, <code>Travaux</code>, <code>RequeteTravail</code>, <code>Notification</code></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong style="color: #555;">Vue (View)</strong>
+                            <ul>
+                                <li>Rôle : Affiche les informations aux utilisateurs. Elle est responsable de l’interaction avec l’utilisateur (UI).</li>
+                                <li>Exemples de classes : <code>ResidentMenu</code>, <code>IntervenantMenu</code> pour offrir une interface adaptée à chaque utilisateur.</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong style="color: #555;">Contrôleur (Controller)</strong>
+                            <ul>
+                                <li>Rôle : Gère les actions de l’utilisateur, interagit avec le modèle et met à jour la vue.</li>
+                                <li>Exemples de classes : <code>UserController</code> pour gérer l'authentification, <code>TravauxController</code> pour gérer les travaux en cours.</li>
+                            </ul>
+                        </li>
+                    </ol>
+                
+                    <h5>Composantes Additionnelles</h5>
+                    <ul>
+                        <li>Service de Notifications : Notifications envoyées en temps réel aux utilisateurs, pour les informer des projets et des changements.</li>
+                        <li>API externe : Connectée à des services comme l’API de la Ville de Montréal pour afficher les travaux en temps réel.</li>
+                    </ul>
+                
+                    <h3 class="subsection-title">Diagrammes de classes</h3>
+                    <div class="activity">
+                        <img class="activity-diagram" src="images/class_diagram.png" alt="Diagramme de classes">
+                    </div>
+                
+                    <h3 class="subsection-title">Diagrammes de séquence</h3>
+                    <div class="activity">
+                        <h4>Consulter les entraves</h4>
+                        <img class="activity-diagram" src="images/sequence_entraves.png" alt="Diagramme de séquence">
+                    </div>
+                    <div class="activity">
+                        <h4>Soumettre une requête de travail</h4>
+                        <img class="activity-diagram" src="images/sequence_SoumettreRequete.png" alt="Diagramme de séquence">
+                    </div>
+                    <div class="activity">
+                        <h4>Consulter la liste des requêtes de travail</h4>
+                        <img class="activity-diagram" src="images/sequence_ConsulterRequete.png" alt="Diagramme de séquence">
+                    </div>
+                
+                    <h3 class="subsection-title">Choix du design</h3>
+                    <p>
+                        L'architecture MVC a été choisie pour garantir la séparation des responsabilités et rendre l’application facile à gérer et à faire évoluer. Voici comment chaque partie fonctionne :
+                    </p>
+                    <p>
+                        1. <strong>Vue (Frontend)</strong> : C'est l'interface que l'utilisateur voit. Les résidents et intervenants naviguent dans des menus adaptés (ex : <code>ResidentMenu</code> et <code>IntervenantMenu</code>). Ces menus permettent d’interagir avec les différentes options disponibles, comme consulter des travaux ou soumettre des requêtes.
+                    </p>
+                    <p>
+                        2. <strong>Contrôleur (Backend)</strong> : Gère la logique de l’application. Par exemple, <code>UserController</code> gère l'authentification des utilisateurs, tandis que <code>TravauxController</code> et <code>ProjetController</code> s’occupent des informations liées aux travaux et projets.
+                    </p>
+                    <p>
+                        3. <strong>Modèle (Base de données)</strong> : Stocke toutes les informations essentielles, comme les profils des utilisateurs et les détails des projets. Les classes comme <code>Candidat</code>, <code>RequeteTravail</code>, et <code>Travaux</code> facilitent l'accès aux données et leur gestion.
+                    </p>
+                    <p>
+                        Cette architecture facilite l’ajout de nouvelles fonctionnalités et améliore la flexibilité, car chaque couche peut être modifiée indépendamment. Elle garantit aussi une sécurité renforcée en centralisant les actions critiques dans le backend.
+                    </p>
+                </section>
+                
+        <section class="main-section">
+            <h2 id="prototype" class="section-title">Prototype</h2>
+            <p>
+                <em>
+                    Ouvrir la ligne de commande et naviguer jusqu'à l'emplacement du fichier MaVille-Groupe-46.jar, exécuter la commande <b>java -jar MaVille-Groupe-46.jar</b> pour commencer le prototype. Les comptes préconfigurés pour l'intervenant/le résident (courriel:mot de passe) : (intervenant1@mail.com:password1), (intervenant2@mail.com:password2), (resident1@mail.com:password1), (resident2@mail.com:password2).
+                </em>
+            </p>
+        </section>
+                
+        <footer class="report-footer">
+            <p>
+                Devoir 2 &ndash; Analyse des exigences<br>
+                IFT2255 (Génie logiciel) <br>
+                Automne 2024
+            </p>
+        </footer>
+                
+    </body>
+                
 </html>
+                
