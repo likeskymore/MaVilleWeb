@@ -195,6 +195,8 @@ public class Resident {
                     break;
                 case "2":
                     System.out.println("filtrer les entrave. (à implémenter)");
+                    handleEntraves(scanner);
+                    break;
                 case "M":
                 case "m":
                     return; // Return to main menu
