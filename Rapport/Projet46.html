@@ -1393,17 +1393,17 @@
                             <li class="scenario-main-step">Le système affiche les requêtes filtrées.</li>
                             <li class="scenario-main-step">L’intervenant choisit une requête et consulte les détails.</li>
                             <li class="scenario-main-step">Le système affiche les détails de la requête choisie.</li>
-                            <li class="scenario-main-step">Si l'intervenant veux postuler pour cette requête, on passe à <a href="cu-12">Soumettre une candidature </a></li>
                         </ol>
 
                         <div class="scenario-alt">
                             <h5 class="scenario-alt-title">Scénarios alternatifs</h5>
                             <ol class="bare-list scenario-alt-steps">
-                                <li class="scenario-alt-step" value="4">
-                                    Aucune requête ne correspond aux critères de filtrage.
+                                <li class="scenario-alt-step" value="5">
+                                    L'intervenant veut postuler sa candidature
                                     <ol class="bare-list">
-                                        <li value="4">Système affiche un message indiquant qu'aucune requête ne correspond aux critères sélectionnés.</li>
-                                        <li value="4">Intervenant peut ajuster les filtres pour effectuer une nouvelle recherche.</li>
+                                        <li value="4">L'intervenant remplit sa candidature</li>
+                                        <li value="4">Le système confirme la candidature de l'intervenant</li>
+                                        <li value="4">Le système notifie le résident qui a soumis cette requête</li>
                                     </ol>
                                 </li>
                         </div>
@@ -1553,73 +1553,6 @@
                     </div>
                 </div>
 
-                <div class="scenario" id="cu-12">
-                    <div class="scenario-meta">
-                        <h4 class="cu-name">
-                            <strong>CU:</strong> Soumettre une candidature
-                        </h4>
-                        <p class="cu-goal">
-                            <strong>Objectif:</strong> Permettre à un intervenant de soumettre une candidature pour un projet de travail
-                        </p>
-                        
-                        <hr>
-
-                        <div class="cu-part">
-                            <h5 class="cu-part-title">Acteurs</h5>
-                            <ul class="bare-list cu-actors">
-                                <li class="cu-actor">Intervenant (Principal)</li>
-                                <li class="cu-actor">Système (Secondaire)</li>
-                                <li class="cu-actor">Résident (Secondaire)</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="cu-part">
-                            <h5 class="cu-part-title">Préconditions</h5>
-                            <ul class="bare-list cu-conditions">
-                                <li class="dash">L’intervenant est connecté à l’application "MaVille".</li>
-                                <li class="dash">Le résident a soumis une requête de travail et celle-ci est disponible pour candidature.</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="cu-part">
-                            <h5 class="cu-part-title">Postconditions</h5>
-                            <ul class="bare-list cu-conditions">
-                                <li class="dash">Le résident est informé de la candidature et peut choisir d'accepter ou de refuser.</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="cu-part cu-part--notes">
-                            <h5 class="cu-part-title">Notes</h5>
-                            <p class="cu-notes">Un intervenant peut soumettre plusieurs candidatures, mais pas à la même requête de travail en même temps.</p>
-                        </div>
-                    </div>
-                    <div class="scenario-main">
-                        <h5 class="scenario-main-title">Scénario principal</h5>
-                        <ol class="scenario-main-steps">
-                            <li class="scenario-main-step">L'intervenant sélectionne une requête à laquelle il souhaite postuler.</li>
-                            <li class="scenario-main-step">Le système affiche les détails de la requête.</li>
-                            <li class="scenario-main-step">L'intervenant clique sur "Soumettre ma candidature".</li>
-                            <li class="scenario-main-step">Le système affiche un formulaire avec les champs nécessaires</li>
-                            <li class="scenario-main-step">L'intervenant remplit le formulaire et clique sur "Soumettre".</li>
-                            <li class="scenario-main-step">Le système confirme que la candidature a été soumise et notifie le résident.</li>
-                        </ol>
-
-                        <div class="scenario-alt">
-                            <h5 class="scenario-alt-title">Scénarios alternatifs</h5>
-                            <ol class="bare-list scenario-alt-steps">
-                                <li class="scenario-alt-step" value="5">
-                                    Intervenant ne remplit pas tous les champs requis.
-                                    <ol class="bare-list">
-                                        <li value="5">Système affiche un message d’erreur précisant quels champs sont manquants ou incorrects.</li>
-                                        <li value="5">Intervenant corrige les erreurs et soumet à nouveau le formulaire.</li>
-                                    </ol>
-                                </li>
-                            </ol>
-                        </div>
-                    </div>
-                </div>
-
-                  
                 <h3 class="subsection-title">Diagramme d'activités</h3>
                 <div class="activity">
                     <h4>Ouverture application </h4>
