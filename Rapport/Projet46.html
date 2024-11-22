@@ -289,8 +289,8 @@
         }
 
         .report-aside {
-            padding-top: 24px; padding-right: 12px; padding-left: 5vw;
-            min-width: 300px;
+            max-width: 250px;
+            padding: 10px;
             background-color: #6667AB;
         }
             .report-aside .section-title {
@@ -298,7 +298,7 @@
             }
 
         .report-main {
-            padding-top: 24px; padding-left: 2%; padding-right: 5vw;
+            padding-top: 24px; padding-left: 2%; padding-right: 5vw; flex: 1;
         }
 
         .main-section {
@@ -1672,53 +1672,38 @@
                 <section class="main-section">
                     <h2 id="conception" class="section-title">Conception</h2>
                     <h3 class="subsection-title">Architecture</h3>
-                    <p>Pour le projet MaVille, nous avons choisi une architecture 3-tier, qui est bien adaptée aux applications nécessitant une interaction utilisateur et une gestion centralisée des données.</p>
-                    <h5>Présentation de l'Architecture 3-tier dans l'appli MaVille</h5>
+                    <p>
+                        Nous avons opté pour un design modulaire basé sur l'architecture MVC (Modèle-Vue-Contrôleur), ce qui nous permet de maintenir une séparation claire des responsabilités dans l'application tout en facilitant sa maintenance et son évolutivité. Voici comment ce choix se traduit dans MaVille :
+                    </p>
                     <ol>
                         <li>
-                            <strong style="color: #555;">Niveau 1 : Client (Frontend)</strong>
+                            <strong style="color: #555;">Vue (Frontend)</strong>
                             <ul>
-                                <li>Utilisateurs : Les résidents et intervenants interagissent avec l'application via une interface utilisateur, accessible depuis une application web ou mobile.</li>
-                                <li>Moyen de communication : L'interface communique avec le serveur d'application via des requêtes HTTP/REST ou GraphQL pour envoyer et recevoir des données.</li>
-                                <li>Technologies possibles : React.js ou Vue.js pour une application web ; Flutter ou React Native pour une application mobile.</li>
+                                <li>Les utilisateurs (résidents et intervenants) interagissent avec l'application via une interface web ou mobile. L'interface est constituée de différentes vues spécifiques à chaque type d'utilisateur, comme le <code>ResidentMenu</code> pour les résidents et le <code>IntervenantMenu</code> pour les intervenants.</li>
+                                <li>Technologies utilisées : React.js ou Vue.js pour le frontend web et Flutter pour l'application mobile.</li>
                             </ul>
                         </li>
                         <li>
-                            <strong style="color: #555;">Niveau 2 : Serveur d'Application (Backend)</strong>
+                            <strong style="color: #555;">Contrôleur (Backend)</strong>
                             <ul>
-                                <li>Rôle : Centralise la logique métier, applique les règles d'application et gère la coordination avec la base de données et les services externes.</li>
-                                <li>
-                                    Composantes clés :
-                                    <ul>
-                                        <li>API RESTful ou GraphQL : Permet de gérer les requêtes provenant du frontend.</li>
-                                        <li>Gestion des utilisateurs : Authentification et autorisation pour les résidents et intervenants.</li>
-                                        <li>Notifications : Envoi de notifications personnalisées aux utilisateurs.</li>
-                                    </ul>
-                                </li>
+                                <li>La logique métier et les processus de gestion des utilisateurs, des travaux et des requêtes sont centralisés sur le serveur d'application. Par exemple, le <code>UserController</code> gère les interactions avec les utilisateurs, et le <code>RequeteController</code> prend en charge les requêtes des résidents.</li>
                                 <li>Technologies possibles : Node.js avec Express, Django, ou Spring Boot.</li>
-                                <li>Communication : Échange de données avec le frontend et accès aux données de la base.</li>
+                                <li>Communication avec le frontend : L'API RESTful ou GraphQL permet de gérer les interactions avec l'interface utilisateur.</li>
                             </ul>
                         </li>
                         <li>
-                            <strong style="color: #555;">Niveau 3 : Base de Données (Stockage)</strong>
+                            <strong style="color: #555;">Modèle (Base de Données)</strong>
                             <ul>
-                                <li>Rôle : Stockage de toutes les informations sur les utilisateurs, les travaux en cours, les requêtes, et les notifications.</li>
-                                <li>Technologie : PostgreSQL ou MySQL pour une base de données relationnelle.</li>
-                                <li>
-                                    Données gérées :
-                                    <ul>
-                                        <li>Informations des utilisateurs (résidents, intervenants)</li>
-                                        <li>Détails des projets et travaux</li>
-                                        <li>Préférences des résidents pour les horaires de travaux</li>
-                                    </ul>
-                                </li>
+                                <li>Les données relatives aux utilisateurs, aux travaux, aux projets et aux requêtes sont stockées dans la base de données. Par exemple, la classe <code>Utilisateur</code> contient toutes les informations liées aux utilisateurs, et <code>Travaux</code> garde une trace des projets en cours.</li>
+                                <li>Technologie utilisée : PostgreSQL ou MySQL pour la gestion des données relationnelles.</li>
                             </ul>
                         </li>
                     </ol>
+                
                     <h5>Composantes Additionnelles</h5>
                     <ul>
-                        <li>Service de Notifications : Un service externe, comme Firebase Cloud Messaging, pour envoyer des notifications en temps réel aux utilisateurs.</li>
-                        <li>API de Géolocalisation : Utilisation d’une API externe (comme Google Maps API) pour localiser les travaux sur une carte et fournir une interface visuelle pour les résidents.</li>
+                        <li>Service de notifications en temps réel : Utilisation de Firebase Cloud Messaging pour envoyer des notifications aux utilisateurs.</li>
+                        <li>API de géolocalisation : Utilisation de Google Maps API pour afficher les travaux sur une carte.</li>
                     </ul>
                 
                     <h3 class="subsection-title">Diagrammes de classes</h3>
@@ -1742,39 +1727,11 @@
                 
                     <h3 class="subsection-title">Choix du design</h3>
                     <p>
-                        Nous avons opté pour un design modulaire basé sur l'architecture MVC (Modèle-Vue-Contrôleur), ce qui nous permet de maintenir une séparation claire des responsabilités dans l'application tout en facilitant sa maintenance et son évolutivité. Voici comment ce choix se traduit dans MaVille :
+                        Le choix de l'architecture MVC (Modèle-Vue-Contrôleur) pour l'application MaVille est motivé par la nécessité de créer une solution modulaire, extensible et facilement maintenable. 
+                        L'approche MVC sépare les responsabilités principales, ce qui facilite les mises à jour, le test unitaire et l'intégration de nouvelles fonctionnalités. 
+                        La couche Modèle garantit une gestion efficace des données complexes, la couche Vue permet une personnalisation et une amélioration continue de l'interface utilisateur, et la couche Contrôleur assure une interaction cohérente entre ces deux aspects. 
+                        Ce design est particulièrement adapté pour une application à fort volume d'interactions utilisateur et nécessitant des mises à jour en temps réel, comme les notifications ou les changements dans les projets de travaux.
                     </p>
-                    <ol>
-                        <li>
-                            <strong style="color: #555;">Niveau 1 : Interface utilisateur (Frontend)</strong>
-                            <ul>
-                                <li>Les utilisateurs (résidents et intervenants) interagissent avec l'application via une interface web ou mobile. L'interface est constituée de différentes vues spécifiques à chaque type d'utilisateur, comme le <code>ResidentMenu</code> pour les résidents et le <code>IntervenantMenu</code> pour les intervenants.</li>
-                                <li>Technologies utilisées : React.js ou Vue.js pour le frontend web et Flutter pour l'application mobile.</li>
-                            </ul>
-                        </li>
-                        <li>
-                            <strong style="color: #555;">Niveau 2 : Serveur d'Application (Backend)</strong>
-                            <ul>
-                                <li>La logique métier et les processus de gestion des utilisateurs, des travaux et des requêtes sont centralisés sur le serveur d'application. Par exemple, le <code>UserController</code> gère les interactions avec les utilisateurs, et le <code>RequeteController</code> prend en charge les requêtes des résidents.</li>
-                                <li>Technologies possibles : Node.js avec Express, Django, ou Spring Boot.</li>
-                                <li>Communication avec le frontend : L'API RESTful ou GraphQL permet de gérer les interactions avec l'interface utilisateur.</li>
-                            </ul>
-                        </li>
-                        <li>
-                            <strong style="color: #555;">Niveau 3 : Base de Données (Modèles)</strong>
-                            <ul>
-                                <li>Les données relatives aux utilisateurs, aux travaux, aux projets et aux requêtes sont stockées dans la base de données. Par exemple, la classe <code>Utilisateur</code> contient toutes les informations liées aux utilisateurs, et <code>Travaux</code> garde une trace des projets en cours.</li>
-                                <li>Technologie utilisée : PostgreSQL ou MySQL pour la gestion des données relationnelles.</li>
-                            </ul>
-                        </li>
-                    </ol>
-                
-                    <h5>Composantes Additionnelles</h5>
-                    <ul>
-                        <li>Service de notifications en temps réel : Utilisation de Firebase Cloud Messaging pour envoyer des notifications aux utilisateurs.</li>
-                        <li>API de géolocalisation : Utilisation de Google Maps API pour afficher les travaux sur une carte.</li>
-                    </ul>
-                
                 </section>
                 
                 <section class="main-section">

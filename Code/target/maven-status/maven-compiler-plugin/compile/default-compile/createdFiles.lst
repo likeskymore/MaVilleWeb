@@ -2,8 +2,10 @@ StatutProjet.class
 Main.class
 Projet.class
 Travail.class
+Entraves.class
 HttpClientApi.class
 Resident.class
+TravailDeserializer.class
 TypeTravail.class
 Intervenant.class
 ApiResponse.class
