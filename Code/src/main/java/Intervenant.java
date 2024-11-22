@@ -10,6 +10,9 @@ public class Intervenant {
     public Intervenant(String username) {
         this.username = username;
     }
+    public String getUsername(){
+        return username;
+    }
 
     public static Intervenant authentifier(Scanner scanner) {
         clearScreen();
@@ -182,7 +185,7 @@ public class Intervenant {
 
     System.out.println("\nAppuyez sur 'Enter' pour revenir au menu principal.");
     scanner.nextLine();
-}
+    }
 
 
     public static void clearScreen() {  
@@ -234,5 +237,5 @@ public class Intervenant {
             
         }
        
-    }
+    }    
 }

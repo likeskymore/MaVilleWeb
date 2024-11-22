@@ -14,20 +14,18 @@ public class Main {
         scanner.close();
         }
 
-    private static void afficherErreurAuth() {
-        System.out.print( "\n\n" );
-        System.out.println("!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!");
-        System.out.println("!~   Échec de l'authentification, veuillez réessayer.  ~!");
-        System.out.println("!~          Retour à l'écran de connexion ...          ~!");
-        System.out.println("!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!");
-        System.out.print( "\n\n" );
+        public static void afficherErreurAuth() {
+            System.out.println("\n\n" +
+                "!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!\n" +
+                "!~   Échec de l'authentification, veuillez réessayer.  ~!\n" +
+                "!~          Retour à l'écran de connexion ...          ~!\n" +
+                "!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!\n");
         }
 
     public static void clearScreen() {
         System.out.print("--------------------------------------------------------------------------------");
         System.out.print("\n".repeat(5)); // Simulates clearing the console
         System.out.print("--------------------------------------------------------------------------------");
-        System.out.print("\n");
     }
     private static void afficherAccueil(Scanner scanner) {
         

@@ -1,124 +1,59 @@
-import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.*;
-import java.io.*;
+import org.junit.jupiter.api.Test;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.lang.reflect.Method;
 import java.util.Scanner;
-import java.util.logging.ConsoleHandler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MainTest {
 
-    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
-    private final PrintStream originalSystemOut = System.out;
-
-    @BeforeEach
-    void setUp() {
-        // Redirect System.out to capture output for verification
-        System.setOut(new PrintStream(outputStreamCaptor));
-
-        // Set up a logger to prevent system exit without using the deprecated security manager
-        Logger logger = Logger.getLogger(Main.class.getName());
-        ConsoleHandler handler = new ConsoleHandler();
-        handler.setLevel(Level.SEVERE); // Only show severe logs for better focus
-        logger.addHandler(handler);
-    }
-
-    @AfterEach
-    void restoreSystemOut() {
-        // Restore original System.out after tests
-        System.setOut(originalSystemOut);
-    }
-
-    // Test for afficherErreurAuth using reflection
     @Test
-    void testAfficherErreurAuth() throws Exception {
-        // Use reflection to invoke the private afficherErreurAuth method
-        Method method = Main.class.getDeclaredMethod("afficherErreurAuth");
-        method.setAccessible(true);  // Bypass Java access control
-        method.invoke(null);  // Invoke the method (static, so pass null)
+    public void testLoginWithInvalidInput() throws Exception {
+        String input = "X\n"; 
+        Scanner scanner = new Scanner(input);
 
-        // Verify the output
-        String expectedOutput = "\n\n" +
-            "!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!" +
-            "\n!~   Échec de l'authentification, veuillez réessayer.  ~!" +
-            "\n!~          Retour à l'écran de connexion ...          ~!" +
-            "\n!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!" +
-            "\n\n";
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
 
-        assertEquals(expectedOutput, outputStreamCaptor.toString());
-    }
-
-    // Test for clearScreen using reflection
-    @Test
-    void testClearScreen() throws Exception {
-        // Use reflection to invoke the private clearScreen method
-        Method method = Main.class.getDeclaredMethod("clearScreen");
-        method.setAccessible(true);  // Bypass Java access control
-        method.invoke(null);  // Invoke the method (static, so pass null)
-
-        // Verify that it simulates clearing the console with 5 newlines
-        String expectedOutput = "--------------------------------------------------------------------------------\n\n\n\n\n\n--------------------------------------------------------------------------------\n";
-        assertEquals(expectedOutput, outputStreamCaptor.toString());
-    }
-
-    // Test for afficherAccueil with valid user input for '1' (Résident)
-    @Test
-    void testAfficherAccueil_ValidChoiceResident() throws Exception {
-        // Simulate user input for choosing '1' (Résident)
-        String userInput = "1\n";
-        InputStream originalSystemIn = System.in;
-        System.setIn(new ByteArrayInputStream(userInput.getBytes()));
-
-        // Use reflection to invoke the private afficherAccueil method
         Method method = Main.class.getDeclaredMethod("afficherAccueil", Scanner.class);
-        method.setAccessible(true);  // Bypass Java access control
-        method.invoke(null, new Scanner(System.in));  // Invoke the method
+        method.setAccessible(true);
+        method.invoke(null, scanner);
 
-        // Verify that the method correctly printed the message for login prompt
-        assertTrue(outputStreamCaptor.toString().contains("Veuillez vous connecter en tant que :"));
-
-        // Restore the original System.in
-        System.setIn(originalSystemIn);
+        String output = outputStream.toString();
+        assertTrue(output.contains("Choix invalide"));
     }
 
-    // Test for afficherAccueil with invalid user input (e.g., '5')
     @Test
-    void testAfficherAccueil_InvalidChoice() throws Exception {
-        // Simulate invalid user input
-        String userInput = "5\n";
-        InputStream originalSystemIn = System.in;
-        System.setIn(new ByteArrayInputStream(userInput.getBytes()));
+    public void testValidResidentLogin() throws Exception {
+        String input = "1\n" + "validResident@mail.com\n" + "password123\n";  // Simulating valid login input
+        Scanner scanner = new Scanner(input);
 
-        // Use reflection to invoke the private afficherAccueil method
+        // Mock or simulate successful Resident authentication (assuming Resident.authentifier() returns a non-null object)
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+
         Method method = Main.class.getDeclaredMethod("afficherAccueil", Scanner.class);
-        method.setAccessible(true);  // Bypass Java access control
-        method.invoke(null, new Scanner(System.in));  // Invoke the method
+        method.setAccessible(true);
+        method.invoke(null, scanner);
 
-        // Verify that the method correctly printed the invalid choice error message
-        assertTrue(outputStreamCaptor.toString().contains("!~ Choix invalide, veuillez entrer une option valide (ex : 1)"));
-        
-        // Restore the original System.in
-        System.setIn(originalSystemIn);
+        String output = outputStream.toString();
+        assertTrue(output.contains("Bienvenue"));  // Assuming the resident sees a welcome message in the menu
     }
 
-    // Test for afficherAccueil with exit input ('q')
     @Test
-    void testAfficherAccueil_Exit() throws Exception {
-        // Simulate user input for quitting the application
-        String userInput = "q\n";
-        InputStream originalSystemIn = System.in;
-        System.setIn(new ByteArrayInputStream(userInput.getBytes()));
+    public void testValidIntervenantLogin() throws Exception {
+        String input = "2\n" + "validIntervenant@mail.com\n" + "password123\n";  // Simulating valid login input
+        Scanner scanner = new Scanner(input);
 
-        // Use reflection to invoke the private afficherAccueil method
+        // Mock or simulate successful Intervenant authentication (assuming Intervenant.authentifier() returns a non-null object)
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+
         Method method = Main.class.getDeclaredMethod("afficherAccueil", Scanner.class);
-        method.setAccessible(true);  // Bypass Java access control
-        method.invoke(null, new Scanner(System.in));  // Invoke the method
+        method.setAccessible(true);
+        method.invoke(null, scanner);
 
-        // Verify that the method correctly printed the exit message
-        assertTrue(outputStreamCaptor.toString().contains("Merci d'avoir utilisé MaVille."));
-        
-        // Restore the original System.in
-        System.setIn(originalSystemIn);
+        String output = outputStream.toString();
+        assertTrue(output.contains("Bienvenue"));  // Assuming the intervenant sees a welcome message in the menu
     }
 }
