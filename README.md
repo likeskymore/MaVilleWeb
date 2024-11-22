@@ -27,6 +27,8 @@ Ce dossier contient tout ce qui concerne le projet. Voici comment il est organis
         target/ : des fichiers crées par Maven pendant la construction du code
         pom.xml : fichier de configuration du projet Maven
 
+    MaVille-groupe46-2.0.jar:
+        contient l'application Java compilée pour simuler l'appli MaVille
 
 
 
