@@ -33,7 +33,6 @@
 
     <build>
         <plugins>
-            <!-- Maven Assembly Plugin to create a fat JAR -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
