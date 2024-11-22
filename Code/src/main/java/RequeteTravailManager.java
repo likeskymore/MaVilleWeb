@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -5,6 +6,23 @@ import java.util.stream.Collectors;
 
 public class RequeteTravailManager {
     private static List<RequeteTravail> requetesTravail = new ArrayList<>();
+
+    public static void initialiserRequetes() {
+    // Création de résidents 
+    Resident resident1 = new Resident("resident1@mail.com", "Quartier A");
+    Resident resident2 = new Resident("resident2@mail.com", "Quartier B");
+    Resident resident3 = new Resident("resident3@mail.com", "Quartier C");
+
+    // Ajout de requêtes fictives (initialiser avec 3)
+    ajouterRequete(new RequeteTravail(resident1, "Réparation de route", "Réparer les nids de poule", 
+            TypeTravail.ROUTIER, LocalDate.now().plusDays(10)));
+    ajouterRequete(new RequeteTravail(resident2, "Entretien de parc", "Nettoyage et aménagement", 
+            TypeTravail.ENTRETIEN_PAYSAGER, LocalDate.now().plusDays(15)));
+    ajouterRequete(new RequeteTravail(resident3, "Installation d'éclairage", "Installer des lampadaires LED", 
+            TypeTravail.SIGNALISATION_ECLAIRAGE, LocalDate.now().plusDays(20)));
+}
+
+
 
     public static void ajouterRequete(RequeteTravail requete) {
         requetesTravail.add(requete);
