@@ -16,7 +16,10 @@ public class Resident {
 
     private static final String[] RESIDENTS = {
         "resident1@mail.com:password1:Verdun", 
-        "resident2@mail.com:password2:Anjou"
+        "resident2@mail.com:password2:Anjou",
+        "resident3@mail.com:password3:Lachine",
+        "resident4@mail.com:password4:Lasalle"
+
     };
 
     private String username;
@@ -30,7 +33,9 @@ public class Resident {
     public static Resident authentifier(Scanner scanner) {
         clearScreen();
         System.out.println("\n");
+        System.out.println("- - - - - - - - - - - - - - - - - - - - - - - -");
         System.out.println("Veuillez vous authentifier en tant que résident");
+        System.out.println("- - - - - - - - - - - - - - - - - - - - - - - -");
         System.out.println();
         System.out.println("Adresse courriel :");
         String username = scanner.nextLine();
@@ -100,26 +105,8 @@ public class Resident {
         }
     }
 
-/*  //Test temporaire
-    public void afficherRequetes() {
-        List<RequeteTravail> toutesLesRequetes = RequeteTravailManager.getRequetes();
+
     
-        if (toutesLesRequetes.isEmpty()) {
-            System.out.println("Aucune requête n'a encore été soumise.");
-            return;
-        }
-    
-        System.out.println("\n--- Liste des Requêtes de Travail ---");
-        for (int i = 0; i < toutesLesRequetes.size(); i++) {
-            System.out.println("[" + (i + 1) + "] " + toutesLesRequetes.get(i));
-        }
-        System.out.println("\nAppuyez sur 'Enter' pour revenir au menu principal.");
-        new Scanner(System.in).nextLine();
-    }*/
-        
-
-
-
 
     // Handles the Travaux submenu
     private void handleTravauxMenu(Scanner scanner) {
@@ -157,10 +144,16 @@ public class Resident {
     private void handleSoumissionRequete(Scanner scanner) {
         while (true) {
             clearScreen();
-            System.out.println("Soumission Requete...");
-            System.out.println("1. pour soummettre une requete");
-            System.out.println("[M]. Retour au menu principal");
-            System.out.println("[Q]. Quitter l'application");
+            System.out.println("- - - - - - - - - - - - - - - - - - - - - - - -");
+            System.out.println("Veuillez choisir ce que vous voulez accomplir :");
+            System.out.println("- - - - - - - - - - - - - - - - - - - - - - - -");
+            System.out.println();
+            System.out.println("+------------------------------------------------+");
+            System.out.println("|[1] Remplir le formulaire de requête de travaux |");
+            System.out.println("+------------------------------------------------+");
+            System.out.print("\n\n");
+            System.out.println("[M] Retour au menu principal");
+            System.out.println("[Q] Quitter l'application");
             
             String choix = scanner.nextLine();
             switch (choix) {
@@ -238,6 +231,7 @@ public class Resident {
             System.out.println("[Q]. Quitter l'application");
             
             String choix = scanner.nextLine();
+            
             switch (choix) {
                 case "1":
                     consulterEntraves(scanner);
@@ -566,18 +560,30 @@ public class Resident {
         System.out.println("                  --- Soumettre une Requête de Travail ---                 ");
         System.out.println("* * * Vous pouvez annuler la soumission à tout moment en entrant 'A'. * * *");
         
-        System.out.print("Titre du travail : ");
-        String titre = scanner.nextLine();
-        if (titre.equalsIgnoreCase("A")) {
-            System.out.println("Soumission annulée. Retour au menu principal.");
-            return;
+        String titre = null;
+        while (titre == null || titre.isEmpty()) {
+            System.out.print("Titre du travail : ");
+            titre = scanner.nextLine().trim();
+            if (titre.equalsIgnoreCase("A")) {
+                System.out.println("Soumission annulée. Retour au menu principal.");
+                return;
+            }
+            if (titre.isEmpty()) {
+                System.out.println("Erreur : Le titre ne peut pas être vide. Veuillez entrer un titre valide.");
+            }
         }
 
-        System.out.print("Description détaillée : ");
-        String description = scanner.nextLine();
-        if (description.equalsIgnoreCase("A")) {
-            System.out.println("Soumission annulée. Retour au menu principal.");
-            return;
+        String description = null;
+        while (description == null || description.isEmpty()) {
+            System.out.print("Description détaillée : ");
+            description = scanner.nextLine().trim();
+            if (description.equalsIgnoreCase("A")) {
+                System.out.println("Soumission annulée. Retour au menu principal.");
+                return;
+            }
+            if (description.isEmpty()) {
+                System.out.println("Erreur : La description ne peut pas être vide. Veuillez entrer une description valide.");
+            }
         }
 
         TypeTravail typeTravaux = null; 
@@ -594,11 +600,12 @@ public class Resident {
             System.out.println("9. Entretien Urbain");
             System.out.println("10. Réseaux de Télécommunication");
             
-            String choix = scanner.nextLine();
-            if (choix.equalsIgnoreCase("A")) {
+            String choix = scanner.nextLine().trim();
+            if (titre.equalsIgnoreCase("A")) {
                 System.out.println("Soumission annulée. Retour au menu principal.");
                 return;
             }
+            
             switch (choix) {
                     case "1":
                     typeTravaux = TypeTravail.ROUTIER;
@@ -639,14 +646,16 @@ public class Resident {
 
         LocalDate dateDebut = null;
         while (dateDebut == null) {
+            
             System.out.print("Date de début espérée (format yyyy-mm-dd) : ");
             String dateInput = scanner.nextLine();
+            
             if (dateInput.equalsIgnoreCase("A")) {
                 System.out.println("Soumission annulée. Retour au menu principal.");
                 return; 
             }
             try {
-                LocalDate dateSaisie = LocalDate.parse(scanner.nextLine());
+                LocalDate dateSaisie = LocalDate.parse(dateInput);
                 if (dateSaisie.isAfter(LocalDate.now())) {
                     dateDebut = dateSaisie; // Date valide
                 } else {

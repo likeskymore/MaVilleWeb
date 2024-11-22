@@ -5,6 +5,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         boolean applicationEnCours = true;
+        RequeteTravailManager.initialiserRequetes();  // initialisation des 3 requetes
 
         while (applicationEnCours) {
             afficherAccueil(scanner);
@@ -68,6 +69,7 @@ public class Main {
                     if (intervenant != null) { 
                         intervenant.afficherMenuPrincipal(scanner);
                     } else {
+                        clearScreen();
                         afficherErreurAuth();
                     }
                     break;

@@ -12,7 +12,8 @@ public class Intervenant {
     }
 
     public static Intervenant authentifier(Scanner scanner) {
-        System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        clearScreen();
+        System.out.println("\n");
         System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - -");
         System.out.println("Veuillez vous authentifier en tant qu'intervenant");
         System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - -");
@@ -36,12 +37,12 @@ public class Intervenant {
         boolean enSession = true;  // Variable qui controle la boucle du menu.
 
         while (enSession) {
-        System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-        System.out.println("\nBienvenue intervenant!");
+        System.out.print("\n\n");
+        System.out.println("   -  -  -  Bienvenue intervenant!  -  -  -    ");
         System.out.println("\n");
-        System.out.println("- - - - - - - - - - - - - - - - - - - - - - -");
-        System.out.println("Veuillez choisir ce que vous voulez accomplir");
-        System.out.println("- - - - - - - - - - - - - - - - - - - - - - -");
+        System.out.println("- - - - - - - - - - - - - - - - - - - - - - - -");
+        System.out.println("Veuillez choisir ce que vous voulez accomplir :");
+        System.out.println("- - - - - - - - - - - - - - - - - - - - - - - -");
         System.out.println();
         System.out.println("  +-------------------------------------------------+");
         System.out.println("  |[1] Consulter les requêtes de travail ~ ~ ~ ~ ~ ~|");
@@ -57,19 +58,7 @@ public class Intervenant {
         String choix = scanner.nextLine();
             switch (choix) {
                 case "1":
-                    System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-                    System.out.println("- - - - - - - - - - - - - - - - - - - ");                 
-                    System.out.println("Affichage des requêtes disponibles... ");
-                    System.out.println("        Implémentation à venir        ");
-                    System.out.println("- - - - - - - - - - - - - - - - - - - ");
-                    System.out.println();
-                    System.out.println("  +------------------------------+");
-                    System.out.println("  |[M]. Retour au menu principal |");         
-                    System.out.println("  +------------------------------+");
-                    System.out.print("\n\n");
-                    System.out.println("- - [Q] Quitter l'application - -");
                     consulterRequetes(scanner);
-                    sousMenu(scanner);
                     break;
 
                 case "2":
@@ -161,7 +150,7 @@ public class Intervenant {
 
     switch (choix) {
         case "2":
-            System.out.print("Entrez le type de travaux (ex : ROUTIER, GAZ_ELECTRIQUE) : ");
+            System.out.print("Entrez le type de travaux (ex : ROUTIER, GAZ_ELECTRIQUE) (implémentation incomplète): ");
             try {
                 TypeTravail type = TypeTravail.valueOf(scanner.nextLine().toUpperCase());
                 requetesFiltrees = RequeteTravailManager.filtrerRequetesParType(type);
@@ -174,7 +163,7 @@ public class Intervenant {
             requetesFiltrees = RequeteTravailManager.filtrerRequetesParDate();
             break;
         case "4":
-            System.out.print("Entrez le quartier : ");
+            System.out.print("Entrez le quartier :     (implémentation incomplète)");
             String quartier = scanner.nextLine();
             requetesFiltrees = RequeteTravailManager.filtrerRequetesParQuartier(quartier);
             break;
@@ -196,7 +185,12 @@ public class Intervenant {
 }
 
 
-
+    public static void clearScreen() {  
+        System.out.print("--------------------------------------------------------------------------------");
+        System.out.print("\n".repeat(5)); // Simulates clearing the console
+        System.out.print("--------------------------------------------------------------------------------");
+        System.out.print("\n");
+    }
 
 
     private void sousMenu(Scanner scanner) {
