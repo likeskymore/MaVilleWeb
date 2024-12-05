@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
+import Controller.RequeteTravailManager;
 import Model.Intervenant;
-import Model.RequeteTravailManager;
 import Model.Resident;
 
 public class Main {

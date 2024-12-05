@@ -13,6 +13,8 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 
+import Controller.RequeteTravailManager;
+
 public class Resident {
 
     private static final String[] RESIDENTS = {

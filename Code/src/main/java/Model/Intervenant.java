@@ -2,6 +2,8 @@ package Model;
 import java.util.List;
 import java.util.Scanner;
 
+import Controller.RequeteTravailManager;
+
 public class Intervenant {
 
     // Gestion temporaire des user/password qui sont valides)
