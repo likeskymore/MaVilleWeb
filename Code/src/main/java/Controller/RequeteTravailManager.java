@@ -1,9 +1,14 @@
-package Model;
+package Controller;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import Model.RequeteTravail;
+import Model.Resident;
+import Model.TypeTravail;
 
 public class RequeteTravailManager {
     private static List<RequeteTravail> requetesTravail = new ArrayList<>();
