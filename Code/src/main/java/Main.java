@@ -1,5 +1,9 @@
 import java.util.Scanner;
 
+import Model.Intervenant;
+import Model.RequeteTravailManager;
+import Model.Resident;
+
 public class Main {
 
     public static void main(String[] args) {

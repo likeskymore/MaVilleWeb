@@ -1,5 +1,8 @@
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
+
+import Model.Intervenant;
+
 import java.io.*;
 import java.util.*;
 
