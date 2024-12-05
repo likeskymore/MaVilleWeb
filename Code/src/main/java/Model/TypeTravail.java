@@ -1,3 +1,4 @@
+package Model;
 public enum TypeTravail {
     ROUTIER,
     GAZ_ELECTRIQUE,

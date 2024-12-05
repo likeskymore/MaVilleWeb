@@ -1,3 +1,4 @@
+package Model;
 public enum StatutProjet {
     EN_ATTENTE,
     PREVU,

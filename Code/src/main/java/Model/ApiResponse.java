@@ -1,3 +1,4 @@
+package Model;
 
 public class ApiResponse {
     private final int statusCode;
