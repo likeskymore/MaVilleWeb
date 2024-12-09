@@ -21,6 +21,8 @@ public abstract class Travail {
         this.type = type;
     }
 
+    public Travail() {}
+
     // Abstract methods that subclasses need to implement
     public void updateStatut(StatutProjet nouveauStatut) {
         this.statut = nouveauStatut;

@@ -15,6 +15,8 @@ public class Entraves extends Travail {
         this.niveauImpact = niveauImpact;
     }
 
+    public Entraves() {}
+
     // Implementing the abstract method to update the project status
     @Override
     public void updateStatut(StatutProjet nouveauStatut) {

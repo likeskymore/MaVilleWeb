@@ -9,32 +9,38 @@ public class MenuIntervenant extends Menu {
     @Override
     public void start() {
         while (running) {
-            showMenu();
+            showMenu(0.0);
             handleInput();
         }
         exit();
     }
 
     @Override
-    public void showMenu() {
-        System.out.print("\n\n");
-        System.out.println("   -  -  -  Bienvenue intervenant!  -  -  -    ");
-        System.out.println("\n");
-        System.out.println("- - - - - - - - - - - - - - - - - - - - - - - -");
-        System.out.println("Veuillez choisir ce que vous voulez accomplir :");
-        System.out.println("- - - - - - - - - - - - - - - - - - - - - - - -");
-        System.out.println();
-        System.out.println("  +-------------------------------------------------+");
-        System.out.println("  |[1] Consulter les requêtes de travail ~ ~ ~ ~ ~ ~|");
-        System.out.println("  |-------------------------------------------------|");
-        System.out.println("  |[2] Soumettre un nouveau projet ~ ~ ~ ~ ~ ~ ~ ~ ~|");
-        System.out.println("  |-------------------------------------------------|");
-        System.out.println("  |[3] Mettre à jour les informations d'un chantier |");
-        System.out.println("  +-------------------------------------------------+");
-        System.out.print("\n\n");
-        System.out.println("- - [D] Se déconnecter - -");
-        System.out.println("- - [Q] Quitter l'application - -");
+    public void showMenu(Double level) {
+        if (level == 0.0) {
+            System.out.print("\n\n");
+            System.out.println("   -  -  -  Bienvenue intervenant!  -  -  -    ");
+            System.out.println("\n");
+            System.out.println("- - - - - - - - - - - - - - - - - - - - - - - -");
+            System.out.println("Veuillez choisir ce que vous voulez accomplir :");
+            System.out.println("- - - - - - - - - - - - - - - - - - - - - - - -");
+            System.out.println();
+            System.out.println("  +-------------------------------------------------+");
+            System.out.println("  |[1] Consulter les requêtes de travail ~ ~ ~ ~ ~ ~|");
+            System.out.println("  |-------------------------------------------------|");
+            System.out.println("  |[2] Soumettre un nouveau projet ~ ~ ~ ~ ~ ~ ~ ~ ~|");
+            System.out.println("  |-------------------------------------------------|");
+            System.out.println("  |[3] Mettre à jour les informations d'un chantier |");
+            System.out.println("  +-------------------------------------------------+");
+            System.out.print("\n\n");
+            System.out.println("- - [D] Se déconnecter - -");
+            System.out.println("- - [Q] Quitter l'application - -");
+        }
+        else if (level == 1) {
+            System.out.println("lol");
+        }
     }
+
 
     @Override
     public void select(int option) {

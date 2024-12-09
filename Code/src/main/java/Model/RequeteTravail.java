@@ -18,20 +18,17 @@ public class RequeteTravail {
         this.statut = StatutProjet.EN_ATTENTE; // Statut par défaut
     }
 
-
-    
-    
     public void setResident(Resident resident) {
         this.resident = resident;
     }
 
     // Getters
     public String getQuartier() {
-        return resident.getQuartier();
+        return resident.getAddress().getQuartier();
     }
 
     public String getResident() {
-        return resident.getUsername();
+        return resident.getName();
     }
 
     public String getTitre() {

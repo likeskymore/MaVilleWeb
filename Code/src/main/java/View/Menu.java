@@ -5,7 +5,7 @@ public abstract class Menu {
     public abstract void start();
 
     // Displays the menu options
-    public abstract void showMenu();
+    public abstract void showMenu(Double level);
 
     // Handles the selection of a menu option
     public abstract void select(int option);

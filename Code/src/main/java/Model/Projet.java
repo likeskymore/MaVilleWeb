@@ -14,6 +14,7 @@ public class Projet extends Travail {
         this.quartiersAffectes = new ArrayList<>();
         this.horaires = horaires;
     }
+    public Projet() {}
 
     // Implementing the abstract method to update the project status
     @Override

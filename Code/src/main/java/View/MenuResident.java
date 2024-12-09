@@ -4,65 +4,120 @@ import java.util.Scanner;
 
 public class MenuResident extends Menu {
     private boolean running = true;
-    private Scanner scanner = new Scanner(System.in);  // Declare the scanner at the class level
+    private Scanner scanner = new Scanner(System.in);  
+    private double currentLevel = 0.0;
 
     @Override
     public void start() {
         while (running) {
-            showMenu();
+            showMenu(currentLevel);
             handleInput();
         }
-        exit();  // Close scanner when the program exits
+        exit();  
     }
 
     @Override
-    public void showMenu() {
-        System.out.println("- - - - - - - - - - - - - - - - - - - - - - - -");
-        System.out.println("Veuillez choisir ce que vous voulez accomplir :");
-        System.out.println("- - - - - - - - - - - - - - - - - - - - - - - -");
-        System.out.println();
-        System.out.println("  +-------------------------------------+");
-        System.out.println("  |[1] Soumettre une requête de travaux |");
-        System.out.println("  |-------------------------------------|");
-        System.out.println("  |[2] Rechercher des travaux ~ ~ ~ ~ ~ |");
-        System.out.println("  |-------------------------------------|");
-        System.out.println("  |[3] Notifications ~ ~ ~ ~ ~ ~ ~ ~ ~ ~|");
-        System.out.println("  |-------------------------------------|");
-        System.out.println("  |[4] Planification participative ~ ~ ~|");
-        System.out.println("  |-------------------------------------|");
-        System.out.println("  |[5] Consulter les entraves ~ ~ ~ ~ ~ |");
-        System.out.println("  |-------------------------------------|");
-        System.out.println("  |[6] Consulter mes requêtes ~ ~ ~ ~ ~ |");
-        System.out.println("  +-------------------------------------+");
-        System.out.print("\n\n");
-        System.out.println("- - [D] Se déconnecter - -");
-        System.out.println("- - [Q] Quitter l'application - -");
+    public void showMenu(Double level) {
+        if (level == 0.0) {
+            System.out.println("- - - - - - - - - - - - - - - - - - - - - - - -");
+            System.out.println("Veuillez choisir ce que vous voulez accomplir :");
+            System.out.println("- - - - - - - - - - - - - - - - - - - - - - - -");
+            System.out.println();
+            System.out.println("  +-------------------------------------+");
+            System.out.println("  |[1] Soumettre une requête de travaux |");
+            System.out.println("  |-------------------------------------|");
+            System.out.println("  |[2] Rechercher des travaux ~ ~ ~ ~ ~ |");
+            System.out.println("  |-------------------------------------|");
+            System.out.println("  |[3] Notifications ~ ~ ~ ~ ~ ~ ~ ~ ~ ~|");
+            System.out.println("  |-------------------------------------|");
+            System.out.println("  |[4] Planification participative ~ ~ ~|");
+            System.out.println("  |-------------------------------------|");
+            System.out.println("  |[5] Consulter les entraves ~ ~ ~ ~ ~ |");
+            System.out.println("  |-------------------------------------|");
+            System.out.println("  |[6] Consulter mes requêtes ~ ~ ~ ~ ~ |");
+            System.out.println("  +-------------------------------------+");
+            System.out.print("\n\n");
+            System.out.println("- - [D] Se déconnecter - -");
+            System.out.println("- - [Q] Quitter l'application - -");
+        }
+        else if (level == 1.0){
+            System.out.println("- - - - - - - - - - - - - - - - - - - - - - - -");
+            System.out.println("Veuillez choisir ce que vous voulez accomplir :");
+            System.out.println("- - - - - - - - - - - - - - - - - - - - - - - -");
+            System.out.println();
+            System.out.println("+------------------------------------------------+");
+            System.out.println("|[1] Remplir le formulaire de requête de travaux |");
+            System.out.println("+------------------------------------------------+");
+            System.out.print("\n\n");
+            System.out.println("[M] Retour au menu principal");
+            System.out.println("[Q] Quitter l'application");
+        }
+        else if (level == 2.0){
+            System.out.println("1. Consulter les travaux en cours ou à venir");
+            System.out.println("2. Rechercher des travaux par filtres");
+            System.out.println("[M]. Retour au menu principal");
+            System.out.println("[Q]. Quitter l'application");
+        }
+        else if (level == 3.0){
+            System.out.println("Personaliser les notifications...");
+            System.out.println("Implementation à venir.");
+            System.out.println("[M]. Retour au menu principal");
+            System.out.println("[Q]. Quitter l'application");
+        }
+        else if (level == 4.0){
+            System.out.println("Planification participative...");
+            System.out.println("Implementation à venir.");
+            System.out.println("[M]. Retour au menu principal");
+            System.out.println("[Q]. Quitter l'application");
+        }
+        else if (level == 5.0){
+            System.out.println("1. Consulter les entraves routières causées par les travaux en cours.");
+            System.out.println("2. Filtrer les entraves par travail particulier ou par rue.");
+            System.out.println("[M]. Retour au menu principal");
+            System.out.println("[Q]. Quitter l'application");
+        }
+        else if (level == 6.0){
+            System.out.println("placeholder");
+        }
     }
 
     @Override
     public void select(int option) {
-        switch (option) {
-            case 1:
-                print("Soumettre une requête de travaux sélectionnée.");
-                break;
-            case 2:
-                print("Rechercher des travaux sélectionné.");
-                break;
-            case 3:
-                print("Accéder aux notifications.");
-                break;
-            case 4:
-                print("Planification participative sélectionnée.");
-                break;
-            case 5:
-                print("Consulter les entraves sélectionné.");
-                break;
-            case 6:
-                print("Consulter mes requêtes sélectionné.");
-                break;
-            default:
-                print("Option invalide. Veuillez réessayer.");
-                break;
+        if (currentLevel == 0.0) {
+            switch (option) {
+                case 1:
+                    currentLevel = 1.0;
+                    break;
+                case 2:
+                    currentLevel = 2.0;
+                    break;
+                case 3:
+                    currentLevel = 3.0;
+                    break;
+                case 4:
+                    currentLevel = 4.0;
+                    break;
+                case 5:
+                    currentLevel = 5.0;
+                    break;
+                case 6:
+                    currentLevel = 1.0;
+                    break;
+                default:
+                    print("Option invalide. Veuillez réessayer.");
+                    break;
+            }
+        }
+        else if (currentLevel == 1.0){
+            switch (option) {
+                case 1:
+                    
+                    break;
+            
+                default:
+                    print("Option invalide. Veuillez réessayer.");
+                    break;
+            }
         }
     }
 

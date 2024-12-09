@@ -6,9 +6,9 @@ public abstract class User {
     private String email;
     private String password;
     private String phone;
-    private String address;
+    private Address address;
 
-    public User(String id, String name, String email, String password, String phone, String address) {
+    public User(String id, String name, String email, String password, String phone, Address address) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -16,7 +16,20 @@ public abstract class User {
         this.phone = phone;
         this.address = address;
     }
+
     public User() {}
+
+    public boolean hasNotifications() {
+        return true;
+    }
+
+    public Projet getSubscribedWorks() {
+        return new Projet();
+    }
+
+    public Notification getNotifications() {
+        return new Notification();
+    }
 
     // Getters and setters
     public String getId() {
@@ -59,11 +72,13 @@ public abstract class User {
         this.phone = phone;
     }
 
-    public String getAddress() {
+    public Address getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public void setAddress(Address address) {
         this.address = address;
     }
+
+    public abstract String getDetails();
 }
