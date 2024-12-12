@@ -86,10 +86,10 @@ public class MenuResident extends Menu {
         if (currentLevel == 0.0) {
             switch (option) {
                 case 1:
-                    currentLevel = 1.0;
+                    currentLevel = 1.0; // Move to submenu level
                     break;
                 case 2:
-                    currentLevel = 2.0;
+                    currentLevel = 2.0; // Move to submenu level
                     break;
                 case 3:
                     currentLevel = 3.0;
@@ -101,22 +101,18 @@ public class MenuResident extends Menu {
                     currentLevel = 5.0;
                     break;
                 case 6:
-                    currentLevel = 1.0;
+                    currentLevel = 6.0;
                     break;
                 default:
                     print("Option invalide. Veuillez réessayer.");
                     break;
             }
-        }
-        else if (currentLevel == 1.0){
-            switch (option) {
-                case 1:
-                    
-                    break;
-            
-                default:
-                    print("Option invalide. Veuillez réessayer.");
-                    break;
+        } else if (currentLevel == 1.0) {
+            if (option == 1) {
+                System.out.println("Remplir le formulaire...");
+                // Add functionality for option 1
+            } else {
+                print("Option invalide. Veuillez réessayer.");
             }
         }
     }
@@ -126,33 +122,26 @@ public class MenuResident extends Menu {
         System.out.print("Votre choix : ");
         String input = scanner.nextLine().trim();
 
-        switch (input.toUpperCase()) {
-            case "1":
-            case "2":
-            case "3":
-            case "4":
-            case "5":
-            case "6":
-                select(Integer.parseInt(input));
-                break;
-            case "D":
-                print("Déconnexion...");
-                running = false; // Stops the menu loop
-                break;
-            case "Q":
-                print("Quitter l'application...");
-                exit();
-                break;
-            default:
+        if (input.equalsIgnoreCase("M") && currentLevel > 0.0) {
+            currentLevel = 0.0; // Return to main menu
+        } else if (input.equalsIgnoreCase("D")) {
+            print("Déconnexion...");
+            running = false; // Stops the menu loop
+        } else if (input.equalsIgnoreCase("Q")) {
+            print("Quitter l'application...");
+            exit();
+        } else {
+            try {
+                int option = Integer.parseInt(input);
+                select(option);
+            } catch (NumberFormatException e) {
                 print("Entrée invalide. Veuillez réessayer.");
-                break;
+            }
         }
     }
 
     @Override
     public void exit() {
         running = false;
-        System.out.println("Application fermée. À bientôt !");
-        scanner.close();  // Close the scanner here
     }
 }

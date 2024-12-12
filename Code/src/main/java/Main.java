@@ -1,101 +1,105 @@
 import java.util.Scanner;
-
-import Controller.RequeteTravailManager;
-import Model.Intervenant;
-import Model.Resident;
+import Model.*;
+import View.MenuIntervenant;
+import View.MenuResident;
 
 public class Main {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         boolean applicationEnCours = true;
-        RequeteTravailManager.initialiserRequetes();  // initialisation des 3 requetes
 
         while (applicationEnCours) {
-            afficherAccueil(scanner);
-            }
-
-        scanner.close();
+            applicationEnCours = afficherAccueil(scanner);  // Continue running if true
         }
 
-        public static void afficherErreurAuth() {
-            System.out.println("\n\n" +
+        scanner.close();
+    }
+
+    public static void afficherErreurAuth() {
+        System.out.println("\n\n" +
                 "!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!\n" +
                 "!~   Échec de l'authentification, veuillez réessayer.  ~!\n" +
                 "!~          Retour à l'écran de connexion ...          ~!\n" +
-                "!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!\n");
-        }
+                "!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!");
+    }
 
     public static void clearScreen() {
         System.out.print("--------------------------------------------------------------------------------");
         System.out.print("\n".repeat(5)); // Simulates clearing the console
         System.out.print("--------------------------------------------------------------------------------");
     }
-    private static void afficherAccueil(Scanner scanner) {
-        
+
+    private static boolean afficherAccueil(Scanner scanner) {
         System.out.println("+------------------------------------------+");
         System.out.println("|       Bienvenue dans l'application       |");
         System.out.println("|                 MaVille!                 |");
         System.out.println("+------------------------------------------+");
 
-         // Menu connexion
-        System.out.print( "\n\n" );
+        System.out.print("\n\n");
         System.out.println("- - - - - - - - - - - - - - - - - - -");
-        System.out.println("Veuillez vous connecter en tant que :");
+        System.out.println("Veuillez vous connecter ou vous inscrire :");
         System.out.println("- - - - - - - - - - - - - - - - - - -");
-        System.out.print( "\n" );
-        System.out.println("  +----------------+");
-        System.out.println("  |[1] Résident ~ ~|");
-        System.out.println("  |----------------|");
-        System.out.println("  |[2] Intervenant |");
-        System.out.println("  +----------------+");
+        System.out.print("\n");
+        System.out.println("  +-----------------+");
+        System.out.println("  |[1] Se connecter |");
+        System.out.println("  |-----------------|");
+        System.out.println("  |[2] S'inscrire   |");
+        System.out.println("  +-----------------+");
         System.out.print("\n\n");
         System.out.println("- - [Q] Quitter l'application - -");
 
         String choix = scanner.nextLine();
 
-            // Selon l'input, on choisi le code à executer
         switch (choix) {
             case "1":
-                Resident resident = Resident.authentifier(scanner); 
-                if (resident != null) {
-                    resident.afficherMenuPrincipal(scanner); 
-                    } else {
-                        clearScreen();
-                        afficherErreurAuth();
-                    }
-                    break;
-
-                case "2": 
-                    Intervenant intervenant = Intervenant.authentifier(scanner);
-                    if (intervenant != null) { 
-                        intervenant.afficherMenuPrincipal(scanner);
-                    } else {
-                        clearScreen();
-                        afficherErreurAuth();
-                    }
-                    break;
-                  
-                case "Q" :
-                
-                case "q" :
-                    System.out.print("\n\n");
-                    System.out.println("+--------------------------------+");
-                    System.out.println("| Merci d'avoir utilisé MaVille. |");
-                    System.out.println("|        À la prochaine!         |");
-                    System.out.println("+--------------------------------+");
-                    System.out.print("\n\n");
-                    System.exit(0);
-                    break;
-
-                default:
-                    clearScreen();
-                    System.out.print("\n\n");
-                    System.out.println("!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!");
-                    System.out.println("!~ Choix invalide, veuillez entrer une option valide (ex : 1)  ~!");
-                    System.out.println("!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!");
-                    System.out.print("\n\n");
-            }
+                return login(scanner);  // Return to login logic
+            case "2":
+                // Future implementation for sign-up
+                return true;  // Keep running the application
+            case "Q":
+            case "q":
+                System.out.print("\n\n");
+                System.out.println("+--------------------------------+");
+                System.out.println("| Merci d'avoir utilisé MaVille. |");
+                System.out.println("|        À la prochaine!         |");
+                System.out.println("+--------------------------------+");
+                return false;  // Exit the application
+            default:
+                clearScreen();
+                System.out.print("\n\n");
+                System.out.println("!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!");
+                System.out.println("!~ Choix invalide, veuillez entrer une option valide (ex : 1)  ~!");
+                System.out.println("!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!");
+                return true;  // Stay in the application
         }
-    
     }
+
+    public static boolean login(Scanner scanner) {
+        System.out.println("Veuillez entrer votre email :");
+        String email = scanner.nextLine();
+
+        System.out.println("Veuillez entrer votre mot de passe :");
+        String password = scanner.nextLine();
+
+        UserAuthenticator authenticator = new UserAuthenticator();
+        User user = authenticator.login(email, password);
+
+        if (user != null) {
+            clearScreen();
+            System.out.println("\nConnexion réussie! Bienvenue, " + user.getName() + "!\n");
+            if (user instanceof Resident) {
+                MenuResident residentMenu = new MenuResident();
+                residentMenu.start();  // This starts the resident menu
+            } else {
+                MenuIntervenant intervenantMenu = new MenuIntervenant();
+                intervenantMenu.start();  // Start the intervenant menu
+            }
+            return true;  // After logging in, return to the main menu to allow logout
+        } else {
+            clearScreen();
+            afficherErreurAuth();
+            return true;  // Retry login
+        }
+    }
+}

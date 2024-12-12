@@ -1,0 +1,141 @@
+{
+  "residents": [
+    {
+      "id": "1",
+      "name": "Resident 1",
+      "email": "resident1@mail.com",
+      "password": "password1",
+      "phone": "514-123-4567",
+      "address": {
+        "streetNumber": "13170",
+        "streetName": "Rue Cherrier",
+        "postalCode": "H1A"
+      },
+      "birthDate": "1992-05-10"
+    },
+    {
+      "id": "2",
+      "name": "Resident 2",
+      "email": "resident2@mail.com",
+      "password": "password2",
+      "phone": "514-234-5678",
+      "address": {
+        "streetNumber": "10135",
+        "streetName": "Rue de Martigny",
+        "postalCode": "H2B"
+      },
+      "birthDate": "1985-08-21"
+    },
+    {
+      "id": "3",
+      "name": "Resident 3",
+      "email": "resident3@mail.com",
+      "password": "password3",
+      "phone": "514-345-6789",
+      "address": {
+        "streetNumber": "3467",
+        "streetName": "Peel Street",
+        "postalCode": "H3A"
+      },
+      "birthDate": "1990-03-15"
+    },
+    {
+      "id": "4",
+      "name": "Resident 4",
+      "email": "resident4@mail.com",
+      "password": "password4",
+      "phone": "514-456-7890",
+      "address": {
+        "streetNumber": "2018",
+        "streetName": "Avenue de Vendôme",
+        "postalCode": "H4A"
+      },
+      "birthDate": "1998-11-30"
+    },
+    {
+      "id": "5",
+      "name": "Resident 5",
+      "email": "resident5@mail.com",
+      "password": "password5",
+      "phone": "514-567-8901",
+      "address": {
+        "streetNumber": "8050",
+        "streetName": "Avenue Papineau",
+        "postalCode": "H2E"
+      },
+      "birthDate": "1987-02-28"
+    }
+  ],
+  "intervenants": [
+    {
+      "id": "1",
+      "name": "Intervenant 1",
+      "email": "intervenant1@mail.com",
+      "password": "password1",
+      "phone": "514-678-1234",
+      "address": {
+        "streetNumber": "372",
+        "streetName": "Rue Meloche",
+        "postalCode": "H4N"
+      },
+      "cityId": "M01",
+      "type": "PRIVATE"
+    },
+    {
+      "id": "2",
+      "name": "Intervenant 2",
+      "email": "intervenant2@mail.com",
+      "password": "password2",
+      "phone": "514-789-2345",
+      "address": {
+        "streetNumber": "3446",
+        "streetName": "Avenue du Musée",
+        "postalCode": "H3G"
+      },
+      "cityId": "M02",
+      "type": "PUBLIC"
+    },
+    {
+      "id": "3",
+      "name": "Intervenant 3",
+      "email": "intervenant3@mail.com",
+      "password": "password3",
+      "phone": "514-890-3456",
+      "address": {
+        "streetNumber": "1800",
+        "streetName": "Avenue McGill College",
+        "postalCode": "H3A"
+      },
+      "cityId": "M03",
+      "type": "INDIVIDUAL"
+    },
+    {
+      "id": "4",
+      "name": "Intervenant 4",
+      "email": "intervenant4@mail.com",
+      "password": "password4",
+      "phone": "514-901-4567",
+      "address": {
+        "streetNumber": "518",
+        "streetName": "Avenue Outremont",
+        "postalCode": "H2V"
+      },
+      "cityId": "M04",
+      "type": "PRIVATE"
+    },
+    {
+      "id": "5",
+      "name": "Intervenant 5",
+      "email": "intervenant5@mail.com",
+      "password": "password5",
+      "phone": "514-123-5678",
+      "address": {
+        "streetNumber": "2200",
+        "streetName": "Rue Sherbrooke Est",
+        "postalCode": "H2K"
+      },
+      "cityId": "M05",
+      "type": "PUBLIC"
+    }
+  ]
+}
