@@ -1,3 +1,4 @@
+package Model;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
@@ -8,11 +9,33 @@ import java.io.Reader;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import Model.*;
 
 public class UserAuthenticator {
+    private static UserAuthenticator instance; // Singleton instance
     private User connectedUser;
 
+    // Private constructor for Singleton pattern
+    private UserAuthenticator() {}
+
+    /**
+     * Get the Singleton instance of UserAuthenticator.
+     *
+     * @return The Singleton instance.
+     */
+    public static UserAuthenticator getInstance() {
+        if (instance == null) {
+            instance = new UserAuthenticator();
+        }
+        return instance;
+    }
+
+    /**
+     * Log in a user by verifying their email and password.
+     *
+     * @param email    The email of the user.
+     * @param password The password of the user.
+     * @return The connected User object, or null if authentication fails.
+     */
     public User login(String email, String password) {
         try (Reader reader = new FileReader("Code/src/main/java/Data/Users.json")) {
             // Register a custom TypeAdapter for LocalDate
@@ -48,6 +71,44 @@ public class UserAuthenticator {
             e.printStackTrace();
         }
         return null; // Return null if no user is found
+    }
+
+    /**
+     * Get the role of the connected user.
+     *
+     * @return A string representing the role of the user ("Resident" or "Intervenant"),
+     * or "Unknown" if no user is connected.
+     */
+    public String getUserRole() {
+        if (connectedUser instanceof Resident) {
+            return "Resident";
+        } else if (connectedUser instanceof Intervenant) {
+            return "Intervenant";
+        }
+        return "Unknown";
+    }
+
+    /**
+     * Log out the currently connected user.
+     *
+     * @param user The user to log out. If it matches the connected user, disconnect them.
+     */
+    public void logout(User user) {
+        if (user != null && user.equals(connectedUser)) {
+            connectedUser = null;
+            System.out.println("L'utilisateur a été déconnecté avec succès.");
+        } else {
+            System.out.println("Aucun utilisateur correspondant n'est connecté.");
+        }
+    }
+
+    /**
+     * Getter for the currently connected user.
+     *
+     * @return The currently connected user, or null if no user is logged in.
+     */
+    public User getConnectedUser() {
+        return connectedUser;
     }
 
     // Custom TypeAdapter for LocalDate

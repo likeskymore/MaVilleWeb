@@ -82,7 +82,7 @@ public class Main {
         System.out.println("Veuillez entrer votre mot de passe :");
         String password = scanner.nextLine();
 
-        UserAuthenticator authenticator = new UserAuthenticator();
+        UserAuthenticator authenticator = UserAuthenticator.getInstance();
         User user = authenticator.login(email, password);
 
         if (user != null) {

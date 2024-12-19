@@ -1,8 +1,11 @@
 package View;
 
 import java.util.Scanner;
+import Controller.RequeteTravailController;
+import Model.*;
 
 public class MenuResident extends Menu {
+    Resident activeUser = (Resident) UserAuthenticator.getInstance().getConnectedUser();
     private boolean running = true;
     private Scanner scanner = new Scanner(System.in);  
     private double currentLevel = 0.0;
@@ -109,8 +112,8 @@ public class MenuResident extends Menu {
             }
         } else if (currentLevel == 1.0) {
             if (option == 1) {
-                System.out.println("Remplir le formulaire...");
-                // Add functionality for option 1
+                RequeteTravailController newRequete = new RequeteTravailController();
+                newRequete.soumettreRequete(scanner, activeUser);
             } else {
                 print("Option invalide. Veuillez réessayer.");
             }

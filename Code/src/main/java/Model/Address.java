@@ -27,7 +27,7 @@ public class Address {
 
         String prefix = postalCode.substring(0, 3).toUpperCase();
 
-        try (BufferedReader br = new BufferedReader(new FileReader("Data/codesPostaux.csv"))) { // Adjust path as needed
+        try (BufferedReader br = new BufferedReader(new FileReader("Code/src/main/java/Data/codesPostaux.csv"))) { // Adjust path as needed
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(",");

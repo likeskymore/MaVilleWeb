@@ -12,14 +12,14 @@ import Model.RequeteTravail;
 import Model.Resident;
 import Model.TypeTravail;
 
-public class RequeteTravailManager {
+public class RequeteTravailController {
     private static List<RequeteTravail> requetesTravail = new ArrayList<>();
 
     public static void initialiserRequetes() {
     // Création de résidents 
-    Resident resident1 = new Resident("resident1@mail.com", "Quartier A");
-    Resident resident2 = new Resident("resident2@mail.com", "Quartier B");
-    Resident resident3 = new Resident("resident3@mail.com", "Quartier C");
+    Resident resident1 = new Resident();
+    Resident resident2 = new Resident();
+    Resident resident3 = new Resident();
 
     // Ajout de requêtes fictives (initialiser avec 3)
     ajouterRequete(new RequeteTravail(resident1, "Réparation de route", "Réparer les nids de poule", 
@@ -40,7 +40,7 @@ public class RequeteTravailManager {
         return requetesTravail;
     }
 
-        public void soumettreRequete(Scanner scanner, Resident activeResident) {
+    public void soumettreRequete(Scanner scanner, Resident activeResident) {
         System.out.println("                  --- Soumettre une Requête de Travail ---                 ");
         System.out.println("* * * Vous pouvez annuler la soumission à tout moment en entrant 'A'. * * *");
         
@@ -154,7 +154,7 @@ public class RequeteTravailManager {
         RequeteTravail nouvelleRequete = new RequeteTravail(activeResident, titre, description, typeTravaux, dateDebut);
 
         // Ajout à la liste des requêtes
-        RequeteTravailManager.ajouterRequete(nouvelleRequete);
+        RequeteTravailController.ajouterRequete(nouvelleRequete);
 
         System.out.println("\nRequête soumise avec succès !");
         System.out.println("\n");
@@ -163,7 +163,7 @@ public class RequeteTravailManager {
 
     public static List<RequeteTravail> getRequetesParResident(Resident resident) {
     return requetesTravail.stream()
-            .filter(requete -> requete.getResident().equals(resident.getUsername()))
+            .filter(requete -> requete.getResident().equals(resident.getName()))
             .collect(Collectors.toList());
     }
 
