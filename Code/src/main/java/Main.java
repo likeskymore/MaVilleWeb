@@ -1,10 +1,12 @@
 import java.util.Scanner;
+
+import Controller.AccountController;
 import Model.*;
 import View.MenuIntervenant;
 import View.MenuResident;
 
 public class Main {
-
+    static AccountController accountController = new AccountController();   
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         boolean applicationEnCours = true;
@@ -55,7 +57,7 @@ public class Main {
             case "1":
                 return login(scanner);  // Return to login logic
             case "2":
-                // Future implementation for sign-up
+                accountController.createAccount(scanner);
                 return true;  // Keep running the application
             case "Q":
             case "q":

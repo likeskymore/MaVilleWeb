@@ -5,8 +5,8 @@ public class Intervenant extends User {
     private IntervenantType type;
 
     // Constructor with all fields
-    public Intervenant(String id, String name, String email, String password, String phone, Address address, String cityId, IntervenantType type) {
-        super(id, name, email, password, phone, address);  // Call the superclass (User) constructor
+    public Intervenant(String id, String name, String email, String password, String cityId, IntervenantType type) {
+        super(id, name, email, password);  // Call the superclass (User) constructor
         this.cityId = cityId;
         this.type = type;
     }
@@ -58,8 +58,6 @@ public class Intervenant extends User {
                 "id='" + getId() + '\'' +
                 ", name='" + getName() + '\'' +
                 ", email='" + getEmail() + '\'' +
-                ", phone='" + getPhone() + '\'' +
-                ", address=" + getAddress() +
                 ", cityId='" + cityId + '\'' +
                 ", type=" + type +
                 '}';

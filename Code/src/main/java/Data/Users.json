@@ -64,6 +64,18 @@
         "postalCode": "H2E"
       },
       "birthDate": "1987-02-28"
+    },
+    {
+      "id": "6",
+      "name": "a",
+      "email": "trung7p@gmail.com",
+      "password": "trung123",
+      "birthDate": "2004-10-29",
+      "address": {
+        "streetNumber": "8050",
+        "streetName": "ave papineau",
+        "postalCode": "H2E"
+      }
     }
   ],
   "intervenants": [
@@ -72,13 +84,7 @@
       "name": "Intervenant 1",
       "email": "intervenant1@mail.com",
       "password": "password1",
-      "phone": "514-678-1234",
-      "address": {
-        "streetNumber": "372",
-        "streetName": "Rue Meloche",
-        "postalCode": "H4N"
-      },
-      "cityId": "M01",
+      "cityId": "45552394",
       "type": "PRIVATE"
     },
     {
@@ -86,13 +92,7 @@
       "name": "Intervenant 2",
       "email": "intervenant2@mail.com",
       "password": "password2",
-      "phone": "514-789-2345",
-      "address": {
-        "streetNumber": "3446",
-        "streetName": "Avenue du Musée",
-        "postalCode": "H3G"
-      },
-      "cityId": "M02",
+      "cityId": "72208052",
       "type": "PUBLIC"
     },
     {
@@ -100,13 +100,7 @@
       "name": "Intervenant 3",
       "email": "intervenant3@mail.com",
       "password": "password3",
-      "phone": "514-890-3456",
-      "address": {
-        "streetNumber": "1800",
-        "streetName": "Avenue McGill College",
-        "postalCode": "H3A"
-      },
-      "cityId": "M03",
+      "cityId": "43305466",
       "type": "INDIVIDUAL"
     },
     {
@@ -114,13 +108,7 @@
       "name": "Intervenant 4",
       "email": "intervenant4@mail.com",
       "password": "password4",
-      "phone": "514-901-4567",
-      "address": {
-        "streetNumber": "518",
-        "streetName": "Avenue Outremont",
-        "postalCode": "H2V"
-      },
-      "cityId": "M04",
+      "cityId": "41712833",
       "type": "PRIVATE"
     },
     {
@@ -128,14 +116,16 @@
       "name": "Intervenant 5",
       "email": "intervenant5@mail.com",
       "password": "password5",
-      "phone": "514-123-5678",
-      "address": {
-        "streetNumber": "2200",
-        "streetName": "Rue Sherbrooke Est",
-        "postalCode": "H2K"
-      },
-      "cityId": "M05",
+      "cityId": "65567354",
       "type": "PUBLIC"
+    },
+    {
+      "id": "6",
+      "name": "lmao",
+      "email": "trung12@gmail.com",
+      "password": "trung123",
+      "cityId": "09834382",
+      "type": "PRIVATE"
     }
   ]
 }

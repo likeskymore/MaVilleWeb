@@ -4,10 +4,12 @@ import java.time.LocalDate;
 
 public class Resident extends User {
     private LocalDate birthDate;
+    private Address address; // Unique attribute for Resident
 
     // Constructor with all fields
-    public Resident(String id, String name, String email, String password, String phone, Address address, LocalDate birthDate) {
-        super(id, name, email, password, phone, address);
+    public Resident(String id, String name, String email, String password, Address address, LocalDate birthDate) {
+        super(id, name, email, password);
+        this.address = address;
         this.birthDate = birthDate;
     }
 
@@ -16,13 +18,21 @@ public class Resident extends User {
         super();
     }
 
-    // Getter and setter for birthDate
+    // Getters and setters for unique attributes
     public LocalDate getBirthDate() {
         return birthDate;
     }
 
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     @Override
@@ -39,7 +49,7 @@ public class Resident extends User {
 
     @Override
     public Notification getNotifications() {
-        // Fixed typo in method name from geNotifications to getNotifications
+        // Optional: Custom implementation for residents
         return super.getNotifications();
     }
 
@@ -49,8 +59,7 @@ public class Resident extends User {
                 "id='" + getId() + '\'' +
                 ", name='" + getName() + '\'' +
                 ", email='" + getEmail() + '\'' +
-                ", phone='" + getPhone() + '\'' +
-                ", address=" + getAddress() +
+                ", address=" + address +
                 ", birthDate=" + birthDate +
                 '}';
     }
