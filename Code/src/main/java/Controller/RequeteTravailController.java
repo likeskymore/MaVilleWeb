@@ -161,6 +161,70 @@ public class RequeteTravailController {
         System.out.println(nouvelleRequete);
     }
 
+    public void consulterMesRequetes(Scanner scanner, Resident activResident) {
+        List<RequeteTravail> mesRequetes = RequeteTravailController.getRequetesParResident(activResident);
+    
+        if (mesRequetes.isEmpty()) {
+            System.out.println("\nVous n'avez soumis aucune requête de travail.");
+            return;
+        }
+    
+        System.out.println("\n--- Vos Requêtes de Travail ---");
+        for (int i = 0; i < mesRequetes.size(); i++) {
+            System.out.println("[" + (i + 1) + "] " + mesRequetes.get(i));
+        }
+    
+        System.out.println("\nAppuyez sur 'Enter' pour revenir au menu principal.");
+        scanner.nextLine();
+    }
+
+    public void consulterRequetes(Scanner scanner) {
+        System.out.println("\n--- Liste des Requêtes de Travail ---");
+        System.out.println("Voulez-vous appliquer un filtre ?");
+        System.out.println("1. Pas de filtre");
+        System.out.println("2. Filtrer par type de travaux");
+        System.out.println("3. Filtrer par date (plus récentes d'abord)");
+        System.out.println("4. Filtrer par quartier");
+
+        String choix = scanner.nextLine();
+        List<RequeteTravail> requetesFiltrees;
+
+        switch (choix) {
+            case "2":
+                System.out.print("Entrez le type de travaux (ex : ROUTIER, GAZ_ELECTRIQUE) (implémentation incomplète): ");
+                try {
+                    TypeTravail type = TypeTravail.valueOf(scanner.nextLine().toUpperCase());
+                    requetesFiltrees = RequeteTravailController.filtrerRequetesParType(type);
+                } catch (IllegalArgumentException e) {
+                    System.out.println("Type invalide. Affichage de toutes les requêtes.");
+                    requetesFiltrees = RequeteTravailController.getRequetes();
+                }
+                break;
+            case "3":
+                requetesFiltrees = RequeteTravailController.filtrerRequetesParDate();
+                break;
+            case "4":
+                System.out.print("Entrez le quartier :     (implémentation incomplète)");
+                String quartier = scanner.nextLine();
+                requetesFiltrees = RequeteTravailController.filtrerRequetesParQuartier(quartier);
+                break;
+            default:
+                requetesFiltrees = RequeteTravailController.getRequetes();
+                break;
+        }
+
+        if (requetesFiltrees.isEmpty()) {
+            System.out.println("\nAucune requête correspondant à vos critères.");
+        } else {
+            for (int i = 0; i < requetesFiltrees.size(); i++) {
+                System.out.println("[" + (i + 1) + "] " + requetesFiltrees.get(i));
+            }
+        }
+
+        System.out.println("\nAppuyez sur 'Enter' pour revenir au menu principal.");
+        scanner.nextLine();
+    }
+
     public static List<RequeteTravail> getRequetesParResident(Resident resident) {
     return requetesTravail.stream()
             .filter(requete -> requete.getResident().equals(resident.getName()))

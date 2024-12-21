@@ -2,7 +2,11 @@ package View;
 
 import java.util.Scanner;
 
+import Controller.RequeteTravailController;
+
 public class MenuIntervenant extends Menu {
+    RequeteTravailController requestController = new RequeteTravailController(); 
+    double currentLevel = 0.0;             
     private boolean running = true;
     private Scanner scanner = new Scanner(System.in);
 
@@ -36,23 +40,50 @@ public class MenuIntervenant extends Menu {
             System.out.println("- - [D] Se déconnecter - -");
             System.out.println("- - [Q] Quitter l'application - -");
         }
-        else if (level == 1) {
-            System.out.println("lol");
+        else if (level == 1.0) {
+            requestController.consulterRequetes(scanner);
+        }
+        else if (level == 2.0) {
+            System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+            System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - - - "); 
+            System.out.println("Affichage du formulaire de soummission de projet... ");
+            System.out.println("               Implémentation à venir               ");
+            System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - - - ");
+            System.out.println(); 
+            System.out.println("  +------------------------------+");
+            System.out.println("  |[M]. Retour au menu principal |");         
+            System.out.println("  +------------------------------+");
+            System.out.print("\n\n");
+            System.out.println("- - [Q] Quitter l'application - -");
+        }
+        else if (level == 3.0) {
+            System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+            System.out.println("- - - - - - - - - - - - - - - - - - - - - - - -");
+            System.out.println("Affichage des projets pouvant être modifiés... ");
+            System.out.println("            Implémentation à venir             ");
+            System.out.println("- - - - - - - - - - - - - - - - - - - - - - - -");
+            System.out.println();
+            System.out.println("  +------------------------------+");
+            System.out.println("  |[M]. Retour au menu principal |");         
+            System.out.println("  +------------------------------+");
+            System.out.print("\n\n");
+            System.out.println("- - [Q] Quitter l'application - -");
         }
     }
 
 
     @Override
     public void select(int option) {
+
         switch (option) {
             case 1:
-                print("Consulter les requêtes de travail sélectionné.");
+                currentLevel = 1.0;
                 break;
             case 2:
-                print("Soumettre un nouveau projet sélectionné.");
+                currentLevel = 2.0;
                 break;
             case 3:
-                print("Mettre à jour les informations d'un chantier sélectionné.");
+                currentLevel = 3.0;
                 break;
             default:
                 print("Option invalide. Veuillez réessayer.");
@@ -65,23 +96,21 @@ public class MenuIntervenant extends Menu {
         System.out.print("Votre choix : ");
         String input = scanner.nextLine().trim();
 
-        switch (input.toUpperCase()) {
-            case "1":
-            case "2":
-            case "3":
-                select(Integer.parseInt(input));
-                break;
-            case "D":
-                print("Déconnexion...");
-                running = false; // Stops the menu loop
-                break;
-            case "Q":
-                print("Quitter l'application...");
-                exit();
-                break;
-            default:
+        if (input.equalsIgnoreCase("M") && currentLevel > 0.0) {
+            currentLevel = 0.0; // Return to main menu
+        } else if (input.equalsIgnoreCase("D")) {
+            print("Déconnexion...");
+            running = false; // Stops the menu loop
+        } else if (input.equalsIgnoreCase("Q")) {
+            print("Quitter l'application...");
+            exit();
+        } else {
+            try {
+                int option = Integer.parseInt(input);
+                select(option);
+            } catch (NumberFormatException e) {
                 print("Entrée invalide. Veuillez réessayer.");
-                break;
+            }
         }
     }
 

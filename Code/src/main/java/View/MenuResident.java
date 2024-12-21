@@ -2,9 +2,12 @@ package View;
 
 import java.util.Scanner;
 import Controller.RequeteTravailController;
+import Controller.TravailController;
 import Model.*;
 
 public class MenuResident extends Menu {
+    RequeteTravailController requestController = new RequeteTravailController();               
+    TravailController workController = new TravailController();
     Resident activeUser = (Resident) UserAuthenticator.getInstance().getConnectedUser();
     private boolean running = true;
     private Scanner scanner = new Scanner(System.in);  
@@ -61,6 +64,11 @@ public class MenuResident extends Menu {
             System.out.println("[M]. Retour au menu principal");
             System.out.println("[Q]. Quitter l'application");
         }
+        else if (level == 2.1){
+            System.out.println("Rechercher des travaux par filtres.");
+            System.out.println("1. Filtrer par quartier");
+            System.out.println("0. Retour au menu précédent");
+        }
         else if (level == 3.0){
             System.out.println("Personaliser les notifications...");
             System.out.println("Implementation à venir.");
@@ -80,7 +88,7 @@ public class MenuResident extends Menu {
             System.out.println("[Q]. Quitter l'application");
         }
         else if (level == 6.0){
-            System.out.println("placeholder");
+            requestController.consulterMesRequetes(scanner, activeUser);
         }
     }
 
@@ -110,12 +118,51 @@ public class MenuResident extends Menu {
                     print("Option invalide. Veuillez réessayer.");
                     break;
             }
-        } else if (currentLevel == 1.0) {
+        }
+        else if (currentLevel == 1.0) {
             if (option == 1) {
-                RequeteTravailController newRequete = new RequeteTravailController();
-                newRequete.soumettreRequete(scanner, activeUser);
+                requestController.soumettreRequete(scanner, activeUser);
             } else {
                 print("Option invalide. Veuillez réessayer.");
+            }
+        }
+        else if (currentLevel == 2.0){
+            switch (option) {
+                case 1:
+                    workController.projetsEnCours(scanner);
+                    break;
+                case 2:
+                    currentLevel = 2.1;
+                    break;
+                default:
+                    print("Option invalide. Veuillez réessayer.");
+                    break;
+            }
+        } 
+        else if (currentLevel == 2.1){
+            switch (option) {
+                case 1:
+                    workController.selectBorough(scanner);
+                    break;
+                case 0:
+                    currentLevel = 2.0;
+                    break;
+                default:
+                    print("Option invalide. Veuillez réessayer.");
+                    break;
+            }
+        }
+        else if (currentLevel == 5){
+            switch (option) {
+                case 1:
+                    workController.consulterEntraves(scanner);
+                    break;
+                case 2:
+                    print("something");
+                    break;
+                default:
+                    print("Option invalide. Veuillez réessayer.");
+                    break;
             }
         }
     }
