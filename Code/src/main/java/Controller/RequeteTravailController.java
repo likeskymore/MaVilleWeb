@@ -43,7 +43,8 @@ public class RequeteTravailController {
     public void soumettreRequete(Scanner scanner, Resident activeResident) {
         System.out.println("                  --- Soumettre une Requête de Travail ---                 ");
         System.out.println("* * * Vous pouvez annuler la soumission à tout moment en entrant 'A'. * * *");
-        
+    
+        // Saisie du titre
         String titre = null;
         while (titre == null || titre.isEmpty()) {
             System.out.print("Titre du travail : ");
@@ -56,7 +57,8 @@ public class RequeteTravailController {
                 System.out.println("Erreur : Le titre ne peut pas être vide. Veuillez entrer un titre valide.");
             }
         }
-
+    
+        // Saisie de la description
         String description = null;
         while (description == null || description.isEmpty()) {
             System.out.print("Description détaillée : ");
@@ -69,8 +71,9 @@ public class RequeteTravailController {
                 System.out.println("Erreur : La description ne peut pas être vide. Veuillez entrer une description valide.");
             }
         }
-
-        TypeTravail typeTravaux = null; 
+    
+        // Sélection du type de travail
+        TypeTravail typeTravaux = null;
         while (typeTravaux == null) {
             System.out.println("Entrez le numéro correspondant au type de travaux souhaité :");
             System.out.println("1. Travaux Routiers");
@@ -83,83 +86,87 @@ public class RequeteTravailController {
             System.out.println("8. Travaux Résidentiels");
             System.out.println("9. Entretien Urbain");
             System.out.println("10. Réseaux de Télécommunication");
-            
+    
             String choix = scanner.nextLine().trim();
-            if (titre.equalsIgnoreCase("A")) {
+            if (choix.equalsIgnoreCase("A")) {
                 System.out.println("Soumission annulée. Retour au menu principal.");
                 return;
             }
-            
+    
             switch (choix) {
-                    case "1":
+                case "1":
                     typeTravaux = TypeTravail.ROUTIER;
                     break;
-                    case "2":
+                case "2":
                     typeTravaux = TypeTravail.GAZ_ELECTRIQUE;
                     break;
-                    case "3":
+                case "3":
                     typeTravaux = TypeTravail.CONSTRUCTION_RENOVATION;
                     break;
-                    case "4":
+                case "4":
                     typeTravaux = TypeTravail.ENTRETIEN_PAYSAGER;
                     break;
-                    case "5":
+                case "5":
                     typeTravaux = TypeTravail.TRANSPORT_COMMUN;
                     break;
-                    case "6":
+                case "6":
                     typeTravaux = TypeTravail.SIGNALISATION_ECLAIRAGE;
                     break;
-                    case "7":
+                case "7":
                     typeTravaux = TypeTravail.SOUTERRAINS;
                     break;
-                    case "8":
+                case "8":
                     typeTravaux = TypeTravail.RESIDENTIEL;
                     break;
-                    case "9":
+                case "9":
                     typeTravaux = TypeTravail.ENTRETIEN_URBAIN;
                     break;
-                    case "10":
+                case "10":
                     typeTravaux = TypeTravail.ENTRETIEN_RESEAU_TELECOMMUNICATION;
                     break;
-                    default :
-                    System.out.println("Choix invalide. Veuillez entrer un numéro entre 1 et 10");
+                default:
+                    System.out.println("Choix invalide. Veuillez entrer un numéro entre 1 et 10.");
                     break;
             }
         }
-      
-
+    
+        // Saisie de la date de début (max 1 an dans le futur)
         LocalDate dateDebut = null;
         while (dateDebut == null) {
-            
             System.out.print("Date de début espérée (format yyyy-mm-dd) : ");
             String dateInput = scanner.nextLine();
-            
+    
             if (dateInput.equalsIgnoreCase("A")) {
                 System.out.println("Soumission annulée. Retour au menu principal.");
-                return; 
+                return;
             }
+    
             try {
                 LocalDate dateSaisie = LocalDate.parse(dateInput);
-                if (dateSaisie.isAfter(LocalDate.now())) {
+    
+                // Vérification si la date est dans le futur et dans un délai d'un an
+                if (dateSaisie.isAfter(LocalDate.now()) && dateSaisie.isBefore(LocalDate.now().plusYears(1))) {
                     dateDebut = dateSaisie; // Date valide
-                } else {
+                } else if (dateSaisie.isBefore(LocalDate.now())) {
                     System.out.println("Erreur : La date doit être dans le futur. Veuillez réessayer.");
+                } else {
+                    System.out.println("Erreur : La date ne peut pas dépasser un an à partir d'aujourd'hui. Veuillez réessayer.");
                 }
             } catch (DateTimeParseException e) {
                 System.out.println("Format de date invalide. Veuillez entrer une date au format yyyy-mm-dd.");
             }
         }
-
-        // Création de la requête
+    
+        // Création de la requête de travail
         RequeteTravail nouvelleRequete = new RequeteTravail(activeResident, titre, description, typeTravaux, dateDebut);
-
-        // Ajout à la liste des requêtes
+    
+        // Ajout de la requête à la liste des requêtes
         RequeteTravailController.ajouterRequete(nouvelleRequete);
-
+    
         System.out.println("\nRequête soumise avec succès !");
-        System.out.println("\n");
-        System.out.println(nouvelleRequete);
+        System.out.println("\n" + nouvelleRequete);
     }
+    
 
     public void consulterMesRequetes(Scanner scanner, Resident activResident) {
         List<RequeteTravail> mesRequetes = RequeteTravailController.getRequetesParResident(activResident);
