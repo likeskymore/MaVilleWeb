@@ -114,6 +114,14 @@ public class MenuIntervenant extends Menu {
         }
     }
 
+    public double getCurrentLevel() {
+        return currentLevel;
+    }
+
+    public boolean isRunning() {
+        return running;
+    }
+    
     @Override
     public void exit() {
         running = false;
