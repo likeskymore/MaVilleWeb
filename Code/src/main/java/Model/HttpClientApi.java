@@ -1,3 +1,9 @@
+/**
+ * La classe HttpClientApi fournit une interface pour effectuer des requêtes HTTP à une API REST.
+ * 
+ * Cette classe est conçue pour interagir avec des ressources distantes en effectuant
+ * des appels GET et en gérant les réponses dans des instances d'ApiResponse.
+ */
 package Model;
 
 import java.io.IOException;
@@ -9,13 +15,30 @@ import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 
 public class HttpClientApi {
+    /**
+     * URL de base de l'API.
+     */
     private static final String BASE_URL = "https://donnees.montreal.ca/api/3/action/datastore_search";
+
+    /**
+     * Instance du client HTTP utilisé pour envoyer des requêtes.
+     */
     private final HttpClient client;
 
+    /**
+     * Constructeur pour initialiser l'instance HttpClient.
+     */
     public HttpClientApi() {
         this.client = HttpClient.newHttpClient();
     }
 
+    /**
+     * Effectue une requête GET à l'API avec l'ID de ressource spécifié.
+     * 
+     * @param resourceId L'identifiant de la ressource à récupérer.
+     * @return Une instance d'ApiResponse contenant le code de statut, le message,
+     *         et le corps de la réponse. Retourne null en cas d'erreur.
+     */
     public ApiResponse getData(String resourceId) {
         try {
             // Build URI with encoded query parameters
