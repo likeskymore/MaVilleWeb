@@ -730,7 +730,7 @@
                     <li>
                         <strong style="color: #555;">Semaine 5 (4 - 11 novembre)</strong>
                         <ul>
-                            <li>Mis à jour le rapport selon le feedback</li>
+                            <li>Mise à jour le rapport selon le feedback</li>
                             <li>Décider l'architecture pour le projet</li>
                             <li>Responsables : Mamour</li>
                         </ul>
@@ -752,36 +752,36 @@
                     <li>
                         <strong style="color: #555;">Semaine 8 (23 - 29 novembre)</strong>
                         <ul>
-                            <li></li>
-                            <li>Responsables : Olivier </li>
+                            <li> Séparation des tâches. </li>
+                            <li>Responsables : Mamour,Trung,Olivier </li>
                         </ul>
                     </li>
                     <li>
                         <strong style="color: #555;">Semaine 9 (30 - 5 décembre)</strong>
                         <ul>
-                            <li></li>
-                            <li>Responsables : Olivier </li>
+                            <li>commencement du développement de la version finale de l'application.</li>
+                            <li>Responsables : Trung,Olivier </li>
                         </ul>
                     </li>
                     <li>
                         <strong style="color: #555;">Semaine 10 (6 - 12 décembre)</strong>
                         <ul>
-                            <li></li>
-                            <li>Responsables :  </li>
+                            <li> Correction du rapport</li>
+                            <li>Responsables : Mamour </li>
                         </ul>
                     </li>
                     <li>
                         <strong style="color: #555;">Semaine 11 (13 - 19 décembre)</strong>
                         <ul>
-                            <li>Mises à jour Conception</li>
+                            <li>Mise à jour echeancier et des diagrammes</li>
                             <li>Responsables : Mamour </li>
                         </ul>
                     </li>
                     <li>
                         <strong style="color: #555;">Semaine 12 (19 - 23 décembre)</strong>
                         <ul>
-                            <li></li>
-                            <li>Responsables : </li>
+                            <li>raffinement et vérification du projet </li>
+                            <li>Responsables : Mamour,Trung,Olivier</li>
                         </ul>
                     </li>
                 </ol>
@@ -1728,39 +1728,38 @@
                     <h2 id="conception" class="section-title">Conception</h2>
                     <h3 class="subsection-title">Architecture</h3>
                     <p>
-                        Nous avons opté pour un design modulaire basé sur l'architecture MVC (Modèle-Vue-Contrôleur), ce qui nous permet de maintenir une séparation claire des responsabilités dans l'application tout en facilitant sa maintenance et son évolutivité. Voici comment ce choix se traduit dans MaVille :
+                        Nous avons choisi une architecture modulaire basée sur le modèle MVC (Modèle-Vue-Contrôleur). Ce choix facilite la maintenance et l'évolution de l'application en répartissant clairement les responsabilités. Voici comment cela fonctionne dans <strong>MaVille</strong> :
                     </p>
                     <ol>
                         <li>
-                            <strong style="color: #555;">Vue (Frontend)</strong>
+                            <strong style="color: #555;">Modèle</strong>
                             <ul>
-                                <li>Les utilisateurs (résidents et intervenants) interagissent avec l'application via une interface web ou mobile. L'interface est constituée de différentes vues spécifiques à chaque type d'utilisateur, comme le <code>ResidentMenu</code> pour les résidents et le <code>IntervenantMenu</code> pour les intervenants.</li>
-                                <li>Technologies utilisées : React.js ou Vue.js pour le frontend web et Flutter pour l'application mobile.</li>
+                                <li>Le modèle gère les entités principales comme <strong>Resident</strong>, <strong>RequeteTravail</strong>, et <strong>Horaire</strong>, avec leurs attributs et méthodes.</li>
+                                <li><strong>Actuel :</strong> Les données sont gérées en mémoire, via des structures comme les <strong>ArrayList</strong> dans le contrôleur <strong>RequeteTravailController</strong>.</li>
+                                <li><strong>À venir :</strong> Une intégration avec une base de données relationnelle (ex. PostgreSQL ou MySQL) pourrait être envisagée pour une version future.</li>
                             </ul>
                         </li>
                         <li>
-                            <strong style="color: #555;">Contrôleur (Backend)</strong>
+                            <strong style="color: #555;">Contrôleur</strong>
                             <ul>
-                                <li>La logique métier et les processus de gestion des utilisateurs, des travaux et des requêtes sont centralisés sur le serveur d'application. Par exemple, le <code>UserController</code> gère les interactions avec les utilisateurs, et le <code>RequeteController</code> prend en charge les requêtes des résidents.</li>
-                                <li>Technologies possibles : Node.js avec Express, Django, ou Spring Boot.</li>
-                                <li>Communication avec le frontend : L'API RESTful ou GraphQL permet de gérer les interactions avec l'interface utilisateur.</li>
+                                <li>Les contrôleurs, comme <strong>RequeteTravailController</strong>, orchestrent les opérations sur les données et les interactions utilisateur.</li>
+                                <li><strong>Exemples :</strong> Ajouter des requêtes, les filtrer par critères (type, date, etc.), ou afficher des listes correspondantes.</li>
                             </ul>
                         </li>
                         <li>
-                            <strong style="color: #555;">Modèle (Base de Données)</strong>
+                            <strong style="color: #555;">Vue</strong>
                             <ul>
-                                <li>Les données relatives aux utilisateurs, aux travaux, aux projets et aux requêtes sont stockées dans la base de données. Par exemple, la classe <code>Utilisateur</code> contient toutes les informations liées aux utilisateurs, et <code>Travaux</code> garde une trace des projets en cours.</li>
-                                <li>Technologie utilisée : PostgreSQL ou MySQL pour la gestion des données relationnelles.</li>
+                                <li><strong>Actuel :</strong> Interaction via la console avec des entrées et sorties basiques (<strong>Scanner</strong>). Les utilisateurs peuvent soumettre des requêtes ou consulter des listes filtrées.</li>
+                                <li><strong>À venir :</strong> Une interface plus moderne pourrait être envisagée, qu'elle soit graphique (web avec React.js ou Vue.js) ou mobile (Flutter).</li>
                             </ul>
                         </li>
                     </ol>
-                
                     <h5>Composantes Additionnelles</h5>
                     <ul>
-                        <li>Service de notifications en temps réel : Utilisation de Firebase Cloud Messaging pour envoyer des notifications aux utilisateurs.</li>
-                        <li>API de géolocalisation : Utilisation de Google Maps API pour afficher les travaux sur une carte.</li>
+                        <li><strong>À venir :</strong> Service de notifications en temps réel : Utilisation de Firebase Cloud Messaging pour envoyer des notifications aux utilisateurs.</li>
+                        <li><strong>À venir :</strong> API de géolocalisation : Utilisation de Google Maps API pour afficher les travaux sur une carte.</li>
                     </ul>
-                
+                                                          
                     <h3 class="subsection-title">Diagrammes de classes</h3>
                     <div class="use-case">
                         <img class="use-case-diagram" src="images/class_diagram.png" alt="Diagramme de classes">
