@@ -13,29 +13,23 @@ import java.util.Scanner;
 import Model.User;
 
 public class AccountController extends Controller {
-    private static final String FILE_PATH = "Code/src/main/java/Data/Users.json";
+    private String FILE_PATH = "Code/src/main/java/Data/Users.json";
 
     public void createAccount(Scanner scanner) {
         try {
             // Load the existing JSON data
-            Gson gson = new Gson();
-            JsonObject jsonData = new JsonObject();
-            try (FileReader reader = new FileReader(FILE_PATH)) {
-                jsonData = gson.fromJson(reader, JsonObject.class);
-            } catch (IOException e) {
-                System.out.println("Création d'un nouveau fichier JSON car aucun n'existe.");
-            }
-
+            JsonObject jsonData = loadJsonData();
+    
             // Initialize arrays if not already present
             JsonArray residents = jsonData.has("residents") ? jsonData.getAsJsonArray("residents") : new JsonArray();
             JsonArray intervenants = jsonData.has("intervenants") ? jsonData.getAsJsonArray("intervenants") : new JsonArray();
-
+    
             System.out.println("Choisissez le type de compte à créer :");
             System.out.println("1. Résident");
             System.out.println("2. Intervenant");
             System.out.print("Entrez votre choix (1 ou 2) : ");
             int choice = -1;
-
+    
             while (choice != 1 && choice != 2) {
                 try {
                     choice = Integer.parseInt(scanner.nextLine());
@@ -46,7 +40,7 @@ public class AccountController extends Controller {
                     System.out.println("Entrée invalide. Veuillez entrer un numéro (1 ou 2) :");
                 }
             }
-
+    
             switch (choice) {
                 case 1:
                     // Resident registration
@@ -58,7 +52,7 @@ public class AccountController extends Controller {
                     String streetNumber = promptForNonEmptyInput(scanner, "Entrez votre numéro de rue : ");
                     String streetName = promptForNonEmptyInput(scanner, "Entrez le nom de votre rue : ");
                     String postalCode = promptForPostalCode(scanner, "Entrez votre code postal (3 premières lettres ou chiffres): ");
-
+    
                     // Create a Resident JSON object
                     JsonObject residentJson = new JsonObject();
                     residentJson.addProperty("id", String.valueOf(residents.size() + 1));
@@ -66,18 +60,18 @@ public class AccountController extends Controller {
                     residentJson.addProperty("email", emailResident);
                     residentJson.addProperty("password", passwordResident);
                     residentJson.addProperty("birthDate", dob);
-
+    
                     JsonObject address = new JsonObject();
                     address.addProperty("streetNumber", streetNumber);
                     address.addProperty("streetName", streetName);
                     address.addProperty("postalCode", postalCode);
                     residentJson.add("address", address);
-
+    
                     residents.add(residentJson);
-
+    
                     System.out.println("Compte Résident créé avec succès !");
                     break;
-
+    
                 case 2:
                     // Intervenant registration
                     System.out.println("Inscription Intervenant :");
@@ -86,7 +80,7 @@ public class AccountController extends Controller {
                     String emailIntervenant = promptForUniqueEmail(scanner, "Entrez votre adresse email : ", residents, intervenants);
                     String passwordIntervenant = promptForValidPassword(scanner, "Entrez votre mot de passe : ");
                     String cityId = promptForValidCityId(scanner, "Entrez votre identifiant de ville (code à 8 chiffres) : ");
-
+    
                     // Create an Intervenant JSON object
                     JsonObject intervenantJson = new JsonObject();
                     intervenantJson.addProperty("id", String.valueOf(intervenants.size() + 1));
@@ -95,27 +89,65 @@ public class AccountController extends Controller {
                     intervenantJson.addProperty("password", passwordIntervenant);
                     intervenantJson.addProperty("cityId", cityId);
                     intervenantJson.addProperty("type", typeIntervenant);
-
-
+    
                     intervenants.add(intervenantJson);
-
+    
                     System.out.println("Compte Intervenant créé avec succès !");
                     break;
-
+    
                 default:
                     System.out.println("Choix invalide. Veuillez entrer 1 ou 2.");
             }
-
+    
+            // Debug: Print the jsonData before saving
+            System.out.println("JSON data before saving: " + jsonData.toString());
+    
             // Save updated data back to the JSON file
             jsonData.add("residents", residents);
             jsonData.add("intervenants", intervenants);
-
+    
             try (FileWriter writer = new FileWriter(FILE_PATH)) {
+                Gson gson = new Gson();
                 gson.toJson(jsonData, writer);
+    
+                // Debug: Confirm file is saved
+                System.out.println("Data saved to JSON file at: " + FILE_PATH);
             }
+    
         } catch (Exception e) {
             System.out.println("Une erreur s'est produite lors de la création du compte : " + e.getMessage());
         }
+    }
+
+    // Load JSON data from the file
+    public JsonObject loadJsonData() {
+        JsonObject jsonData = new JsonObject();  // Initialize as empty JsonObject by default
+        FileReader reader = null;
+        try {
+            String filePath = this.getPath();
+            System.out.println("Loading data from file: " + filePath);  // Debugging: Print file path
+    
+            reader = new FileReader(filePath);
+            Gson gson = new Gson();
+            jsonData = gson.fromJson(reader, JsonObject.class);
+        } catch (IOException e) {
+            // Log the error if the file is missing or unreadable
+            System.out.println("Error reading file, creating a new JSON file: " + e.getMessage());
+    
+            // Initialize default JSON structure if file doesn't exist or is empty
+            jsonData.add("residents", new JsonArray());
+            jsonData.add("intervenants", new JsonArray());
+        } finally {
+            try {
+                if (reader != null) {
+                    reader.close();  // Ensure file is closed after reading
+                }
+            } catch (IOException e) {
+                System.out.println("Error closing file reader: " + e.getMessage());
+            }
+        }
+    
+        return jsonData;
     }
 
     private String promptForNonEmptyInput(Scanner scanner, String message) {
@@ -182,11 +214,45 @@ public class AccountController extends Controller {
         do {
             System.out.print(message);
             date = scanner.nextLine().trim();
+    
             if (!date.matches("\\d{4}-\\d{2}-\\d{2}")) {
                 System.out.println("Format de date invalide. Veuillez utiliser AAAA-MM-JJ.");
+                continue;
             }
-        } while (!date.matches("\\d{4}-\\d{2}-\\d{2}"));
-        return date;
+    
+            try {
+                String[] parts = date.split("-");
+                int year = Integer.parseInt(parts[0]);
+                int month = Integer.parseInt(parts[1]);
+                int day = Integer.parseInt(parts[2]);
+    
+                if (month < 1 || month > 12) {
+                    System.out.println("Mois invalide. Veuillez entrer un mois entre 1 et 12.");
+                    continue;
+                }
+    
+                int daysInMonth;
+                switch (month) {
+                    case 2: // February
+                        daysInMonth = (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)) ? 29 : 28;
+                        break;
+                    case 4: case 6: case 9: case 11: // Months with 30 days
+                        daysInMonth = 30;
+                        break;
+                    default: // All other months have 31 days
+                        daysInMonth = 31;
+                }
+    
+                if (day < 1 || day > daysInMonth) {
+                    System.out.println("Jour invalide pour le mois donné. Veuillez entrer un jour valide.");
+                    continue;
+                }
+    
+                return date; // Valid date
+            } catch (NumberFormatException e) {
+                System.out.println("Erreur lors de l'analyse de la date. Veuillez réessayer.");
+            }
+        } while (true);
     }
 
     private String promptForValidCityId(Scanner scanner, String message) {
@@ -248,10 +314,16 @@ public class AccountController extends Controller {
         
     }
     
-    
+    public void setPath(String path){
+        this.FILE_PATH = path;
+    }
+
+    public String getPath() {
+        return FILE_PATH;
+    }
+
     @Override
     protected boolean isAuthorized() {
-        // TODO Auto-generated method stub
         return true;
     }
 }

@@ -40,9 +40,6 @@ public class MenuIntervenant extends Menu {
             System.out.println("- - [D] Se déconnecter - -");
             System.out.println("- - [Q] Quitter l'application - -");
         }
-        else if (level == 1.0) {
-            requestController.consulterRequetes(scanner);
-        }
         else if (level == 2.0) {
             System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - - - "); 
@@ -77,7 +74,7 @@ public class MenuIntervenant extends Menu {
 
         switch (option) {
             case 1:
-                currentLevel = 1.0;
+                requestController.consulterRequetes(scanner);
                 break;
             case 2:
                 currentLevel = 2.0;
@@ -120,6 +117,14 @@ public class MenuIntervenant extends Menu {
 
     public boolean isRunning() {
         return running;
+    }
+
+    public void setRequestController(RequeteTravailController requestController) {
+        this.requestController = requestController;
+    }
+
+    public void setScanner(Scanner scanner) {
+        this.scanner = scanner;
     }
     
     @Override

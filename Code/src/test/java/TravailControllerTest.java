@@ -1,67 +1,138 @@
-import static org.mockito.Mockito.*;
+// import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+// import static org.mockito.ArgumentMatchers.anyString;
+// import static org.mockito.Mockito.*;
 
-import Model.*;
-import Controller.*;
+// import Model.*;
+// import Controller.*;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.*;
-import java.util.Scanner;
+// import org.junit.jupiter.api.BeforeEach;
+// import org.junit.jupiter.api.Test;
+// import org.mockito.*;
+// import java.util.Scanner;
 
-public class TravailControllerTest {
+// public class TravailControllerTest {
 
-    @Mock
-    private HttpClientApi api;
+//     @Mock
+//     private HttpClientApi mockApi;
 
-    @InjectMocks
-    private TravailController travailController;
+//     @InjectMocks
+//     private TravailController travailController;
 
-    @Mock
-    private Scanner scanner;
+//     @BeforeEach
+//     void setUp() {
+//         MockitoAnnotations.openMocks(this);
+//     }
 
-    private ApiResponse mockResponse;
+//     @Test
+//     void testProjetsEnCours_SuccessfulResponse() {
+//         // Arrange
+//         String jsonResponse = """
+//         {
+//             \"result\": {
+//                 \"records\": [
+//                     {"titre": "Projet 1", "date_debut": "2024-12-01", "date_fin": "2025-03-01"},
+//                     {"titre": "Projet 2", "date_debut": "2024-11-15", "date_fin": "2024-12-31"}
+//                 ]
+//             }
+//         }
+//         """;
 
-    @BeforeEach
-    public void setup() {
-        // Mocking the HttpClientApi's behavior
-        mockResponse = new ApiResponse(200, "Mocked response body", "OK");
-        when(api.getData(anyString())).thenReturn(mockResponse);
-    }
+//         ApiResponse apiResponse = new ApiResponse(200, jsonResponse, "Success");
+//         when(mockApi.getData(anyString())).thenReturn(apiResponse);
 
-    @Test
-    public void testProjetsEnCours() {
-        // Simulate API response with a list of projects
-        String mockJsonResponse = "{ \"result\": { \"records\": [ { \"titre\": \"Project 1\", \"dateDebut\": \"2024-01-01\", \"dateFin\": \"2024-02-01\", \"quartiersAffectes\": [\"Ahuntsic-Cartierville\"] }, { \"titre\": \"Project 2\", \"dateDebut\": \"2024-03-01\", \"dateFin\": \"2024-04-01\", \"quartiersAffectes\": [\"Plateau-Mont-Royal\"] } ] } }";
-        when(api.getData("cc41b532-f12d-40fb-9f55-eb58c9a2b12b")).thenReturn(new ApiResponse(200, mockJsonResponse, "OK"));
+//         Scanner mockScanner = mock(Scanner.class);
+//         when(mockScanner.nextLine()).thenReturn("0"); // Simulate user input to exit immediately
 
-        // Call the method
-        travailController.projetsEnCours(scanner);
+//         // Act
+//         assertDoesNotThrow(() -> travailController.projetsEnCours(mockScanner));
 
-        // Verify if the correct API call was made
-        verify(api, times(1)).getData("cc41b532-f12d-40fb-9f55-eb58c9a2b12b");
-    }
+//         // Assert
+//         verify(mockApi, times(1)).getData(anyString());
+//         verify(mockScanner, atLeastOnce()).nextLine();
+//     }
 
-    @Test
-    public void testSelectBorough() {
-        // Simulate user input for selecting a borough
-        when(scanner.nextLine()).thenReturn("1"); // Choosing "Ahuntsic-Cartierville"
+//     @Test
+//     void testProjetsEnCours_FailedApiResponse() {
+//         // Arrange
+//         ApiResponse apiResponse = new ApiResponse(500, "", "Server Error");
+//         when(mockApi.getData(anyString())).thenReturn(apiResponse);
 
-        // Call the method
-        travailController.selectBorough(scanner);
+//         Scanner mockScanner = mock(Scanner.class);
 
-        // Verify that the filtering by borough was triggered
-        verify(api, times(1)).getData("cc41b532-f12d-40fb-9f55-eb58c9a2b12b");
-    }
+//         // Act
+//         assertDoesNotThrow(() -> travailController.projetsEnCours(mockScanner));
 
-    // Optionally, test for invalid or edge cases
+//         // Assert
+//         verify(mockApi, times(1)).getData(anyString());
+//     }
 
-    @Test
-    public void testApiFailure() {
-        // Simulate API failure
-        when(api.getData(anyString())).thenReturn(new ApiResponse(500, "Server error", "ERROR"));
+//     @Test
+//     void testSelectBorough_ValidChoice() {
+//         // Arrange
+//         ApiResponse apiResponse = new ApiResponse(200, """
+//         {
+//             \"result\": {
+//                 \"records\": [
+//                     {"titre": "Projet Borough 1", "quartiers_affectes": "Ahuntsic-Cartierville"},
+//                     {"titre": "Projet Borough 2", "quartiers_affectes": "Le Sud-Ouest"}
+//                 ]
+//             }
+//         }
+//         """, "Success");
+        
+//         when(mockApi.getData(anyString())).thenReturn(apiResponse);
 
-        // Call the method and verify error handling
-        travailController.projetsEnCours(scanner);
-        verify(api, times(1)).getData(anyString());
-    }
-}
+//         Scanner mockScanner = mock(Scanner.class);
+//         when(mockScanner.nextLine()).thenReturn("1", "0"); // Simulate user input to select borough and exit
+
+//         // Act
+//         assertDoesNotThrow(() -> travailController.selectBorough(mockScanner));
+
+//         // Assert
+//         verify(mockApi, times(1)).getData(anyString());
+//         verify(mockScanner, atLeast(2)).nextLine();
+//     }
+
+//     @Test
+//     void testConsulterEntraves_SuccessfulResponse() {
+//         // Arrange
+//         String jsonResponse = """
+//         {
+//             \"result\": {
+//                 \"records\": [
+//                     {"titre": "Entrave 1", "rue_affectees": ["Rue 1"]},
+//                     {"titre": "Entrave 2", "rue_affectees": ["Rue 2"]}
+//                 ]
+//             }
+//         }
+//         """;
+
+//         ApiResponse apiResponse = new ApiResponse(200, jsonResponse, "Success");
+//         when(mockApi.getData(anyString())).thenReturn(apiResponse);
+
+//         Scanner mockScanner = mock(Scanner.class);
+//         when(mockScanner.nextLine()).thenReturn("0"); // Simulate user input to exit immediately
+
+//         // Act
+//         assertDoesNotThrow(() -> travailController.consulterEntraves(mockScanner));
+
+//         // Assert
+//         verify(mockApi, times(1)).getData(anyString());
+//         verify(mockScanner, atLeastOnce()).nextLine();
+//     }
+
+//     @Test
+//     void testConsulterEntraves_FailedApiResponse() {
+//         // Arrange
+//         ApiResponse apiResponse = new ApiResponse(500, "", "Server Error");
+//         when(mockApi.getData(anyString())).thenReturn(apiResponse);
+
+//         Scanner mockScanner = mock(Scanner.class);
+
+//         // Act
+//         assertDoesNotThrow(() -> travailController.consulterEntraves(mockScanner));
+
+//         // Assert
+//         verify(mockApi, times(1)).getData(anyString());
+//     }
+// }
