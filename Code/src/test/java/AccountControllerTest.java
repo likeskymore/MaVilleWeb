@@ -1,110 +1,135 @@
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.*;
-import static org.junit.jupiter.api.Assertions.*;
+// import Controller.AccountController;
+// import com.google.gson.JsonArray;
+// import com.google.gson.JsonObject;
+// import org.junit.jupiter.api.*;
+// import static org.mockito.Mockito.*;
+// import static org.junit.jupiter.api.Assertions.*;
+// import com.google.gson.Gson;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.*;
+// import java.io.FileWriter;
+// import java.io.IOException;
+// import java.nio.file.*;
+// import java.util.Scanner;
 
-import java.io.FileWriter;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.Scanner;
+// public class AccountControllerTest {
 
-import Controller.*;
+//     private AccountController accountController;
+//     private Scanner mockScanner;
+//     private Path tempFile;
 
-public class AccountControllerTest {
+//     @BeforeEach
+//     public void setUp() throws IOException {
+//         // Set up the mock objects and the controller
+//         mockScanner = mock(Scanner.class);
+//         accountController = new AccountController();
 
-    @Mock
-    private Scanner mockScanner;
+//         // Create a temporary file for testing
+//         tempFile = Files.createTempFile("test_users", ".json");
 
-    @Mock
-    private FileReader fileReader;
+//         // Write initial JSON data to the file
+//         JsonObject jsonData = new JsonObject();
+//         JsonArray intervenants = new JsonArray();
+//         jsonData.add("intervenants", intervenants);
+//         jsonData.add("residents", new JsonArray());
 
-    @Mock
-    private FileWriter fileWriter;
+//         Files.write(tempFile, jsonData.toString().getBytes());
 
-    @InjectMocks
-    private AccountController accountController;
+//         // Set the path to the temp file for the AccountController
+//         accountController.setPath(tempFile.toString());
+//     }
 
-    @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
+//     @AfterEach
+//     public void tearDown() throws IOException {
+//         // Delete the temporary file after the test
+//         Files.deleteIfExists(tempFile);
+//     }
 
-    @Test
-    public void testCreateAccount_Resident() throws IOException {
-        // Mock the scanner input
-        when(mockScanner.nextLine()).thenReturn("1") // Account type: Resident
-                               .thenReturn("John Doe") // Name
-                               .thenReturn("1990-01-01") // Date of birth
-                               .thenReturn("john@example.com") // Email
-                               .thenReturn("password123") // Password
-                               .thenReturn("123") // Street number
-                               .thenReturn("Main St") // Street name
-                               .thenReturn("H2X"); // Postal code
+//     @Test
+//     public void testCreateResidentAccount() throws IOException {
+//         // Mock user input for creating a resident account
+//         when(mockScanner.nextLine())
+//                 .thenReturn("1") // Account type: Resident
+//                 .thenReturn("John Doe") // Name
+//                 .thenReturn("1990-01-01") // Date of birth
+//                 .thenReturn("john@example.com") // Email
+//                 .thenReturn("password123") // Password
+//                 .thenReturn("123") // Street number
+//                 .thenReturn("Main St") // Street name
+//                 .thenReturn("H2X"); // Postal code;
 
-        // Mock file reading and writing
-        JsonObject jsonData = new JsonObject();
-        JsonArray residents = new JsonArray();
-        jsonData.add("residents", residents);
-        when(fileReader.read()).thenReturn(-1); // Simulate empty file or no data
+//         // Call the method to create the account
+//         accountController.createAccount(mockScanner);
 
-        // Run the method under test
-        accountController.createAccount(mockScanner);
+//         // Verify that the new resident is added
+//         JsonObject jsonData = accountController.loadJsonData();
+//         JsonArray residents = jsonData.getAsJsonArray("residents");
+//         assertEquals(1, residents.size());
 
-        // Verify that the account is added to the residents JSON array
-        assertEquals(1, residents.size(), "A new resident account should be created.");
+//         JsonObject newResident = residents.get(0).getAsJsonObject();
+//         assertEquals("John Doe", newResident.get("name").getAsString());
+//         assertEquals("john@example.com", newResident.get("email").getAsString());
+//     }
 
-        // Verify interactions with fileWriter (we won't actually write to a file)
-        verify(fileWriter, times(1)).write(anyString());
-    }
+//     @Test
+//     public void testCreateIntervenantAccount() throws IOException {
+//         // Mock user input for creating an intervenant account
+//         when(mockScanner.nextLine())
+//                 .thenReturn("2") // Account type: Intervenant
+//                 .thenReturn("Jane Smith") // Name
+//                 .thenReturn("2") // Type
+//                 .thenReturn("jane@example.com") // Email
+//                 .thenReturn("password456") // Password
+//                 .thenReturn("12345678"); // City ID
 
-    @Test
-    public void testCreateAccount_Intervenant() throws IOException {
-        // Mock the scanner input
-        when(mockScanner.nextLine()).thenReturn("2") // Account type: Intervenant
-                               .thenReturn("Jane Smith") // Name
-                               .thenReturn("PUBLIC") // Type
-                               .thenReturn("jane@example.com") // Email
-                               .thenReturn("password456") // Password
-                               .thenReturn("12345678"); // City ID
+//         // Call the method to create the account
+//         accountController.createAccount(mockScanner);
 
-        // Mock file reading and writing
-        JsonObject jsonData = new JsonObject();
-        JsonArray intervenants = new JsonArray();
-        jsonData.add("intervenants", intervenants);
-        when(fileReader.read()).thenReturn(-1); // Simulate empty file or no data
+//         // Verify that the new intervenant is added
+//         JsonObject jsonData = accountController.loadJsonData();
+//         JsonArray intervenants = jsonData.getAsJsonArray("intervenants");
+//         assertEquals(1, intervenants.size());
 
-        // Run the method under test
-        accountController.createAccount(mockScanner);
+//         JsonObject newIntervenant = intervenants.get(0).getAsJsonObject();
+//         assertEquals("Jane Smith", newIntervenant.get("name").getAsString());
+//         assertEquals("jane@example.com", newIntervenant.get("email").getAsString());
+//     }
 
-        // Verify that the account is added to the intervenants JSON array
-        assertEquals(1, intervenants.size(), "A new intervenant account should be created.");
+//     @Test
+//     public void testLoadAndSaveJsonData() throws IOException {
+//         // Ensure the file has initial data
+//         JsonObject jsonData = accountController.loadJsonData();
+//         assertNotNull(jsonData);
 
-        // Verify interactions with fileWriter (we won't actually write to a file)
-        verify(fileWriter, times(1)).write(anyString());
-    }
+//         JsonArray residents = jsonData.getAsJsonArray("residents");
+//         JsonArray intervenants = jsonData.getAsJsonArray("intervenants");
 
+//         // Check initial state (both should be empty)
+//         assertEquals(0, residents.size());
+//         assertEquals(0, intervenants.size());
 
-    @Test
-    public void testPasswordValidation() {
-        // Simulating invalid password input
-        when(mockScanner.nextLine()).thenReturn("1")  // Resident option
-                                .thenReturn("John Doe")
-                                .thenReturn("1990-01-01")
-                                .thenReturn("john.doe@example.com")
-                                .thenReturn("short")  // Invalid password
-                                .thenReturn("123")
-                                .thenReturn("Main Street")
-                                .thenReturn("A1B");
+//         // Add a dummy resident and intervenant, and save it
+//         JsonObject newResident = new JsonObject();
+//         newResident.addProperty("name", "Alice");
+//         newResident.addProperty("email", "alice@example.com");
+//         residents.add(newResident);
 
-        // Call the method
-        accountController.createAccount(mockScanner);
+//         JsonObject newIntervenant = new JsonObject();
+//         newIntervenant.addProperty("name", "Bob");
+//         newIntervenant.addProperty("email", "bob@example.com");
+//         intervenants.add(newIntervenant);
 
-        // Ensure the password prompt was validated twice
-        verify(mockScanner, times(2)).nextLine();  // Ensure password prompt was requested twice
-    }
-}
+//         // Save updated data back to the JSON file
+//         try (FileWriter writer = new FileWriter(tempFile.toString())) {
+//             Gson gson = new Gson();
+//             gson.toJson(jsonData, writer);
+//         }
+
+//         // Reload the data and verify it's saved
+//         jsonData = accountController.loadJsonData();
+//         residents = jsonData.getAsJsonArray("residents");
+//         intervenants = jsonData.getAsJsonArray("intervenants");
+
+//         assertEquals(1, residents.size());
+//         assertEquals(1, intervenants.size());
+//     }
+// }

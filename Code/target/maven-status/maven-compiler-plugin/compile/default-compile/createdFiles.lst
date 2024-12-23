@@ -3,9 +3,11 @@ Controller\Controller.class
 Model\Subscription.class
 View\MenuIntervenant.class
 Model\TypeTravail.class
+Model\UserAuthenticator$2.class
 Model\Notification.class
 Model\TravailDeserializer.class
 Main.class
+Model\Address.class
 Model\HttpClientApi.class
 View\Menu.class
 View\MenuResident.class
@@ -16,7 +18,12 @@ Controller\TravailController.class
 Controller\AccountController.class
 Model\StatutProjet.class
 Model\ApiResponse.class
+Model\UserAuthenticator$1.class
+Model\UserAuthenticator$LocalDateAdapter.class
+Model\UserAuthenticator.class
 Model\User.class
 Model\RequeteTravail.class
+Controller\RequeteTravailController.class
 Model\Horaire.class
 Model\Projet.class
+Model\IntervenantType.class
