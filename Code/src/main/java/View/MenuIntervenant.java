@@ -1,3 +1,11 @@
+/**
+ * La classe MenuIntervenant gère l'interface utilisateur pour les intervenants.
+ * Elle permet à l'intervenant connecté d'accéder à des fonctionnalités spécifiques
+ * telles que consulter les requêtes de travail, soumettre un nouveau projet,
+ * ou mettre à jour les informations d'un chantier.
+ * 
+ * Cette classe hérite de la classe abstraite {@link Menu}.
+ */
 package View;
 
 import java.util.Scanner;
@@ -6,17 +14,45 @@ import Model.Intervenant;
 import Model.User;
 
 public class MenuIntervenant extends Menu {
+    /**
+     * Contrôleur pour gérer les requêtes de travail.
+     */
     private RequeteTravailController requestController = new RequeteTravailController();
+    
+    /**
+     * Niveau actuel du menu (contexte).
+     */
     private double currentLevel = 0.0;
+
+    /**
+     * Indicateur pour maintenir le menu actif.
+     */
     private boolean running = true;
+
+    /**
+     * Scanner pour gérer les entrées utilisateur.
+     */
     private Scanner scanner = new Scanner(System.in);
+
+    /**
+     * Utilisateur actuellement connecté (doit être un intervenant).
+     */
     private User user; //Pour stocker l'utilisateur connecté
 
 
+    /**
+     * Constructeur pour initialiser le menu avec l'utilisateur connecté.
+     * 
+     * @param user L'utilisateur connecté.
+     */
     public MenuIntervenant(User user) {
         this.user = user;  // Initialisation de l'utilisateur
     }
 
+    /**
+     * Démarre la boucle principale du menu.
+     * Affiche les options et gère les entrées utilisateur jusqu'à la déconnexion ou la fermeture.
+     */
     @Override
     public void start() {
         while (running) {
@@ -26,6 +62,11 @@ public class MenuIntervenant extends Menu {
         exit();
     }
 
+    /**
+     * Affiche le menu selon le niveau actuel.
+     * 
+     * @param level Le niveau ou contexte du menu.
+     */
     @Override
     public void showMenu(Double level) {
         if (level == 0.0) {
@@ -62,6 +103,11 @@ public class MenuIntervenant extends Menu {
         }
     }
 
+    /**
+     * Gère la sélection des options du menu.
+     * 
+     * @param option L'option sélectionnée par l'utilisateur.
+     */
     @Override
     public void select(int option) {
         switch (option) {
@@ -80,6 +126,9 @@ public class MenuIntervenant extends Menu {
         }
     }
 
+    /**
+     * Traite les entrées utilisateur et navigue dans le menu.
+     */
     @Override
     public void handleInput() {
         System.out.print("Votre choix : ");
@@ -103,6 +152,9 @@ public class MenuIntervenant extends Menu {
         }
     }
 
+    /**
+     * Quitte le menu et affiche un message de confirmation.
+     */
     @Override
     public void exit() {
         running = false;
