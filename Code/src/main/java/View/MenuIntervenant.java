@@ -66,7 +66,7 @@ public class MenuIntervenant extends Menu {
     public void select(int option) {
         switch (option) {
             case 1:
-                requestController.consulterRequetes(scanner);
+                requestController.consulterRequetes(scanner, (Intervenant)user);
                 break;
             case 2:
                 currentLevel = 2.0;
