@@ -1,3 +1,12 @@
+/**
+ * La classe TravailController gère les interactions liées aux projets et aux entraves
+ * dans l'application, notamment la consultation des projets en cours,
+ * le filtrage par quartier, et la gestion des entraves.
+ * 
+ * Cette classe fait appel à des APIs externes pour récupérer les données
+ * relatives aux travaux et aux entraves et fournit des méthodes permettant
+ * à l'utilisateur d'interagir avec ces données.
+ */
 package Controller;
 
 import java.time.LocalDate;
@@ -21,6 +30,11 @@ import Model.Projet;
 import Model.TravailDeserializer;
 
 public class TravailController {
+    /**
+     * Affiche les projets en cours en se basant sur les données récupérées via une API externe.
+     * 
+     * @param scanner Scanner pour lire les entrées utilisateur.
+     */
     public void projetsEnCours(Scanner scanner){
         HttpClientApi api = new HttpClientApi();
         String resourceId = "cc41b532-f12d-40fb-9f55-eb58c9a2b12b";
@@ -102,6 +116,11 @@ public class TravailController {
         }
     }
 
+    /**
+     * Permet à l'utilisateur de sélectionner un quartier et de filtrer les projets en fonction du quartier choisi.
+     * 
+     * @param scanner Scanner pour lire les entrées utilisateur.
+     */
     public void selectBorough(Scanner scanner) {
         String[] boroughs = {
             "Ahuntsic-Cartierville", "Anjou", "Côte-des-Neiges–Notre-Dame-de-Grâce",
@@ -138,6 +157,13 @@ public class TravailController {
         }
     }
 
+
+    /**
+     * Filtre les projets par quartier spécifié et affiche les résultats.
+     * 
+     * @param borough Nom du quartier choisi.
+     * @param scanner Scanner pour lire les entrées utilisateur.
+     */
     private void filterByBorough(String borough, Scanner scanner) {
         HttpClientApi api = new HttpClientApi();
         String resourceId = "cc41b532-f12d-40fb-9f55-eb58c9a2b12b";
@@ -214,6 +240,11 @@ public class TravailController {
         scanner.nextLine(); // Wait for user input to continue
     }
 
+        /**
+        * Affiche les entraves en cours en se basant sur les données récupérées via une API externe.
+        * 
+        * @param scanner Scanner pour lire les entrées utilisateur.
+        */
         public void consulterEntraves(Scanner scanner) {
         HttpClientApi api = new HttpClientApi();
         String resourceId = "a2bc8014-488c-495d-941b-e7ae1999d1bd";

@@ -1,3 +1,12 @@
+/**
+ * La classe est responsable de la gestion des comptes utilisateurs, ainsi que de la création 
+ * des comptes Résident et Intervenant, le chargement des données utilisateur à partir d'un fichier JSON,
+ * et la validation des entrées utilisateur lors du processus de création de compte.
+ * 
+ * Cette classe interagit avec les données JSON stockées dans un fichier et assure
+ * que les détails des utilisateurs sont correctement gérés et enregistrés.
+ */
+
 package Controller;
 
 import com.google.gson.Gson;
@@ -13,8 +22,18 @@ import java.util.Scanner;
 import Model.User;
 
 public class AccountController extends Controller {
+    /**
+    * Chemin d'accès au fichier JSON où les données utilisateur sont stockées.
+    */
     private String FILE_PATH = "Code/src/main/java/Data/Users.json";
 
+    /**
+     * Crée un nouveau compte pour un Résident ou un Intervenant.
+     * Demande à l'utilisateur les informations nécessaires et sauvegarde les détails du compte
+     * dans la section appropriée du fichier JSON.
+     * 
+     * @param scanner Scanner pour lire les entrées utilisateur.
+     */
     public void createAccount(Scanner scanner) {
         try {
             // Load the existing JSON data
@@ -119,6 +138,12 @@ public class AccountController extends Controller {
         }
     }
 
+    /**
+     * Charge les données JSON à partir du fichier spécifié par FILE_PATH.
+     * Si le fichier est manquant ou illisible, initialise une structure JSON par défaut.
+     * 
+     * @return Un JsonObject contenant les données chargées ou une structure par défaut.
+     */
     // Load JSON data from the file
     public JsonObject loadJsonData() {
         JsonObject jsonData = new JsonObject();  // Initialize as empty JsonObject by default
@@ -150,6 +175,13 @@ public class AccountController extends Controller {
         return jsonData;
     }
 
+    /**
+     * Demande à l'utilisateur une saisie jusqu'à ce qu'une valeur non vide soit fournie.
+     * 
+     * @param scanner Scanner pour lire les entrées utilisateur.
+     * @param message Message à afficher à l'utilisateur.
+     * @return La chaîne de caractères non vide fournie par l'utilisateur.
+     */
     private String promptForNonEmptyInput(Scanner scanner, String message) {
         String input;
         do {
@@ -162,6 +194,16 @@ public class AccountController extends Controller {
         return input;
     }
 
+    /**
+     * Demande à l'utilisateur une adresse email unique, en s'assurant qu'aucun doublon n'existe
+     * parmi les résidents ou intervenants.
+     * 
+     * @param scanner Scanner pour lire les entrées utilisateur.
+     * @param message Message à afficher à l'utilisateur.
+     * @param residents JsonArray des résidents existants.
+     * @param intervenants JsonArray des intervenants existants.
+     * @return L'adresse email unique fournie par l'utilisateur.
+     */
     private String promptForUniqueEmail(Scanner scanner, String message, JsonArray residents, JsonArray intervenants) {
         String email;
         boolean isUnique;
@@ -181,6 +223,14 @@ public class AccountController extends Controller {
         return email;
     }
 
+    /**
+     * Valide si une adresse email est unique parmi les utilisateurs existants.
+     * 
+     * @param email Adresse email à valider.
+     * @param residents JsonArray des résidents existants.
+     * @param intervenants JsonArray des intervenants existants.
+     * @return True si l'email est unique, false sinon.
+     */
     private boolean isEmailUnique(String email, JsonArray residents, JsonArray intervenants) {
         for (JsonElement resident : residents) {
             JsonObject residentObj = resident.getAsJsonObject();
@@ -197,6 +247,13 @@ public class AccountController extends Controller {
         return true;
     }
 
+    /**
+     * Demande à l'utilisateur un mot de passe valide respectant les exigences minimales.
+     * 
+     * @param scanner Scanner pour lire les entrées utilisateur.
+     * @param message Message à afficher à l'utilisateur.
+     * @return Le mot de passe valide fourni par l'utilisateur.
+     */
     private String promptForValidPassword(Scanner scanner, String message) {
         String password;
         do {
@@ -209,6 +266,13 @@ public class AccountController extends Controller {
         return password;
     }
 
+    /**
+     * Demande à l'utilisateur une date valide au format AAAA-MM-JJ.
+     * 
+     * @param scanner Scanner pour lire les entrées utilisateur.
+     * @param message Message à afficher à l'utilisateur.
+     * @return Une chaîne de caractères représentant la date valide.
+     */
     private String promptForValidDate(Scanner scanner, String message) {
         String date;
         do {
@@ -255,6 +319,13 @@ public class AccountController extends Controller {
         } while (true);
     }
 
+    /**
+     * Demande à l'utilisateur un identifiant de ville valide composé de 8 chiffres.
+     * 
+     * @param scanner Scanner pour lire les entrées utilisateur.
+     * @param message Message à afficher à l'utilisateur.
+     * @return Un identifiant de ville valide fourni par l'utilisateur.
+     */
     private String promptForValidCityId(Scanner scanner, String message) {
         String cityId;
         do {
@@ -267,6 +338,13 @@ public class AccountController extends Controller {
         return cityId;
     }
 
+    /**
+     * Demande à l'utilisateur un code postal composé exactement de trois lettres ou chiffres.
+     * 
+     * @param scanner Scanner pour lire les entrées utilisateur.
+     * @param message Message à afficher à l'utilisateur.
+     * @return Un code postal valide fourni par l'utilisateur.
+     */
     private String promptForPostalCode(Scanner scanner, String message) {
         String postalCode;
         do {
@@ -279,6 +357,12 @@ public class AccountController extends Controller {
         return postalCode;
     }
 
+    /**
+     * Demande à l'utilisateur de sélectionner un type d'Intervenant parmi les options prédéfinies.
+     * 
+     * @param scanner Scanner pour lire les entrées utilisateur.
+     * @return Le type d'Intervenant sélectionné.
+     */
     private String promptForIntervenantType(Scanner scanner) {
         System.out.println("Choisissez votre type d'intervenant :");
         System.out.println("1. PUBLIC");
@@ -306,22 +390,48 @@ public class AccountController extends Controller {
         }
     }
     
+    /**
+     * Récupère les plages horaires préférées d'un utilisateur.
+     * 
+     * @param activeUser L'utilisateur dont les plages horaires doivent être récupérées.
+     */
     public void getTimeSlot(User activeUser) {
 
     } 
     
+    /**
+     * Modifie les plages horaires préférées d'un utilisateur.
+     * 
+     * @param activeUser L'utilisateur dont les plages horaires doivent être modifiées.
+     * @param data Un tableau contenant les nouvelles données de plages horaires.
+     */
     public void editTimeSlot(User activeUser, String[] data) {
         
     }
     
+    /**
+     * Définit le chemin d'accès au fichier JSON utilisé par le contrôleur.
+     * 
+     * @param path Le nouveau chemin du fichier.
+     */
     public void setPath(String path){
         this.FILE_PATH = path;
     }
 
+    /**
+     * Récupère le chemin actuel du fichier JSON utilisé par le contrôleur.
+     * 
+     * @return Le chemin actuel du fichier.
+     */
     public String getPath() {
         return FILE_PATH;
     }
 
+    /**
+     * Vérifie si l'utilisateur actuel est autorisé à effectuer des actions dans ce contrôleur.
+     * 
+     * @return True si autorisé, false sinon.
+     */
     @Override
     protected boolean isAuthorized() {
         return true;
