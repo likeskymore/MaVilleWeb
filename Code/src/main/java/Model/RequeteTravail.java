@@ -22,11 +22,6 @@ public class RequeteTravail {
         this.resident = resident;
     }
 
-    // Getters
-    public String getQuartier() {
-        return resident.getAddress().getQuartier();
-    }
-
     public String getResident() {
         return resident.getName();
     }
@@ -59,8 +54,6 @@ public class RequeteTravail {
                 "\nDescription : " + description +
                 "\nType de travaux : " + typeTravaux +
                 "\nDate de début espéré: " + dateDebut +
-                "\nStatut : " + statut +
-                "\nQuartier : " + getQuartier();
-                
+                "\nStatut : " + statut;                
     }
 }

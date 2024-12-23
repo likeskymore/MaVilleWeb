@@ -178,8 +178,8 @@ public class RequeteTravailController {
 
     
 
-    public void consulterMesRequetes(Scanner scanner, Resident activResident) {
-        List<RequeteTravail> mesRequetes = RequeteTravailController.getRequetesParResident(activResident);
+    public void consulterMesRequetes(Scanner scanner, Resident activeResident) {
+        List<RequeteTravail> mesRequetes = RequeteTravailController.getRequetesParResident(activeResident);
     
         if (mesRequetes.isEmpty()) {
             System.out.println("\nVous n'avez soumis aucune requête de travail.");
@@ -201,8 +201,6 @@ public class RequeteTravailController {
         System.out.println("Voulez-vous appliquer un filtre ?");
         System.out.println("1. Pas de filtre");
         System.out.println("2. Filtrer par type de travaux");
-        System.out.println("3. Filtrer par date (plus récentes d'abord)");    // à faire
-        System.out.println("4. Filtrer par quartier");                        // à faire
         
         String choix = scanner.nextLine();
         
@@ -216,12 +214,6 @@ public class RequeteTravailController {
                     System.out.println("Type invalide. Affichage de toutes les requêtes.");
                     afficherRequetesDepuisJson(); // Affiche requetes si le type est invalide
                 }
-                break;
-            case "3":
-               
-                break;
-            case "4":
-                
                 break;
             default:
                 afficherRequetesDepuisJson(); // Affiche toutes les requetes
@@ -243,23 +235,15 @@ public class RequeteTravailController {
             }
         }
 
-        System.out.println("\nAppuyez sur 'Enter' pour revenir au menu principal.");
+        System.out.println("\nAppuyez sur 'Enter' pour revenir au menu principal.");        
         scanner.nextLine();
-        
-    }
+    }                 
     
-    
-    
-
     public static List<RequeteTravail> getRequetesParResident(Resident resident) {
     return requetesTravail.stream()
-            .filter(requete -> requete.getResident().equals(resident.getName()))
+            .filter(requete -> requete.getResident().equals(resident.getEmail()))
             .collect(Collectors.toList());
     }
-
-
-
-
 
     public void filtrerRequetesParType(TypeTravail type) {       // filtrer par type
         try (FileReader reader = new FileReader(FILE_PATH)) {
@@ -303,14 +287,6 @@ public class RequeteTravailController {
                 .sorted(Comparator.comparing(RequeteTravail::getDateDebut).reversed())
                 .collect(Collectors.toList());
     }
-
-    public static List<RequeteTravail> filtrerRequetesParQuartier(String quartier) {
-        return requetesTravail.stream()
-                .filter(requete -> requete.getQuartier().equalsIgnoreCase(quartier))
-                .collect(Collectors.toList());
-    }
-
-
 
     public void afficherRequetesDepuisJson() {                            // affiche toutes les requetes
         try (FileReader reader = new FileReader(FILE_PATH)) {
@@ -442,12 +418,3 @@ public class RequeteTravailController {
 
 
     }
-
-
-
-
-
-
-
-
-

@@ -87,7 +87,7 @@ public class MenuResident extends Menu {
             System.out.println("[M]. Retour au menu principal");
             System.out.println("[Q]. Quitter l'application");
         }
-        else if (level == 6.0){
+        else if(currentLevel == 6.0){
             requestController.consulterMesRequetes(scanner, activeUser);
         }
     }
@@ -152,7 +152,7 @@ public class MenuResident extends Menu {
                     break;
             }
         }
-        else if (currentLevel == 5){
+        else if (currentLevel == 5.0){
             switch (option) {
                 case 1:
                     workController.consulterEntraves(scanner);
@@ -169,9 +169,15 @@ public class MenuResident extends Menu {
 
     @Override
     public void handleInput() {
+        if (currentLevel == 6.0) {
+            // Directly return to the main menu when Enter is pressed
+            currentLevel = 0.0;
+            return;
+        }
+    
         System.out.print("Votre choix : ");
         String input = scanner.nextLine().trim();
-
+    
         if (input.equalsIgnoreCase("M") && currentLevel > 0.0) {
             currentLevel = 0.0; // Return to main menu
         } else if (input.equalsIgnoreCase("D")) {

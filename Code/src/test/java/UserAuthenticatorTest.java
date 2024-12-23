@@ -1,70 +1,124 @@
 // import org.junit.jupiter.api.*;
 // import Model.*;
 // import org.mockito.*;
+
+// import com.google.gson.JsonArray;
+// import com.google.gson.JsonObject;
+// import com.google.gson.JsonParser;
+
 // import static org.junit.jupiter.api.Assertions.*;
+// import static org.mockito.ArgumentMatchers.any;
 // import static org.mockito.Mockito.*;
 
-// @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+// import java.io.FileReader;
+
 // public class UserAuthenticatorTest {
-//     @Mock private UserAuthenticator authenticatorMock;
-//     @Mock private User userMock;
+//     private UserAuthenticator userAuthenticator;
 
-//     @BeforeAll
-//     public void setup() {
-//         // Initialize mocks
-//         MockitoAnnotations.openMocks(this);
-        
-//         // Mock the behavior of UserAuthenticator.getInstance() to return the mocked object
-//         when(UserAuthenticator.getInstance()).thenReturn(authenticatorMock);
+//     @BeforeEach
+//     void setUp() {
+//         userAuthenticator = UserAuthenticator.getInstance();
 //     }
 
 //     @Test
-//     public void testLoginResident() {
-//         // Mock login behavior for a resident
-//         when(authenticatorMock.login("resident1@mail.com", "password1")).thenReturn(userMock);
-//         when(userMock.getEmail()).thenReturn("resident1@mail.com");
-//         when(authenticatorMock.getUserRole()).thenReturn("Resident");
+//     void testLogin_withValidResident() {
+//         JsonObject mockJson = createMockJson(); // Create mock JSON data
 
-//         // Perform the test
-//         User utilisateur = authenticatorMock.login("resident1@mail.com", "password1");
-        
-//         assertNotNull(utilisateur, "La connexion a échoué pour un résident valide.");
-//         assertEquals("Resident", authenticatorMock.getUserRole(), "Le rôle de l'utilisateur connecté est incorrect.");
-//         assertEquals("resident1@mail.com", utilisateur.getEmail(), "Les informations de l'utilisateur connecté sont incorrectes.");
+//         try (MockedStatic<JsonParser> mockedJsonParser = mockStatic(JsonParser.class)) {
+//             mockedJsonParser.when(() -> JsonParser.parseReader(any(FileReader.class)))
+//                     .thenReturn(mockJson);
+
+//             // Attempt login with valid resident credentials
+//             User loggedInUser = userAuthenticator.login("resident@example.com", "password123");
+//             assertNotNull(loggedInUser);
+//             assertTrue(loggedInUser instanceof Resident);
+//             assertEquals("resident@example.com", loggedInUser.getEmail());
+//         }
 //     }
 
 //     @Test
-//     public void testLoginIntervenant() {
-//         // Mock login behavior for an intervenant
-//         when(authenticatorMock.login("intervenant1@mail.com", "password1")).thenReturn(userMock);
-//         when(userMock.getEmail()).thenReturn("intervenant1@mail.com");
-//         when(authenticatorMock.getUserRole()).thenReturn("Intervenant");
+//     void testLogin_withValidIntervenant() {
+//         JsonObject mockJson = createMockJson(); // Create mock JSON data
 
-//         // Perform the test
-//         User utilisateur = authenticatorMock.login("intervenant1@mail.com", "password1");
+//         try (MockedStatic<JsonParser> mockedJsonParser = mockStatic(JsonParser.class)) {
+//             mockedJsonParser.when(() -> JsonParser.parseReader(any(FileReader.class)))
+//                     .thenReturn(mockJson);
 
-//         assertNotNull(utilisateur, "La connexion a échoué pour un intervenant valide.");
-//         assertEquals("Intervenant", authenticatorMock.getUserRole(), "Le rôle de l'utilisateur connecté est incorrect.");
-//         assertEquals("intervenant1@mail.com", utilisateur.getEmail(), "Les informations de l'utilisateur connecté sont incorrectes.");
+//             // Attempt login with valid intervenant credentials
+//             User loggedInUser = userAuthenticator.login("intervenant@example.com", "password456");
+//             assertNotNull(loggedInUser);
+//             assertTrue(loggedInUser instanceof Intervenant);
+//             assertEquals("intervenant@example.com", loggedInUser.getEmail());
+//         }
 //     }
 
 //     @Test
-//     public void testLoginInvalidCredentials() {
-//         // Mock login behavior for invalid credentials
-//         when(authenticatorMock.login("invalid@test.com", "wrongpassword")).thenReturn(null);
-//         when(authenticatorMock.getUserRole()).thenReturn("Unknown");
+//     void testLogin_withInvalidCredentials() {
+//         JsonObject mockJson = createMockJson(); // Create mock JSON data
 
-//         // Perform the test
-//         User utilisateur = authenticatorMock.login("invalid@test.com", "wrongpassword");
+//         try (MockedStatic<JsonParser> mockedJsonParser = mockStatic(JsonParser.class)) {
+//             mockedJsonParser.when(() -> JsonParser.parseReader(any(FileReader.class)))
+//                     .thenReturn(mockJson);
 
-//         assertNull(utilisateur, "La connexion ne devrait pas réussir avec des identifiants invalides.");
-//         assertEquals("Unknown", authenticatorMock.getUserRole(), "Le rôle devrait être 'Unknown' lorsqu'aucun utilisateur n'est connecté.");
+//             // Attempt login with invalid credentials
+//             User loggedInUser = userAuthenticator.login("invalid@example.com", "wrongpassword");
+//             assertNull(loggedInUser);
+//         }
 //     }
 
-//     @AfterAll
-//     public void teardown() {
-//         // Mock the logout behavior
-//         doNothing().when(authenticatorMock).logout(any(User.class));
-//         authenticatorMock.logout(userMock); // Call the mocked logout method
+//     @Test
+//     void testGetUserRole() {
+//         JsonObject mockJson = createMockJson(); // Create mock JSON data
+
+//         try (MockedStatic<JsonParser> mockedJsonParser = mockStatic(JsonParser.class)) {
+//             mockedJsonParser.when(() -> JsonParser.parseReader(any(FileReader.class)))
+//                     .thenReturn(mockJson);
+
+//             // Log in as a resident and check role
+//             userAuthenticator.login("resident@example.com", "password123");
+//             assertEquals("Resident", userAuthenticator.getUserRole());
+
+//             // Log in as an intervenant and check role
+//             userAuthenticator.login("intervenant@example.com", "password456");
+//             assertEquals("Intervenant", userAuthenticator.getUserRole());
+//         }
+//     }
+
+//     @Test
+//     void testLogout() {
+//         JsonObject mockJson = createMockJson(); // Create mock JSON data
+
+//         try (MockedStatic<JsonParser> mockedJsonParser = mockStatic(JsonParser.class)) {
+//             mockedJsonParser.when(() -> JsonParser.parseReader(any(FileReader.class)))
+//                     .thenReturn(mockJson);
+
+//             // Log in as a resident and log out
+//             User loggedInUser = userAuthenticator.login("resident@example.com", "password123");
+//             assertNotNull(loggedInUser);
+//             userAuthenticator.logout(loggedInUser);
+//             assertNull(userAuthenticator.getConnectedUser());
+//         }
+//     }
+
+//     // Helper method to create mock JSON data
+//     private JsonObject createMockJson() {
+//         JsonObject jsonObject = new JsonObject();
+
+//         JsonArray residentsArray = new JsonArray();
+//         JsonObject resident = new JsonObject();
+//         resident.addProperty("email", "resident@example.com");
+//         resident.addProperty("password", "password123");
+//         residentsArray.add(resident);
+
+//         JsonArray intervenantsArray = new JsonArray();
+//         JsonObject intervenant = new JsonObject();
+//         intervenant.addProperty("email", "intervenant@example.com");
+//         intervenant.addProperty("password", "password456");
+//         intervenantsArray.add(intervenant);
+
+//         jsonObject.add("residents", residentsArray);
+//         jsonObject.add("intervenants", intervenantsArray);
+
+//         return jsonObject;
 //     }
 // }
