@@ -413,8 +413,4 @@ public class RequeteTravailController {
             }
         }
     }
-
-    
-
-
-    }
+}
