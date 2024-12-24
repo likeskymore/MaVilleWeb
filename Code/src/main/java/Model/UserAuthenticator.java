@@ -1,3 +1,10 @@
+/**
+ * La classe UserAuthenticator gère l'authentification des utilisateurs dans le système.
+ * 
+ * Cette classe implémente le pattern Singleton pour assurer qu'une seule instance
+ * de l'authentificateur est utilisée. Elle fournit des méthodes pour se connecter,
+ * déterminer le rôle de l'utilisateur connecté, et se déconnecter.
+ */
 package Model;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
@@ -11,17 +18,31 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class UserAuthenticator {
+<<<<<<< HEAD
     private String filePath = "Code/src/main/java/Data/Users.json";
+=======
+    /**
+     * Instance Singleton de UserAuthenticator.
+     */
+>>>>>>> 6fd1c9296e1723deb9abfefd03acd426a778c163
     private static UserAuthenticator instance; // Singleton instance
+
+    /**
+     * Utilisateur actuellement connecté.
+     */
     private User connectedUser;
 
+    
+    /**
+     * Constructeur privé pour le pattern Singleton.
+     */
     // Private constructor for Singleton pattern
     private UserAuthenticator() {}
 
     /**
-     * Get the Singleton instance of UserAuthenticator.
-     *
-     * @return The Singleton instance.
+     * Retourne l'instance Singleton de UserAuthenticator.
+     * 
+     * @return L'instance unique de UserAuthenticator.
      */
     public static UserAuthenticator getInstance() {
         if (instance == null) {
@@ -31,11 +52,11 @@ public class UserAuthenticator {
     }
 
     /**
-     * Log in a user by verifying their email and password.
-     *
-     * @param email    The email of the user.
-     * @param password The password of the user.
-     * @return The connected User object, or null if authentication fails.
+     * Permet à un utilisateur de se connecter en vérifiant son email et son mot de passe.
+     * 
+     * @param email    L'email de l'utilisateur.
+     * @param password Le mot de passe de l'utilisateur.
+     * @return L'objet User connecté ou null si l'authentification échoue.
      */
     public User login(String email, String password) {
         try (Reader reader = new FileReader(filePath)) {
@@ -75,10 +96,10 @@ public class UserAuthenticator {
     }
 
     /**
-     * Get the role of the connected user.
-     *
-     * @return A string representing the role of the user ("Resident" or "Intervenant"),
-     * or "Unknown" if no user is connected.
+     * Retourne le rôle de l'utilisateur connecté.
+     * 
+     * @return Une chaîne représentant le rôle de l'utilisateur ("Resident" ou "Intervenant"),
+     * ou "Unknown" si aucun utilisateur n'est connecté.
      */
     public String getUserRole() {
         if (connectedUser instanceof Resident) {
@@ -90,9 +111,9 @@ public class UserAuthenticator {
     }
 
     /**
-     * Log out the currently connected user.
-     *
-     * @param user The user to log out. If it matches the connected user, disconnect them.
+     * Déconnecte l'utilisateur actuellement connecté.
+     * 
+     * @param user L'utilisateur à déconnecter. Si l'utilisateur correspond à celui connecté, il est déconnecté.
      */
     public void logout(User user) {
         if (user != null && user.equals(connectedUser)) {
@@ -104,9 +125,9 @@ public class UserAuthenticator {
     }
 
     /**
-     * Getter for the currently connected user.
-     *
-     * @return The currently connected user, or null if no user is logged in.
+     * Retourne l'utilisateur actuellement connecté.
+     * 
+     * @return L'utilisateur connecté ou null si aucun utilisateur n'est connecté.
      */
     public User getConnectedUser() {
         return connectedUser;
@@ -117,6 +138,9 @@ public class UserAuthenticator {
     }
 
     // Custom TypeAdapter for LocalDate
+    /**
+     * TypeAdapter personnalisé pour gérer la sérialisation et la désérialisation de LocalDate.
+     */
     private static class LocalDateAdapter extends TypeAdapter<LocalDate> {
         private static final DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
 

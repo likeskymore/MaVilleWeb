@@ -1,0 +1,84 @@
+@options
+@packages
+@argfile
+-locale
+'fr'
+-classpath
+'C:/Users/Azatotht/.m2/repository/com/google/code/gson/gson/2.11.0/gson-2.11.0.jar;C:/Users/Azatotht/.m2/repository/com/google/errorprone/error_prone_annotations/2.27.0/error_prone_annotations-2.27.0.jar'
+-encoding
+'UTF-8'
+-protected
+-source
+'17'
+-sourcepath
+'D:/Universite/AUTOMNE 2024/IFT2255 - Génie logiciel/Devoirs/MaVille-Groupe-46/Code/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2024. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'D:/Universite/AUTOMNE 2024/IFT2255 - Génie logiciel/Devoirs/MaVille-Groupe-46/Code/target/site/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'Appli MaVille 2.0 API'
+-use
+-version
+-windowtitle
+'Appli MaVille 2.0 API'
+Controller
+Model
+View
+'D:/Universite/AUTOMNE 2024/IFT2255 - Génie logiciel/Devoirs/MaVille-Groupe-46/Code/src/main/java/Controller/AccountController.java'
+'D:/Universite/AUTOMNE 2024/IFT2255 - Génie logiciel/Devoirs/MaVille-Groupe-46/Code/src/main/java/Controller/Controller.java'
+'D:/Universite/AUTOMNE 2024/IFT2255 - Génie logiciel/Devoirs/MaVille-Groupe-46/Code/src/main/java/Controller/RequeteTravailController.java'
+'D:/Universite/AUTOMNE 2024/IFT2255 - Génie logiciel/Devoirs/MaVille-Groupe-46/Code/src/main/java/Controller/TravailController.java'
+'D:/Universite/AUTOMNE 2024/IFT2255 - Génie logiciel/Devoirs/MaVille-Groupe-46/Code/src/main/java/Main.java'
+'D:/Universite/AUTOMNE 2024/IFT2255 - Génie logiciel/Devoirs/MaVille-Groupe-46/Code/src/main/java/Model/Address.java'
+'D:/Universite/AUTOMNE 2024/IFT2255 - Génie logiciel/Devoirs/MaVille-Groupe-46/Code/src/main/java/Model/ApiResponse.java'
+'D:/Universite/AUTOMNE 2024/IFT2255 - Génie logiciel/Devoirs/MaVille-Groupe-46/Code/src/main/java/Model/Candidature.java'
+'D:/Universite/AUTOMNE 2024/IFT2255 - Génie logiciel/Devoirs/MaVille-Groupe-46/Code/src/main/java/Model/Entraves.java'
+'D:/Universite/AUTOMNE 2024/IFT2255 - Génie logiciel/Devoirs/MaVille-Groupe-46/Code/src/main/java/Model/Horaire.java'
+'D:/Universite/AUTOMNE 2024/IFT2255 - Génie logiciel/Devoirs/MaVille-Groupe-46/Code/src/main/java/Model/HttpClientApi.java'
+'D:/Universite/AUTOMNE 2024/IFT2255 - Génie logiciel/Devoirs/MaVille-Groupe-46/Code/src/main/java/Model/Intervenant.java'
+'D:/Universite/AUTOMNE 2024/IFT2255 - Génie logiciel/Devoirs/MaVille-Groupe-46/Code/src/main/java/Model/IntervenantType.java'
+'D:/Universite/AUTOMNE 2024/IFT2255 - Génie logiciel/Devoirs/MaVille-Groupe-46/Code/src/main/java/Model/Notification.java'
+'D:/Universite/AUTOMNE 2024/IFT2255 - Génie logiciel/Devoirs/MaVille-Groupe-46/Code/src/main/java/Model/Projet.java'
+'D:/Universite/AUTOMNE 2024/IFT2255 - Génie logiciel/Devoirs/MaVille-Groupe-46/Code/src/main/java/Model/RequeteTravail.java'
+'D:/Universite/AUTOMNE 2024/IFT2255 - Génie logiciel/Devoirs/MaVille-Groupe-46/Code/src/main/java/Model/Resident.java'
+'D:/Universite/AUTOMNE 2024/IFT2255 - Génie logiciel/Devoirs/MaVille-Groupe-46/Code/src/main/java/Model/StatutProjet.java'
+'D:/Universite/AUTOMNE 2024/IFT2255 - Génie logiciel/Devoirs/MaVille-Groupe-46/Code/src/main/java/Model/Subscription.java'
+'D:/Universite/AUTOMNE 2024/IFT2255 - Génie logiciel/Devoirs/MaVille-Groupe-46/Code/src/main/java/Model/Travail.java'
+'D:/Universite/AUTOMNE 2024/IFT2255 - Génie logiciel/Devoirs/MaVille-Groupe-46/Code/src/main/java/Model/TravailDeserializer.java'
+'D:/Universite/AUTOMNE 2024/IFT2255 - Génie logiciel/Devoirs/MaVille-Groupe-46/Code/src/main/java/Model/TypeTravail.java'
+'D:/Universite/AUTOMNE 2024/IFT2255 - Génie logiciel/Devoirs/MaVille-Groupe-46/Code/src/main/java/Model/User.java'
+'D:/Universite/AUTOMNE 2024/IFT2255 - Génie logiciel/Devoirs/MaVille-Groupe-46/Code/src/main/java/Model/UserAuthenticator.java'
+'D:/Universite/AUTOMNE 2024/IFT2255 - Génie logiciel/Devoirs/MaVille-Groupe-46/Code/src/main/java/View/Menu.java'
+'D:/Universite/AUTOMNE 2024/IFT2255 - Génie logiciel/Devoirs/MaVille-Groupe-46/Code/src/main/java/View/MenuIntervenant.java'
+'D:/Universite/AUTOMNE 2024/IFT2255 - Génie logiciel/Devoirs/MaVille-Groupe-46/Code/src/main/java/View/MenuResident.java'
+C:\Users\Azatotht\.m2\repository\com\google\code\gson\gson\2.11.0\gson-2.11.0.jar = 1732141987329
+C:\Users\Azatotht\.m2\repository\com\google\errorprone\error_prone_annotations\2.27.0\error_prone_annotations-2.27.0.jar = 1732141987347
+D:\Universite\AUTOMNE 2024\IFT2255 - Génie logiciel\Devoirs\MaVille-Groupe-46\Code\src\main\java\Main.java = 1734987108668
+D:\Universite\AUTOMNE 2024\IFT2255 - Génie logiciel\Devoirs\MaVille-Groupe-46\Code\src\main\java = 1734933089166
+D:\Universite\AUTOMNE 2024\IFT2255 - Génie logiciel\Devoirs\MaVille-Groupe-46\Code\target\site\apidocs\allclasses-index.html = 1734988208315
+D:\Universite\AUTOMNE 2024\IFT2255 - Génie logiciel\Devoirs\MaVille-Groupe-46\Code\target\site\apidocs\allpackages-index.html = 1734988208315
+D:\Universite\AUTOMNE 2024\IFT2255 - Génie logiciel\Devoirs\MaVille-Groupe-46\Code\target\site\apidocs\element-list = 1734988208201
+D:\Universite\AUTOMNE 2024\IFT2255 - Génie logiciel\Devoirs\MaVille-Groupe-46\Code\target\site\apidocs\help-doc.html = 1734988208341
+D:\Universite\AUTOMNE 2024\IFT2255 - Génie logiciel\Devoirs\MaVille-Groupe-46\Code\target\site\apidocs\index-all.html = 1734988208332
+D:\Universite\AUTOMNE 2024\IFT2255 - Génie logiciel\Devoirs\MaVille-Groupe-46\Code\target\site\apidocs\index.html = 1734988208299
+D:\Universite\AUTOMNE 2024\IFT2255 - Génie logiciel\Devoirs\MaVille-Groupe-46\Code\target\site\apidocs\jquery-ui.overrides.css = 1734988208351
+D:\Universite\AUTOMNE 2024\IFT2255 - Génie logiciel\Devoirs\MaVille-Groupe-46\Code\target\site\apidocs\Main.html = 1734988208109
+D:\Universite\AUTOMNE 2024\IFT2255 - Génie logiciel\Devoirs\MaVille-Groupe-46\Code\target\site\apidocs\member-search-index.js = 1734988208321
+D:\Universite\AUTOMNE 2024\IFT2255 - Génie logiciel\Devoirs\MaVille-Groupe-46\Code\target\site\apidocs\module-search-index.js = 1734988208315
+D:\Universite\AUTOMNE 2024\IFT2255 - Génie logiciel\Devoirs\MaVille-Groupe-46\Code\target\site\apidocs\overview-summary.html = 1734988208332
+D:\Universite\AUTOMNE 2024\IFT2255 - Génie logiciel\Devoirs\MaVille-Groupe-46\Code\target\site\apidocs\overview-tree.html = 1734988208295
+D:\Universite\AUTOMNE 2024\IFT2255 - Génie logiciel\Devoirs\MaVille-Groupe-46\Code\target\site\apidocs\package-search-index.js = 1734988208315
+D:\Universite\AUTOMNE 2024\IFT2255 - Génie logiciel\Devoirs\MaVille-Groupe-46\Code\target\site\apidocs\package-summary.html = 1734988208206
+D:\Universite\AUTOMNE 2024\IFT2255 - Génie logiciel\Devoirs\MaVille-Groupe-46\Code\target\site\apidocs\package-tree.html = 1734988208211
+D:\Universite\AUTOMNE 2024\IFT2255 - Génie logiciel\Devoirs\MaVille-Groupe-46\Code\target\site\apidocs\package-use.html = 1734988208282
+D:\Universite\AUTOMNE 2024\IFT2255 - Génie logiciel\Devoirs\MaVille-Groupe-46\Code\target\site\apidocs\script.js = 1734988208342
+D:\Universite\AUTOMNE 2024\IFT2255 - Génie logiciel\Devoirs\MaVille-Groupe-46\Code\target\site\apidocs\search.js = 1734988208342
+D:\Universite\AUTOMNE 2024\IFT2255 - Génie logiciel\Devoirs\MaVille-Groupe-46\Code\target\site\apidocs\stylesheet.css = 1734988208342
+D:\Universite\AUTOMNE 2024\IFT2255 - Génie logiciel\Devoirs\MaVille-Groupe-46\Code\target\site\apidocs\tag-search-index.js = 1734988208321
+D:\Universite\AUTOMNE 2024\IFT2255 - Génie logiciel\Devoirs\MaVille-Groupe-46\Code\target\site\apidocs\type-search-index.js = 1734988208321

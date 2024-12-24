@@ -1,3 +1,10 @@
+/**
+ * La classe TravailDeserializer implémente l'interface {@link JsonDeserializer}
+ * pour désérialiser des objets JSON en instances de {@link Travail}.
+ * 
+ * Cette classe gère la désérialisation des catégories spécifiques telles que
+ * "Travaux" pour les projets et "Entraves" pour les contraintes liées aux travaux.
+ */
 package Model;
 import com.google.gson.*;
 
@@ -6,12 +13,29 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class TravailDeserializer implements JsonDeserializer<Travail> {
+    /**
+     * Catégorie des objets à désérialiser (par exemple : "Travaux", "Entraves").
+     */
     private final String category;
 
+    /**
+     * Constructeur pour initialiser le désérialiseur avec une catégorie spécifique.
+     * 
+     * @param category La catégorie des objets à désérialiser.
+     */
     public TravailDeserializer(String category) {
         this.category = category;
     }
 
+    /**
+     * Désérialise un objet JSON en une instance de {@link Travail} ou l'une de ses sous-classes.
+     * 
+     * @param json L'élément JSON à désérialiser.
+     * @param typeOfT Le type attendu de l'objet.
+     * @param context Le contexte de désérialisation.
+     * @return Une instance de {@link Travail}, {@link Projet} ou {@link Entraves}.
+     * @throws JsonParseException Si une erreur survient lors de la désérialisation.
+     */
     @Override
     public Travail deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         JsonObject jsonObject = json.getAsJsonObject();
@@ -92,6 +116,13 @@ public class TravailDeserializer implements JsonDeserializer<Travail> {
         }
     }
 
+    /**
+     * Génère une chaîne de caractères représentant les horaires d'un projet à partir
+     * des informations présentes dans l'objet JSON.
+     * 
+     * @param jsonObject L'objet JSON contenant les informations d'horaires.
+     * @return Une chaîne formatée représentant les horaires.
+     */
     private String generateHoraires(JsonObject jsonObject) {
         StringBuilder horaires = new StringBuilder();
         String[] days = {"mon", "tue", "wed", "thu", "fri", "sat", "sun"};

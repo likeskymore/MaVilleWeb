@@ -1,3 +1,10 @@
+/**
+ * La classe MenuResident gère l'interface utilisateur destinée aux résidents.
+ * Elle permet aux utilisateurs connectés en tant que résidents d'interagir avec diverses fonctionnalités,
+ * telles que la soumission de requêtes, la consultation des travaux, et la gestion des notifications.
+ * 
+ * Cette classe hérite de la classe abstraite {@link Menu}.
+ */
 package View;
 
 import java.util.Scanner;
@@ -6,13 +13,40 @@ import Controller.TravailController;
 import Model.*;
 
 public class MenuResident extends Menu {
-    RequeteTravailController requestController = new RequeteTravailController();               
+    /**
+     * Contrôleur pour gérer les requêtes de travail soumises par les résidents.
+     */
+    RequeteTravailController requestController = new RequeteTravailController();  
+
+    /**
+     * Contrôleur pour gérer les travaux liés aux projets ou entraves.
+     */           
     TravailController workController = new TravailController();
+
+    /**
+     * Utilisateur résident actuellement connecté.
+     */
     Resident activeUser = (Resident) UserAuthenticator.getInstance().getConnectedUser();
+
+    /**
+     * Indicateur pour maintenir le menu actif.
+     */
     private boolean running = true;
+
+    /**
+     * Scanner pour gérer les entrées utilisateur.
+     */
     private Scanner scanner = new Scanner(System.in);  
+
+    /**
+     * Niveau actuel du menu (contexte de navigation).
+     */
     private double currentLevel = 0.0;
 
+    /**
+     * Démarre la boucle principale du menu.
+     * Affiche les options et gère les entrées utilisateur jusqu'à la déconnexion ou la fermeture.
+     */
     @Override
     public void start() {
         while (running) {
@@ -22,6 +56,11 @@ public class MenuResident extends Menu {
         exit();  
     }
 
+    /**
+     * Affiche le menu correspondant au niveau actuel.
+     * 
+     * @param level Le niveau ou contexte du menu.
+     */
     @Override
     public void showMenu(Double level) {
         if (level == 0.0) {
@@ -92,6 +131,12 @@ public class MenuResident extends Menu {
         }
     }
 
+
+    /**
+     * Gère la sélection des options du menu en fonction du niveau actuel.
+     * 
+     * @param option L'option sélectionnée par l'utilisateur.
+     */
     @Override
     public void select(int option) {
         if (currentLevel == 0.0) {
@@ -167,6 +212,10 @@ public class MenuResident extends Menu {
         }
     }
 
+
+    /**
+     * Traite les entrées utilisateur pour naviguer dans le menu.
+     */
     @Override
     public void handleInput() {
         if (currentLevel == 6.0) {
@@ -196,14 +245,28 @@ public class MenuResident extends Menu {
         }
     }
 
+    /**
+     * Retourne le niveau actuel du menu.
+     * 
+     * @return Le niveau actuel.
+     */
+
     public double getCurrentLevel() {
         return currentLevel;
     }
 
+    /**
+     * Vérifie si le menu est toujours actif.
+     * 
+     * @return True si le menu est actif, sinon False.
+     */
     public boolean isRunning() {
         return running;
     }
 
+    /**
+     * Quitte le menu et met fin à l'application pour l'utilisateur résident.
+     */
     @Override
     public void exit() {
         running = false;

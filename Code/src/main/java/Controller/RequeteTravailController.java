@@ -1,3 +1,11 @@
+/**
+ * RequeteTravailController gère les requêtes de travail soumises par les résidents
+ * et leur interaction avec les intervenants. Elle prend en charge la création, la gestion,
+ * et le filtrage des requêtes de travail ainsi que la soumission des candidatures.
+ * 
+ * Cette classe utilise des fichiers JSON pour conserver les données des requêtes et
+ * des candidatures.
+ */
 package Controller;
 
 import java.io.FileReader;
@@ -23,27 +31,55 @@ import Model.Resident;
 import Model.TypeTravail;
 
 public class RequeteTravailController {
+    /**
+     * Chemin d'accès au fichier JSON contenant les requêtes de travail.
+     */
     private static final String FILE_PATH = "Code/src/main/java/Data/Requetes.json";
+
+    /**
+     * Chemin d'accès au fichier JSON contenant les candidatures.
+     */
     private static final String FILE_PATH_CANDIDATURES = "Code/src/main/java/Data/Candidature.json";
+    
+     /**
+     * Liste des requêtes de travail chargées en mémoire.
+     */
     private static List<RequeteTravail> requetesTravail;
     
 
-
+    /**
+     * Constructeur initialisant le contrôleur et chargeant les requêtes existantes.
+     */
     public RequeteTravailController() {
         this.requetesTravail = new ArrayList<>();
         chargerRequetes();  // Charger les requêtes des la création du contrôleur  
     }
 
 
-
+    /**
+     * Ajoute une nouvelle requête de travail à la liste des requêtes.
+     * 
+     * @param requete La requête de travail à ajouter.
+     */
     public static void ajouterRequete(RequeteTravail requete) {
         requetesTravail.add(requete);
     }
 
+    /**
+     * Retourne la liste des requêtes de travail en mémoire.
+     * 
+     * @return Liste des requêtes de travail.
+     */
     public static List<RequeteTravail> getRequetes() {
         return requetesTravail;
     }
 
+    /**
+     * Permet à un résident de soumettre une nouvelle requête de travail.
+     * 
+     * @param scanner Scanner pour lire les entrées utilisateur.
+     * @param activeResident Le résident actuellement connecté.
+     */
     public void soumettreRequete(Scanner scanner, Resident activeResident) {
     System.out.println("                  --- Soumettre une Requête de Travail ---                 ");
     System.out.println("* * * Vous pouvez annuler la soumission à tout moment en entrant 'A'. * * *");
@@ -177,7 +213,12 @@ public class RequeteTravailController {
 }
 
     
-
+    /**
+     * Permet à un résident de consulter ses requêtes soumises.
+     * 
+     * @param scanner Scanner pour lire les entrées utilisateur.
+     * @param activeResident Le résident actuellement connecté.
+     */
     public void consulterMesRequetes(Scanner scanner, Resident activeResident) {
         List<RequeteTravail> mesRequetes = RequeteTravailController.getRequetesParResident(activeResident);
     
@@ -195,6 +236,12 @@ public class RequeteTravailController {
         scanner.nextLine();
     }
 
+    /**
+     * Permet à un intervenant de consulter les requêtes disponibles et d'y postuler.
+     * 
+     * @param scanner Scanner pour lire les entrées utilisateur.
+     * @param activeIntervenant L'intervenant actuellement connecté.
+     */
     public void consulterRequetes(Scanner scanner, Intervenant activeIntervenant) {
         System.out.println("\n--- Liste des Requêtes de Travail ---");
         afficherRequetesDepuisJson(); // Affiche toutes les requêtes depuis le JSON
@@ -239,12 +286,23 @@ public class RequeteTravailController {
         scanner.nextLine();
     }                 
     
+    /**
+     * Récupère les requêtes associées à un résident donné.
+     * 
+     * @param resident Le résident pour lequel rechercher les requêtes.
+     * @return Liste des requêtes associées au résident.
+     */
     public static List<RequeteTravail> getRequetesParResident(Resident resident) {
     return requetesTravail.stream()
             .filter(requete -> requete.getResident().equals(resident.getEmail()))
             .collect(Collectors.toList());
     }
 
+    /**
+     * Filtre les requêtes de travail par type de travaux.
+     * 
+     * @param type Le type de travaux pour filtrer les requêtes.
+     */
     public void filtrerRequetesParType(TypeTravail type) {       // filtrer par type
         try (FileReader reader = new FileReader(FILE_PATH)) {
             JsonElement jsonElement = JsonParser.parseReader(reader);
@@ -281,13 +339,20 @@ public class RequeteTravailController {
         }
     }
     
-
+    /**
+     * Filtre les requêtes de travail par date de début, en les triant par ordre décroissant.
+     * 
+     * @return Liste triée des requêtes de travail par date de début.
+     */
     public static List<RequeteTravail> filtrerRequetesParDate() {        // à changer
         return requetesTravail.stream()
                 .sorted(Comparator.comparing(RequeteTravail::getDateDebut).reversed())
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Affiche toutes les requêtes de travail depuis le fichier JSON.
+     */
     public void afficherRequetesDepuisJson() {                            // affiche toutes les requetes
         try (FileReader reader = new FileReader(FILE_PATH)) {
             JsonElement jsonElement = JsonParser.parseReader(reader);
@@ -322,7 +387,12 @@ public class RequeteTravailController {
     }
     
 
-
+    /**
+     * Permet à un intervenant de soumettre sa candidature pour une requête de travail.
+     * 
+     * @param requete La requête pour laquelle postuler.
+     * @param activeIntervenant L'intervenant actuellement connecté.
+     */
     public void soumettreCandidature(RequeteTravail requete, Intervenant activeIntervenant) { 
         // Permet à un intervenant de soumettre sa candidature
         Gson gson = new Gson();
@@ -372,7 +442,9 @@ public class RequeteTravailController {
     }
     
     
-
+    /**
+     * Charge les requêtes de travail depuis le fichier JSON en mémoire.
+     */
     public void chargerRequetes() {  // à faire pour candidature aussi
         Gson gson = new Gson();
         JsonObject jsonData = new JsonObject();
