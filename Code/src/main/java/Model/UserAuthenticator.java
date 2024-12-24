@@ -18,20 +18,13 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class UserAuthenticator {
-<<<<<<< HEAD
-    private String filePath = "Code/src/main/java/Data/Users.json";
-=======
-    /**
-     * Instance Singleton de UserAuthenticator.
-     */
->>>>>>> 6fd1c9296e1723deb9abfefd03acd426a778c163
-    private static UserAuthenticator instance; // Singleton instance
-
+    // Singleton instance
     /**
      * Utilisateur actuellement connecté.
      */
+    private static UserAuthenticator instance; 
     private User connectedUser;
-
+    private String filePath;
     
     /**
      * Constructeur privé pour le pattern Singleton.
