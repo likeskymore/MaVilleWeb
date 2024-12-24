@@ -485,8 +485,4 @@ public class RequeteTravailController {
             }
         }
     }
-
-    
-
-
-    }
+}

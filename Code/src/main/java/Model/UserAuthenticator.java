@@ -18,16 +18,13 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class UserAuthenticator {
-    /**
-     * Instance Singleton de UserAuthenticator.
-     */
-    private static UserAuthenticator instance; // Singleton instance
-
+    // Singleton instance
     /**
      * Utilisateur actuellement connecté.
      */
+    private static UserAuthenticator instance; 
     private User connectedUser;
-
+    private String filePath = "Code/src/main/java/Data/Users.json";
     
     /**
      * Constructeur privé pour le pattern Singleton.
@@ -55,7 +52,7 @@ public class UserAuthenticator {
      * @return L'objet User connecté ou null si l'authentification échoue.
      */
     public User login(String email, String password) {
-        try (Reader reader = new FileReader("Code/src/main/java/Data/Users.json")) {
+        try (Reader reader = new FileReader(filePath)) {
             // Register a custom TypeAdapter for LocalDate
             Gson gson = new GsonBuilder()
                 .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
@@ -127,6 +124,10 @@ public class UserAuthenticator {
      */
     public User getConnectedUser() {
         return connectedUser;
+    }
+
+    public void setPath(String filePath) {
+        this.filePath = filePath;
     }
 
     // Custom TypeAdapter for LocalDate

@@ -133,7 +133,7 @@ public class Main {
                 MenuResident residentMenu = new MenuResident();
                 residentMenu.start();  // This starts the resident menu
             } else {
-                MenuIntervenant intervenantMenu = new MenuIntervenant(user);
+                MenuIntervenant intervenantMenu = new MenuIntervenant();
                 intervenantMenu.start();  // Start the intervenant menu
             }
             return true;  // After logging in, return to the main menu to allow logout
