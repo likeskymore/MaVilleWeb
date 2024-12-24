@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Horaire.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Appli MaVille</a> &gt; <a href="index.source.html" class="el_package">Model</a> &gt; <span class="el_source">Horaire.java</span></div><h1>Horaire.java</h1><pre class="source lang-java linenums">/**
+ * La classe Horaire représente un horaire avec un jour de la semaine, une heure de début,
+ * une heure de fin, et une disponibilité associée.
+ * 
+ * Cette classe est utilisée pour gérer les plages horaires dans l'application.
+ */
+package Model;
+
+import java.time.DayOfWeek;
+import java.time.LocalTime;
+
+public class Horaire {
+    /**
+     * Jour de la semaine associé à l'horaire.
+     */
+    private DayOfWeek day;
+
+    /**
+     * Heure de début de l'horaire.
+     */
+    private LocalTime startTime;
+
+    /**
+     * Heure de fin de l'horaire.
+     */
+    private LocalTime endTime;
+
+    /**
+     * Disponibilité associée à l'horaire.
+     */
+    private Boolean available;
+
+
+    /**
+     * Constructeur pour créer un horaire avec des informations complètes.
+     * 
+     * @param day Jour de la semaine.
+     * @param startTime Heure de début.
+     * @param endTime Heure de fin.
+     * @param available Disponibilité associée.
+     */
+    // Constructor
+<span class="nc" id="L43">    public Horaire(DayOfWeek day, LocalTime startTime, LocalTime endTime, Boolean available) {</span>
+<span class="nc" id="L44">        this.day = day;</span>
+<span class="nc" id="L45">        this.startTime = startTime;</span>
+<span class="nc" id="L46">        this.endTime = endTime;</span>
+<span class="nc" id="L47">        this.available = available;</span>
+<span class="nc" id="L48">    }</span>
+
+    /**
+     * Constructeur par défaut.
+     */
+    // Default constructor
+<span class="nc" id="L54">    public Horaire() {}</span>
+
+    // Getters and setters
+
+    /**
+     * Retourne le jour de la semaine associé à l'horaire.
+     * 
+     * @return Le jour de la semaine.
+     */
+    public DayOfWeek getDay() {
+<span class="nc" id="L64">        return day;</span>
+    }
+
+    /**
+     * Modifie le jour de la semaine associé à l'horaire.
+     * 
+     * @param day Le nouveau jour de la semaine.
+     */
+    public void setDay(DayOfWeek day) {
+<span class="nc" id="L73">        this.day = day;</span>
+<span class="nc" id="L74">    }</span>
+
+     /**
+     * Retourne l'heure de début de l'horaire.
+     * 
+     * @return L'heure de début.
+     */
+    public LocalTime getStartTime() {
+<span class="nc" id="L82">        return startTime;</span>
+    }
+
+    /**
+     * Modifie l'heure de début de l'horaire.
+     * 
+     * @param startTime La nouvelle heure de début.
+     */
+    public void setStartTime(LocalTime startTime) {
+<span class="nc" id="L91">        this.startTime = startTime;</span>
+<span class="nc" id="L92">    }</span>
+
+    /**
+     * Retourne l'heure de fin de l'horaire.
+     * 
+     * @return L'heure de fin.
+     */
+    public LocalTime getEndTime() {
+<span class="nc" id="L100">        return endTime;</span>
+    }
+
+    /**
+     * Modifie l'heure de fin de l'horaire.
+     * 
+     * @param endTime La nouvelle heure de fin.
+     */
+    public void setEndTime(LocalTime endTime) {
+<span class="nc" id="L109">        this.endTime = endTime;</span>
+<span class="nc" id="L110">    }</span>
+
+    /**
+     * Retourne la disponibilité associée à l'horaire.
+     * 
+     * @return True si disponible, sinon False.
+     */
+    public Boolean isAvailable() {
+<span class="nc" id="L118">        return available;</span>
+    }
+
+    /**
+     * Modifie la disponibilité associée à l'horaire.
+     * 
+     * @param available La nouvelle disponibilité.
+     */
+    public void setAvailable(Boolean available) {
+<span class="nc" id="L127">        this.available = available;</span>
+<span class="nc" id="L128">    }</span>
+
+    /**
+     * Retourne une représentation sous forme de chaîne de caractères de l'horaire.
+     * 
+     * @return Une chaîne représentant l'horaire.
+     */
+    // toString method
+    @Override
+    public String toString() {
+<span class="nc" id="L138">        return &quot;Horaire {&quot; +</span>
+                &quot;day=&quot; + day +
+                &quot;, startTime=&quot; + startTime +
+                &quot;, endTime=&quot; + endTime +
+                &quot;, available=&quot; + available +
+                '}';
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

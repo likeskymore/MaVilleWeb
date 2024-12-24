@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Address.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Appli MaVille</a> &gt; <a href="index.source.html" class="el_package">Model</a> &gt; <span class="el_source">Address.java</span></div><h1>Address.java</h1><pre class="source lang-java linenums">/**
+ * La classe Address représente une adresse postale avec des attributs tels que le numéro
+ * de rue, le nom de rue, le code postal, la ville et le pays.
+ * 
+ * Cette classe fournit des méthodes pour obtenir les détails de l'adresse,
+ * modifier certains attributs, et déterminer le quartier associé à l'adresse
+ * en fonction du code postal.
+ */
+package Model;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class Address {
+     /**
+     * Numéro de la rue de l'adresse.
+     */
+    private String streetNumber;
+
+    /**
+     * Nom de la rue de l'adresse.
+     */
+    private String streetName;
+
+    /**
+     * Code postal de l'adresse.
+     */
+    private String postalCode;
+
+     /**
+     * Ville associée à l'adresse. Constante pour &quot;Montreal&quot;.
+     */
+<span class="nc" id="L34">    private final String city = &quot;Montreal&quot;;</span>
+
+    /**
+     * Pays associé à l'adresse. Constante pour &quot;Canada&quot;.
+     */
+<span class="nc" id="L39">    private final String country = &quot;Canada&quot;;</span>
+
+    /**
+     * Constructeur pour créer une adresse avec des détails complets.
+     * 
+     * @param streetNumber Le numéro de la rue.
+     * @param streetName Le nom de la rue.
+     * @param postalCode Le code postal.
+     */
+    // Constructor
+<span class="nc" id="L49">    public Address(String streetNumber, String streetName, String postalCode) {</span>
+<span class="nc" id="L50">        this.streetNumber = streetNumber;</span>
+<span class="nc" id="L51">        this.streetName = streetName;</span>
+<span class="nc" id="L52">        this.postalCode = postalCode;</span>
+<span class="nc" id="L53">    }</span>
+
+<span class="nc" id="L55">    public Address() {}   // Temp</span>
+
+    /**
+     * Retourne le quartier associé au code postal.
+     * 
+     * @return Le nom du quartier ou &quot;Quartier inconnu&quot; si non identifiable.
+     */
+    public String getQuartier() {
+<span class="nc bnc" id="L63" title="All 4 branches missed.">        if (postalCode == null || postalCode.length() &lt; 3) {</span>
+<span class="nc" id="L64">            return &quot;Quartier inconnu&quot;;</span>
+        }
+
+<span class="nc" id="L67">        String prefix = postalCode.substring(0, 3).toUpperCase();</span>
+
+<span class="nc" id="L69">        try (BufferedReader br = new BufferedReader(new FileReader(&quot;Code/src/main/java/Data/codesPostaux.csv&quot;))) { // Adjust path as needed</span>
+            String line;
+<span class="nc bnc" id="L71" title="All 2 branches missed.">            while ((line = br.readLine()) != null) {</span>
+<span class="nc" id="L72">                String[] parts = line.split(&quot;,&quot;);</span>
+<span class="nc bnc" id="L73" title="All 4 branches missed.">                if (parts.length == 2 &amp;&amp; parts[0].equalsIgnoreCase(prefix)) {</span>
+<span class="nc" id="L74">                    return parts[1];</span>
+                }
+<span class="nc" id="L76">            }</span>
+<span class="nc" id="L77">        } catch (IOException e) {</span>
+<span class="nc" id="L78">            System.err.println(&quot;Error reading quartiers.csv: &quot; + e.getMessage());</span>
+<span class="nc" id="L79">        }</span>
+
+<span class="nc" id="L81">        return &quot;Quartier inconnu&quot;;</span>
+    }
+
+    // Getters and setters
+
+    /**
+     * Retourne le numéro de rue.
+     * 
+     * @return Le numéro de rue.
+     */
+    public String getStreetNumber() {
+<span class="nc" id="L92">        return streetNumber;</span>
+    }
+
+    /**
+     * Définit le numéro de rue.
+     * 
+     * @param streetNumber Le nouveau numéro de rue.
+     */
+    public void setStreetNumber(String streetNumber) {
+<span class="nc" id="L101">        this.streetNumber = streetNumber;</span>
+<span class="nc" id="L102">    }</span>
+
+    /**
+     * Retourne le nom de la rue.
+     * 
+     * @return Le nom de la rue.
+     */
+    public String getStreetName() {
+<span class="nc" id="L110">        return streetName;</span>
+    }
+
+    /**
+     * Définit le nom de la rue.
+     * 
+     * @param streetName Le nouveau nom de la rue.
+     */
+    public void setStreetName(String streetName) {
+<span class="nc" id="L119">        this.streetName = streetName;</span>
+<span class="nc" id="L120">    }</span>
+
+    /**
+     * Retourne le code postal.
+     * 
+     * @return Le code postal.
+     */
+    public String getPostalCode() {
+<span class="nc" id="L128">        return postalCode;</span>
+    }
+
+    /**
+     * Définit le code postal.
+     * 
+     * @param postalCode Le nouveau code postal.
+     */
+    public void setPostalCode(String postalCode) {
+<span class="nc" id="L137">        this.postalCode = postalCode;</span>
+<span class="nc" id="L138">    }</span>
+
+    /**
+     * Retourne la ville associée à l'adresse.
+     * 
+     * @return La ville.
+     */
+    public String getCity() {
+<span class="nc" id="L146">        return city;</span>
+    }
+
+    /**
+     * Retourne le pays associé à l'adresse.
+     * 
+     * @return Le pays.
+     */
+    public String getCountry() {
+<span class="nc" id="L155">        return country;</span>
+    }
+
+    /**
+     * Retourne une représentation sous forme de chaîne de caractères de l'adresse.
+     * 
+     * @return Une chaîne représentant l'adresse.
+     */
+    @Override
+    public String toString() {
+<span class="nc" id="L165">        return &quot;Address{&quot; +</span>
+                &quot;streetNumber='&quot; + streetNumber + '\'' +
+                &quot;, streetName='&quot; + streetName + '\'' +
+                &quot;, postalCode='&quot; + postalCode + '\'' +
+                &quot;, city='&quot; + city + '\'' +
+                &quot;, country='&quot; + country + '\'' +
+                '}';
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

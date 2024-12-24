@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserAuthenticator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Appli MaVille</a> &gt; <a href="index.source.html" class="el_package">Model</a> &gt; <span class="el_source">UserAuthenticator.java</span></div><h1>UserAuthenticator.java</h1><pre class="source lang-java linenums">/**
+ * La classe UserAuthenticator gère l'authentification des utilisateurs dans le système.
+ * 
+ * Cette classe implémente le pattern Singleton pour assurer qu'une seule instance
+ * de l'authentificateur est utilisée. Elle fournit des méthodes pour se connecter,
+ * déterminer le rôle de l'utilisateur connecté, et se déconnecter.
+ */
+package Model;
+import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+
+public class UserAuthenticator {
+    // Singleton instance
+    /**
+     * Utilisateur actuellement connecté.
+     */
+    private static UserAuthenticator instance; 
+    private User connectedUser;
+<span class="fc" id="L27">    private String filePath = &quot;Code/src/main/java/Data/Users.json&quot;;</span>
+    
+    /**
+     * Constructeur privé pour le pattern Singleton.
+     */
+    // Private constructor for Singleton pattern
+<span class="fc" id="L33">    private UserAuthenticator() {}</span>
+
+    /**
+     * Retourne l'instance Singleton de UserAuthenticator.
+     * 
+     * @return L'instance unique de UserAuthenticator.
+     */
+    public static UserAuthenticator getInstance() {
+<span class="fc bfc" id="L41" title="All 2 branches covered.">        if (instance == null) {</span>
+<span class="fc" id="L42">            instance = new UserAuthenticator();</span>
+        }
+<span class="fc" id="L44">        return instance;</span>
+    }
+
+    /**
+     * Permet à un utilisateur de se connecter en vérifiant son email et son mot de passe.
+     * 
+     * @param email    L'email de l'utilisateur.
+     * @param password Le mot de passe de l'utilisateur.
+     * @return L'objet User connecté ou null si l'authentification échoue.
+     */
+    public User login(String email, String password) {
+<span class="fc" id="L55">        try (Reader reader = new FileReader(filePath)) {</span>
+            // Register a custom TypeAdapter for LocalDate
+<span class="fc" id="L57">            Gson gson = new GsonBuilder()</span>
+<span class="fc" id="L58">                .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())</span>
+<span class="fc" id="L59">                .create();</span>
+
+            // Parse the JSON file into a JsonObject
+<span class="fc" id="L62">            JsonObject jsonObject = JsonParser.parseReader(reader).getAsJsonObject();</span>
+
+            // Get residents and intervenants arrays
+<span class="fc" id="L65">            JsonArray residentsArray = jsonObject.getAsJsonArray(&quot;residents&quot;);</span>
+<span class="fc" id="L66">            JsonArray intervenantsArray = jsonObject.getAsJsonArray(&quot;intervenants&quot;);</span>
+
+            // Deserialize residents and check credentials
+<span class="fc" id="L69">            List&lt;Resident&gt; residents = gson.fromJson(residentsArray, new TypeToken&lt;List&lt;Resident&gt;&gt;() {}.getType());</span>
+<span class="fc bfc" id="L70" title="All 2 branches covered.">            for (Resident resident : residents) {</span>
+<span class="pc bpc" id="L71" title="1 of 4 branches missed.">                if (resident.getEmail().equals(email) &amp;&amp; resident.getPassword().equals(password)) {</span>
+<span class="fc" id="L72">                    connectedUser = resident;</span>
+<span class="fc" id="L73">                    return connectedUser; // Found the matching resident</span>
+                }
+<span class="fc" id="L75">            }</span>
+
+            // Deserialize intervenants and check credentials
+<span class="fc" id="L78">            List&lt;Intervenant&gt; intervenants = gson.fromJson(intervenantsArray, new TypeToken&lt;List&lt;Intervenant&gt;&gt;() {}.getType());</span>
+<span class="fc bfc" id="L79" title="All 2 branches covered.">            for (Intervenant intervenant : intervenants) {</span>
+<span class="pc bpc" id="L80" title="1 of 4 branches missed.">                if (intervenant.getEmail().equals(email) &amp;&amp; intervenant.getPassword().equals(password)) {</span>
+<span class="fc" id="L81">                    connectedUser = intervenant;</span>
+<span class="fc" id="L82">                    return connectedUser; // Found the matching intervenant</span>
+                }
+<span class="fc" id="L84">            }</span>
+<span class="pc" id="L85">        } catch (Exception e) {</span>
+<span class="nc" id="L86">            e.printStackTrace();</span>
+<span class="fc" id="L87">        }</span>
+<span class="fc" id="L88">        return null; // Return null if no user is found</span>
+    }
+
+    /**
+     * Retourne le rôle de l'utilisateur connecté.
+     * 
+     * @return Une chaîne représentant le rôle de l'utilisateur (&quot;Resident&quot; ou &quot;Intervenant&quot;),
+     * ou &quot;Unknown&quot; si aucun utilisateur n'est connecté.
+     */
+    public String getUserRole() {
+<span class="nc bnc" id="L98" title="All 2 branches missed.">        if (connectedUser instanceof Resident) {</span>
+<span class="nc" id="L99">            return &quot;Resident&quot;;</span>
+<span class="nc bnc" id="L100" title="All 2 branches missed.">        } else if (connectedUser instanceof Intervenant) {</span>
+<span class="nc" id="L101">            return &quot;Intervenant&quot;;</span>
+        }
+<span class="nc" id="L103">        return &quot;Unknown&quot;;</span>
+    }
+
+    /**
+     * Déconnecte l'utilisateur actuellement connecté.
+     * 
+     * @param user L'utilisateur à déconnecter. Si l'utilisateur correspond à celui connecté, il est déconnecté.
+     */
+    public void logout(User user) {
+<span class="nc bnc" id="L112" title="All 4 branches missed.">        if (user != null &amp;&amp; user.equals(connectedUser)) {</span>
+<span class="nc" id="L113">            connectedUser = null;</span>
+<span class="nc" id="L114">            System.out.println(&quot;L'utilisateur a été déconnecté avec succès.&quot;);</span>
+        } else {
+<span class="nc" id="L116">            System.out.println(&quot;Aucun utilisateur correspondant n'est connecté.&quot;);</span>
+        }
+<span class="nc" id="L118">    }</span>
+
+    /**
+     * Retourne l'utilisateur actuellement connecté.
+     * 
+     * @return L'utilisateur connecté ou null si aucun utilisateur n'est connecté.
+     */
+    public User getConnectedUser() {
+<span class="fc" id="L126">        return connectedUser;</span>
+    }
+
+    public void setPath(String filePath) {
+<span class="fc" id="L130">        this.filePath = filePath;</span>
+<span class="fc" id="L131">    }</span>
+
+    // Custom TypeAdapter for LocalDate
+    /**
+     * TypeAdapter personnalisé pour gérer la sérialisation et la désérialisation de LocalDate.
+     */
+    private static class LocalDateAdapter extends TypeAdapter&lt;LocalDate&gt; {
+<span class="fc" id="L138">        private static final DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;</span>
+
+        @Override
+        public void write(JsonWriter out, LocalDate value) throws IOException {
+<span class="nc" id="L142">            out.value(value.format(formatter));</span>
+<span class="nc" id="L143">        }</span>
+
+        @Override
+        public LocalDate read(JsonReader in) throws IOException {
+<span class="nc" id="L147">            return LocalDate.parse(in.nextString(), formatter);</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

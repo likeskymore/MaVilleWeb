@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ApiResponse.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Appli MaVille</a> &gt; <a href="index.source.html" class="el_package">Model</a> &gt; <span class="el_source">ApiResponse.java</span></div><h1>ApiResponse.java</h1><pre class="source lang-java linenums">/**
+ * La classe ApiResponse représente la réponse d'une API HTTP, contenant
+ * le code de statut, un message, et le corps de la réponse.
+ * 
+ * Cette classe fournit des accesseurs pour chaque attribut et permet de 
+ * représenter la réponse sous forme de chaîne de caractères.
+ */
+package Model;
+
+public class ApiResponse {
+    /**
+     * Le code de statut HTTP de la réponse.
+     */
+    private final int statusCode;
+
+    /**
+     * Le message associé à la réponse.
+     */
+    private final String message;
+
+    /**
+     * Le corps de la réponse, contenant les données renvoyées par l'API.
+     */
+    private final String body;
+
+    /**
+     * Constructeur pour créer une instance de ApiResponse avec tous les attributs.
+     * 
+     * @param statusCode Le code de statut HTTP de la réponse.
+     * @param message Le message associé à la réponse.
+     * @param body Le corps de la réponse.
+     */
+<span class="nc" id="L33">    public ApiResponse(int statusCode, String message, String body) {</span>
+<span class="nc" id="L34">        this.statusCode = statusCode;</span>
+<span class="nc" id="L35">        this.message = message;</span>
+<span class="nc" id="L36">        this.body = body;</span>
+<span class="nc" id="L37">    }</span>
+
+    /**
+     * Retourne le code de statut HTTP de la réponse.
+     * 
+     * @return Le code de statut HTTP.
+     */
+    public int getStatusCode() {
+<span class="nc" id="L45">        return statusCode;</span>
+    }
+
+    /**
+     * Retourne le message associé à la réponse.
+     * 
+     * @return Le message de la réponse.
+     */
+    public String getMessage() {
+<span class="nc" id="L54">        return message;</span>
+    }
+
+    /**
+     * Retourne le corps de la réponse.
+     * 
+     * @return Le corps de la réponse.
+     */
+    public String getBody() {
+<span class="nc" id="L63">        return body;</span>
+    }
+
+    /**
+     * Retourne une représentation sous forme de chaîne de caractères de l'instance ApiResponse.
+     * 
+     * @return Une chaîne représentant la réponse API.
+     */
+    @Override
+    public String toString() {
+<span class="nc" id="L73">        return &quot;Status Code: &quot; + statusCode + &quot;, Message: &quot; + message + &quot;, Body: &quot; + body;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

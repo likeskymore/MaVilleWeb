@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AccountController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Appli MaVille</a> &gt; <a href="index.source.html" class="el_package">Controller</a> &gt; <span class="el_source">AccountController.java</span></div><h1>AccountController.java</h1><pre class="source lang-java linenums">/**
+ * La classe est responsable de la gestion des comptes utilisateurs, ainsi que de la création 
+ * des comptes Résident et Intervenant, le chargement des données utilisateur à partir d'un fichier JSON,
+ * et la validation des entrées utilisateur lors du processus de création de compte.
+ * 
+ * Cette classe interagit avec les données JSON stockées dans un fichier et assure
+ * que les détails des utilisateurs sont correctement gérés et enregistrés.
+ */
+
+package Controller;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
+import Model.User;
+
+<span class="fc" id="L24">public class AccountController extends Controller {</span>
+    /**
+    * Chemin d'accès au fichier JSON où les données utilisateur sont stockées.
+    */
+<span class="fc" id="L28">    private String FILE_PATH = &quot;Code/src/main/java/Data/Users.json&quot;;</span>
+
+    /**
+     * Crée un nouveau compte pour un Résident ou un Intervenant.
+     * Demande à l'utilisateur les informations nécessaires et sauvegarde les détails du compte
+     * dans la section appropriée du fichier JSON.
+     * 
+     * @param scanner Scanner pour lire les entrées utilisateur.
+     */
+    public void createAccount(Scanner scanner) {
+        try {
+            // Load the existing JSON data
+<span class="fc" id="L40">            JsonObject jsonData = loadJsonData();</span>
+    
+            // Initialize arrays if not already present
+<span class="pc bpc" id="L43" title="1 of 2 branches missed.">            JsonArray residents = jsonData.has(&quot;residents&quot;) ? jsonData.getAsJsonArray(&quot;residents&quot;) : new JsonArray();</span>
+<span class="pc bpc" id="L44" title="1 of 2 branches missed.">            JsonArray intervenants = jsonData.has(&quot;intervenants&quot;) ? jsonData.getAsJsonArray(&quot;intervenants&quot;) : new JsonArray();</span>
+    
+<span class="fc" id="L46">            System.out.println(&quot;Choisissez le type de compte à créer :&quot;);</span>
+<span class="fc" id="L47">            System.out.println(&quot;1. Résident&quot;);</span>
+<span class="fc" id="L48">            System.out.println(&quot;2. Intervenant&quot;);</span>
+<span class="fc" id="L49">            System.out.print(&quot;Entrez votre choix (1 ou 2) : &quot;);</span>
+<span class="fc" id="L50">            int choice = -1;</span>
+    
+<span class="fc bfc" id="L52" title="All 4 branches covered.">            while (choice != 1 &amp;&amp; choice != 2) {</span>
+                try {
+<span class="fc" id="L54">                    choice = Integer.parseInt(scanner.nextLine());</span>
+<span class="pc bpc" id="L55" title="1 of 4 branches missed.">                    if (choice != 1 &amp;&amp; choice != 2) {</span>
+<span class="nc" id="L56">                        System.out.println(&quot;Choix invalide. Veuillez entrer 1 ou 2 :&quot;);</span>
+                    }
+<span class="nc" id="L58">                } catch (NumberFormatException e) {</span>
+<span class="nc" id="L59">                    System.out.println(&quot;Entrée invalide. Veuillez entrer un numéro (1 ou 2) :&quot;);</span>
+<span class="pc" id="L60">                }</span>
+            }
+    
+<span class="pc bpc" id="L63" title="1 of 3 branches missed.">            switch (choice) {</span>
+                case 1:
+                    // Resident registration
+<span class="fc" id="L66">                    System.out.println(&quot;Inscription Résident :&quot;);</span>
+<span class="fc" id="L67">                    String fullNameResident = promptForNonEmptyInput(scanner, &quot;Entrez votre nom complet : &quot;);</span>
+<span class="fc" id="L68">                    String dob = promptForValidDate(scanner, &quot;Entrez votre date de naissance (AAAA-MM-JJ) : &quot;);</span>
+<span class="fc" id="L69">                    String emailResident = promptForUniqueEmail(scanner, &quot;Entrez votre adresse email : &quot;, residents, intervenants);</span>
+<span class="fc" id="L70">                    String passwordResident = promptForValidPassword(scanner, &quot;Entrez votre mot de passe : &quot;);</span>
+<span class="fc" id="L71">                    String streetNumber = promptForNonEmptyInput(scanner, &quot;Entrez votre numéro de rue : &quot;);</span>
+<span class="fc" id="L72">                    String streetName = promptForNonEmptyInput(scanner, &quot;Entrez le nom de votre rue : &quot;);</span>
+<span class="fc" id="L73">                    String postalCode = promptForPostalCode(scanner, &quot;Entrez votre code postal (3 premières lettres ou chiffres): &quot;);</span>
+    
+                    // Create a Resident JSON object
+<span class="fc" id="L76">                    JsonObject residentJson = new JsonObject();</span>
+<span class="fc" id="L77">                    residentJson.addProperty(&quot;id&quot;, String.valueOf(residents.size() + 1));</span>
+<span class="fc" id="L78">                    residentJson.addProperty(&quot;name&quot;, fullNameResident);</span>
+<span class="fc" id="L79">                    residentJson.addProperty(&quot;email&quot;, emailResident);</span>
+<span class="fc" id="L80">                    residentJson.addProperty(&quot;password&quot;, passwordResident);</span>
+<span class="fc" id="L81">                    residentJson.addProperty(&quot;birthDate&quot;, dob);</span>
+    
+<span class="fc" id="L83">                    JsonObject address = new JsonObject();</span>
+<span class="fc" id="L84">                    address.addProperty(&quot;streetNumber&quot;, streetNumber);</span>
+<span class="fc" id="L85">                    address.addProperty(&quot;streetName&quot;, streetName);</span>
+<span class="fc" id="L86">                    address.addProperty(&quot;postalCode&quot;, postalCode);</span>
+<span class="fc" id="L87">                    residentJson.add(&quot;address&quot;, address);</span>
+    
+<span class="fc" id="L89">                    residents.add(residentJson);</span>
+    
+<span class="fc" id="L91">                    System.out.println(&quot;Compte Résident créé avec succès !&quot;);</span>
+<span class="fc" id="L92">                    break;</span>
+    
+                case 2:
+                    // Intervenant registration
+<span class="fc" id="L96">                    System.out.println(&quot;Inscription Intervenant :&quot;);</span>
+<span class="fc" id="L97">                    String fullNameIntervenant = promptForNonEmptyInput(scanner, &quot;Entrez votre nom complet : &quot;);</span>
+<span class="fc" id="L98">                    String typeIntervenant = promptForIntervenantType(scanner);</span>
+<span class="fc" id="L99">                    String emailIntervenant = promptForUniqueEmail(scanner, &quot;Entrez votre adresse email : &quot;, residents, intervenants);</span>
+<span class="fc" id="L100">                    String passwordIntervenant = promptForValidPassword(scanner, &quot;Entrez votre mot de passe : &quot;);</span>
+<span class="fc" id="L101">                    String cityId = promptForValidCityId(scanner, &quot;Entrez votre identifiant de ville (code à 8 chiffres) : &quot;);</span>
+    
+                    // Create an Intervenant JSON object
+<span class="fc" id="L104">                    JsonObject intervenantJson = new JsonObject();</span>
+<span class="fc" id="L105">                    intervenantJson.addProperty(&quot;id&quot;, String.valueOf(intervenants.size() + 1));</span>
+<span class="fc" id="L106">                    intervenantJson.addProperty(&quot;name&quot;, fullNameIntervenant);</span>
+<span class="fc" id="L107">                    intervenantJson.addProperty(&quot;email&quot;, emailIntervenant);</span>
+<span class="fc" id="L108">                    intervenantJson.addProperty(&quot;password&quot;, passwordIntervenant);</span>
+<span class="fc" id="L109">                    intervenantJson.addProperty(&quot;cityId&quot;, cityId);</span>
+<span class="fc" id="L110">                    intervenantJson.addProperty(&quot;type&quot;, typeIntervenant);</span>
+    
+<span class="fc" id="L112">                    intervenants.add(intervenantJson);</span>
+    
+<span class="fc" id="L114">                    System.out.println(&quot;Compte Intervenant créé avec succès !&quot;);</span>
+<span class="fc" id="L115">                    break;</span>
+    
+                default:
+<span class="nc" id="L118">                    System.out.println(&quot;Choix invalide. Veuillez entrer 1 ou 2.&quot;);</span>
+            }
+    
+            // Debug: Print the jsonData before saving
+<span class="fc" id="L122">            System.out.println(&quot;JSON data before saving: &quot; + jsonData.toString());</span>
+    
+            // Save updated data back to the JSON file
+<span class="fc" id="L125">            jsonData.add(&quot;residents&quot;, residents);</span>
+<span class="fc" id="L126">            jsonData.add(&quot;intervenants&quot;, intervenants);</span>
+    
+<span class="fc" id="L128">            try (FileWriter writer = new FileWriter(FILE_PATH)) {</span>
+<span class="fc" id="L129">                Gson gson = new Gson();</span>
+<span class="fc" id="L130">                gson.toJson(jsonData, writer);</span>
+    
+                // Debug: Confirm file is saved
+<span class="fc" id="L133">                System.out.println(&quot;Data saved to JSON file at: &quot; + FILE_PATH);</span>
+            }
+    
+<span class="nc" id="L136">        } catch (Exception e) {</span>
+<span class="nc" id="L137">            System.out.println(&quot;Une erreur s'est produite lors de la création du compte : &quot; + e.getMessage());</span>
+<span class="fc" id="L138">        }</span>
+<span class="fc" id="L139">    }</span>
+
+    /**
+     * Charge les données JSON à partir du fichier spécifié par FILE_PATH.
+     * Si le fichier est manquant ou illisible, initialise une structure JSON par défaut.
+     * 
+     * @return Un JsonObject contenant les données chargées ou une structure par défaut.
+     */
+    // Load JSON data from the file
+    public JsonObject loadJsonData() {
+<span class="fc" id="L149">        JsonObject jsonData = new JsonObject();  // Initialize as empty JsonObject by default</span>
+<span class="fc" id="L150">        FileReader reader = null;</span>
+        try {
+<span class="fc" id="L152">            String filePath = this.getPath();</span>
+<span class="fc" id="L153">            System.out.println(&quot;Loading data from file: &quot; + filePath);  // Debugging: Print file path</span>
+    
+<span class="fc" id="L155">            reader = new FileReader(filePath);</span>
+<span class="fc" id="L156">            Gson gson = new Gson();</span>
+<span class="fc" id="L157">            jsonData = gson.fromJson(reader, JsonObject.class);</span>
+<span class="nc" id="L158">        } catch (IOException e) {</span>
+            // Log the error if the file is missing or unreadable
+<span class="nc" id="L160">            System.out.println(&quot;Error reading file, creating a new JSON file: &quot; + e.getMessage());</span>
+    
+            // Initialize default JSON structure if file doesn't exist or is empty
+<span class="nc" id="L163">            jsonData.add(&quot;residents&quot;, new JsonArray());</span>
+<span class="nc" id="L164">            jsonData.add(&quot;intervenants&quot;, new JsonArray());</span>
+        } finally {
+            try {
+<span class="pc bpc" id="L167" title="1 of 2 branches missed.">                if (reader != null) {</span>
+<span class="fc" id="L168">                    reader.close();  // Ensure file is closed after reading</span>
+                }
+<span class="nc" id="L170">            } catch (IOException e) {</span>
+<span class="nc" id="L171">                System.out.println(&quot;Error closing file reader: &quot; + e.getMessage());</span>
+<span class="fc" id="L172">            }</span>
+        }
+    
+<span class="fc" id="L175">        return jsonData;</span>
+    }
+
+    /**
+     * Demande à l'utilisateur une saisie jusqu'à ce qu'une valeur non vide soit fournie.
+     * 
+     * @param scanner Scanner pour lire les entrées utilisateur.
+     * @param message Message à afficher à l'utilisateur.
+     * @return La chaîne de caractères non vide fournie par l'utilisateur.
+     */
+    private String promptForNonEmptyInput(Scanner scanner, String message) {
+        String input;
+        do {
+<span class="fc" id="L188">            System.out.print(message);</span>
+<span class="fc" id="L189">            input = scanner.nextLine().trim();</span>
+<span class="pc bpc" id="L190" title="1 of 2 branches missed.">            if (input.isEmpty()) {</span>
+<span class="nc" id="L191">                System.out.println(&quot;Ce champ ne peut pas être vide. Veuillez réessayer.&quot;);</span>
+            }
+<span class="pc bpc" id="L193" title="1 of 2 branches missed.">        } while (input.isEmpty());</span>
+<span class="fc" id="L194">        return input;</span>
+    }
+
+    /**
+     * Demande à l'utilisateur une adresse email unique, en s'assurant qu'aucun doublon n'existe
+     * parmi les résidents ou intervenants.
+     * 
+     * @param scanner Scanner pour lire les entrées utilisateur.
+     * @param message Message à afficher à l'utilisateur.
+     * @param residents JsonArray des résidents existants.
+     * @param intervenants JsonArray des intervenants existants.
+     * @return L'adresse email unique fournie par l'utilisateur.
+     */
+    private String promptForUniqueEmail(Scanner scanner, String message, JsonArray residents, JsonArray intervenants) {
+        String email;
+        boolean isUnique;
+        do {
+<span class="fc" id="L211">            System.out.print(message);</span>
+<span class="fc" id="L212">            email = scanner.nextLine().trim();</span>
+<span class="pc bpc" id="L213" title="1 of 2 branches missed.">            if (!email.matches(&quot;^[\\w.%+-]+@[\\w.-]+\\.[a-zA-Z]{2,}$&quot;)) {</span>
+<span class="nc" id="L214">                System.out.println(&quot;Format d'email invalide. Veuillez réessayer.&quot;);</span>
+<span class="nc" id="L215">                isUnique = false;</span>
+<span class="nc" id="L216">                continue;</span>
+            }
+<span class="fc" id="L218">            isUnique = isEmailUnique(email, residents, intervenants);</span>
+<span class="pc bpc" id="L219" title="1 of 2 branches missed.">            if (!isUnique) {</span>
+<span class="nc" id="L220">                System.out.println(&quot;Cet email est déjà enregistré. Veuillez utiliser un email différent.&quot;);</span>
+            }
+<span class="pc bpc" id="L222" title="2 of 4 branches missed.">        } while (!email.matches(&quot;^[\\w.%+-]+@[\\w.-]+\\.[a-zA-Z]{2,}$&quot;) || !isUnique);</span>
+<span class="fc" id="L223">        return email;</span>
+    }
+
+    /**
+     * Valide si une adresse email est unique parmi les utilisateurs existants.
+     * 
+     * @param email Adresse email à valider.
+     * @param residents JsonArray des résidents existants.
+     * @param intervenants JsonArray des intervenants existants.
+     * @return True si l'email est unique, false sinon.
+     */
+    private boolean isEmailUnique(String email, JsonArray residents, JsonArray intervenants) {
+<span class="pc bpc" id="L235" title="1 of 2 branches missed.">        for (JsonElement resident : residents) {</span>
+<span class="nc" id="L236">            JsonObject residentObj = resident.getAsJsonObject();</span>
+<span class="nc bnc" id="L237" title="All 2 branches missed.">            if (residentObj.get(&quot;email&quot;).getAsString().equalsIgnoreCase(email)) {</span>
+<span class="nc" id="L238">                return false;</span>
+            }
+<span class="nc" id="L240">        }</span>
+<span class="pc bpc" id="L241" title="1 of 2 branches missed.">        for (JsonElement intervenant : intervenants) {</span>
+<span class="nc" id="L242">            JsonObject intervenantObj = intervenant.getAsJsonObject();</span>
+<span class="nc bnc" id="L243" title="All 2 branches missed.">            if (intervenantObj.get(&quot;email&quot;).getAsString().equalsIgnoreCase(email)) {</span>
+<span class="nc" id="L244">                return false;</span>
+            }
+<span class="nc" id="L246">        }</span>
+<span class="fc" id="L247">        return true;</span>
+    }
+
+    /**
+     * Demande à l'utilisateur un mot de passe valide respectant les exigences minimales.
+     * 
+     * @param scanner Scanner pour lire les entrées utilisateur.
+     * @param message Message à afficher à l'utilisateur.
+     * @return Le mot de passe valide fourni par l'utilisateur.
+     */
+    private String promptForValidPassword(Scanner scanner, String message) {
+        String password;
+        do {
+<span class="fc" id="L260">            System.out.print(message);</span>
+<span class="fc" id="L261">            password = scanner.nextLine();</span>
+<span class="pc bpc" id="L262" title="3 of 6 branches missed.">            if (password.length() &lt; 8 || !password.matches(&quot;.*[A-Za-z].*&quot;) || !password.matches(&quot;.*\\d.*&quot;)) {</span>
+<span class="nc" id="L263">                System.out.println(&quot;Le mot de passe doit contenir au moins 8 caractères, incluant des lettres et des chiffres.&quot;);</span>
+            }
+<span class="pc bpc" id="L265" title="3 of 6 branches missed.">        } while (password.length() &lt; 8 || !password.matches(&quot;.*[A-Za-z].*&quot;) || !password.matches(&quot;.*\\d.*&quot;));</span>
+<span class="fc" id="L266">        return password;</span>
+    }
+
+    /**
+     * Demande à l'utilisateur une date valide au format AAAA-MM-JJ.
+     * 
+     * @param scanner Scanner pour lire les entrées utilisateur.
+     * @param message Message à afficher à l'utilisateur.
+     * @return Une chaîne de caractères représentant la date valide.
+     */
+    private String promptForValidDate(Scanner scanner, String message) {
+        String date;
+        do {
+<span class="fc" id="L279">            System.out.print(message);</span>
+<span class="fc" id="L280">            date = scanner.nextLine().trim();</span>
+    
+<span class="pc bpc" id="L282" title="1 of 2 branches missed.">            if (!date.matches(&quot;\\d{4}-\\d{2}-\\d{2}&quot;)) {</span>
+<span class="nc" id="L283">                System.out.println(&quot;Format de date invalide. Veuillez utiliser AAAA-MM-JJ.&quot;);</span>
+<span class="nc" id="L284">                continue;</span>
+            }
+    
+            try {
+<span class="fc" id="L288">                String[] parts = date.split(&quot;-&quot;);</span>
+<span class="fc" id="L289">                int year = Integer.parseInt(parts[0]);</span>
+<span class="fc" id="L290">                int month = Integer.parseInt(parts[1]);</span>
+<span class="fc" id="L291">                int day = Integer.parseInt(parts[2]);</span>
+    
+<span class="pc bpc" id="L293" title="2 of 4 branches missed.">                if (month &lt; 1 || month &gt; 12) {</span>
+<span class="nc" id="L294">                    System.out.println(&quot;Mois invalide. Veuillez entrer un mois entre 1 et 12.&quot;);</span>
+<span class="nc" id="L295">                    continue;</span>
+                }
+    
+                int daysInMonth;
+<span class="pc bpc" id="L299" title="2 of 3 branches missed.">                switch (month) {</span>
+                    case 2: // February
+<span class="nc bnc" id="L301" title="All 6 branches missed.">                        daysInMonth = (year % 4 == 0 &amp;&amp; (year % 100 != 0 || year % 400 == 0)) ? 29 : 28;</span>
+<span class="nc" id="L302">                        break;</span>
+                    case 4: case 6: case 9: case 11: // Months with 30 days
+<span class="nc" id="L304">                        daysInMonth = 30;</span>
+<span class="nc" id="L305">                        break;</span>
+                    default: // All other months have 31 days
+<span class="fc" id="L307">                        daysInMonth = 31;</span>
+                }
+    
+<span class="pc bpc" id="L310" title="2 of 4 branches missed.">                if (day &lt; 1 || day &gt; daysInMonth) {</span>
+<span class="nc" id="L311">                    System.out.println(&quot;Jour invalide pour le mois donné. Veuillez entrer un jour valide.&quot;);</span>
+<span class="nc" id="L312">                    continue;</span>
+                }
+    
+<span class="fc" id="L315">                return date; // Valid date</span>
+<span class="nc" id="L316">            } catch (NumberFormatException e) {</span>
+<span class="nc" id="L317">                System.out.println(&quot;Erreur lors de l'analyse de la date. Veuillez réessayer.&quot;);</span>
+            }
+<span class="nc" id="L319">        } while (true);</span>
+    }
+
+    /**
+     * Demande à l'utilisateur un identifiant de ville valide composé de 8 chiffres.
+     * 
+     * @param scanner Scanner pour lire les entrées utilisateur.
+     * @param message Message à afficher à l'utilisateur.
+     * @return Un identifiant de ville valide fourni par l'utilisateur.
+     */
+    private String promptForValidCityId(Scanner scanner, String message) {
+        String cityId;
+        do {
+<span class="fc" id="L332">            System.out.print(message);</span>
+<span class="fc" id="L333">            cityId = scanner.nextLine().trim();</span>
+<span class="pc bpc" id="L334" title="1 of 2 branches missed.">            if (!cityId.matches(&quot;\\d{8}&quot;)) {</span>
+<span class="nc" id="L335">                System.out.println(&quot;Identifiant de ville invalide ! Veuillez entrer un code à 8 chiffres :&quot;);</span>
+            }
+<span class="pc bpc" id="L337" title="1 of 2 branches missed.">        } while (!cityId.matches(&quot;\\d{8}&quot;));</span>
+<span class="fc" id="L338">        return cityId;</span>
+    }
+
+    /**
+     * Demande à l'utilisateur un code postal composé exactement de trois lettres ou chiffres.
+     * 
+     * @param scanner Scanner pour lire les entrées utilisateur.
+     * @param message Message à afficher à l'utilisateur.
+     * @return Un code postal valide fourni par l'utilisateur.
+     */
+    private String promptForPostalCode(Scanner scanner, String message) {
+        String postalCode;
+        do {
+<span class="fc" id="L351">            System.out.print(message);</span>
+<span class="fc" id="L352">            postalCode = scanner.nextLine().trim().toUpperCase();</span>
+<span class="pc bpc" id="L353" title="1 of 2 branches missed.">            if (!postalCode.matches(&quot;^[A-Z0-9]{3}$&quot;)) {</span>
+<span class="nc" id="L354">                System.out.println(&quot;Code postal invalide! Veuillez entrer exactement 3 lettres ou chiffres.&quot;);</span>
+            }
+<span class="pc bpc" id="L356" title="1 of 2 branches missed.">        } while (!postalCode.matches(&quot;^[A-Z0-9]{3}$&quot;));</span>
+<span class="fc" id="L357">        return postalCode;</span>
+    }
+
+    /**
+     * Demande à l'utilisateur de sélectionner un type d'Intervenant parmi les options prédéfinies.
+     * 
+     * @param scanner Scanner pour lire les entrées utilisateur.
+     * @return Le type d'Intervenant sélectionné.
+     */
+    private String promptForIntervenantType(Scanner scanner) {
+<span class="fc" id="L367">        System.out.println(&quot;Choisissez votre type d'intervenant :&quot;);</span>
+<span class="fc" id="L368">        System.out.println(&quot;1. PUBLIC&quot;);</span>
+<span class="fc" id="L369">        System.out.println(&quot;2. PRIVATE&quot;);</span>
+<span class="fc" id="L370">        System.out.println(&quot;3. INDIVIDUAL&quot;);</span>
+        
+<span class="fc" id="L372">        int choice = -1;</span>
+<span class="pc bpc" id="L373" title="1 of 4 branches missed.">        while (choice &lt; 1 || choice &gt; 3) {</span>
+            try {
+<span class="fc" id="L375">                System.out.print(&quot;Entrez votre choix (1, 2 ou 3) : &quot;);</span>
+<span class="fc" id="L376">                choice = Integer.parseInt(scanner.nextLine());</span>
+<span class="pc bpc" id="L377" title="2 of 4 branches missed.">                if (choice &lt; 1 || choice &gt; 3) {</span>
+<span class="nc" id="L378">                    System.out.println(&quot;Choix invalide. Veuillez entrer 1, 2 ou 3.&quot;);</span>
+                }
+<span class="nc" id="L380">            } catch (NumberFormatException e) {</span>
+<span class="nc" id="L381">                System.out.println(&quot;Entrée invalide. Veuillez entrer un numéro (1, 2 ou 3) :&quot;);</span>
+<span class="pc" id="L382">            }</span>
+        }
+    
+<span class="pc bpc" id="L385" title="3 of 4 branches missed.">        switch (choice) {</span>
+<span class="nc" id="L386">            case 1: return &quot;PUBLIC&quot;;</span>
+<span class="fc" id="L387">            case 2: return &quot;PRIVATE&quot;;</span>
+<span class="nc" id="L388">            case 3: return &quot;INDIVIDUAL&quot;;</span>
+<span class="nc" id="L389">            default: return &quot;&quot;; // This case won't be reached because of the validation</span>
+        }
+    }
+    
+    /**
+     * Récupère les plages horaires préférées d'un utilisateur.
+     * 
+     * @param activeUser L'utilisateur dont les plages horaires doivent être récupérées.
+     */
+    public void getTimeSlot(User activeUser) {
+
+<span class="nc" id="L400">    } </span>
+    
+    /**
+     * Modifie les plages horaires préférées d'un utilisateur.
+     * 
+     * @param activeUser L'utilisateur dont les plages horaires doivent être modifiées.
+     * @param data Un tableau contenant les nouvelles données de plages horaires.
+     */
+    public void editTimeSlot(User activeUser, String[] data) {
+        
+<span class="nc" id="L410">    }</span>
+    
+    /**
+     * Définit le chemin d'accès au fichier JSON utilisé par le contrôleur.
+     * 
+     * @param path Le nouveau chemin du fichier.
+     */
+    public void setPath(String path){
+<span class="fc" id="L418">        this.FILE_PATH = path;</span>
+<span class="fc" id="L419">    }</span>
+
+    /**
+     * Récupère le chemin actuel du fichier JSON utilisé par le contrôleur.
+     * 
+     * @return Le chemin actuel du fichier.
+     */
+    public String getPath() {
+<span class="fc" id="L427">        return FILE_PATH;</span>
+    }
+
+    /**
+     * Vérifie si l'utilisateur actuel est autorisé à effectuer des actions dans ce contrôleur.
+     * 
+     * @return True si autorisé, false sinon.
+     */
+    @Override
+    protected boolean isAuthorized() {
+<span class="nc" id="L437">        return true;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

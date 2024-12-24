@@ -1,59 +1,94 @@
-import org.junit.jupiter.api.Test;
+import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.lang.reflect.Method;
+import java.lang.reflect.Field;
 import java.util.Scanner;
-import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
+
+import Model.UserAuthenticator;
 
 public class MainTest {
 
-    @Test
-    public void testLoginWithInvalidInput() throws Exception {
-        String input = "X\n"; 
-        Scanner scanner = new Scanner(input);
+    private Scanner mockScanner;
+    private UserAuthenticator mockAuthenticator;
+    private PrintStream originalOut;
 
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outputStream));
+    @BeforeEach
+    public void setUp() throws NoSuchFieldException, IllegalAccessException {
+        mockScanner = mock(Scanner.class);
+        mockAuthenticator = mock(UserAuthenticator.class);
 
-        Method method = Main.class.getDeclaredMethod("afficherAccueil", Scanner.class);
-        method.setAccessible(true);
-        method.invoke(null, scanner);
+        // Backup original System.out stream
+        originalOut = System.out;
 
-        String output = outputStream.toString();
-        assertTrue(output.contains("Choix invalide"));
+        // Set the mock authenticator as the instance of UserAuthenticator via reflection
+        Field instanceField = UserAuthenticator.class.getDeclaredField("instance");
+        instanceField.setAccessible(true);
+        instanceField.set(null, mockAuthenticator);  // Mocking the instance directly
+    }
+
+    @AfterEach
+    public void tearDown() throws NoSuchFieldException, IllegalAccessException {
+        // Reset the singleton instance of UserAuthenticator
+        Field instanceField = UserAuthenticator.class.getDeclaredField("instance");
+        instanceField.setAccessible(true);
+        instanceField.set(null, null); // Set instance to null to reset the singleton
+        
+        // Reset the System.out stream back to original
+        System.setOut(originalOut);
     }
 
     @Test
-    public void testValidResidentLogin() throws Exception {
-        String input = "1\n" + "validResident@mail.com\n" + "password123\n";  // Simulating valid login input
-        Scanner scanner = new Scanner(input);
+    public void testLogin_FailedAuthentication() {
+        // Arrange
+        when(mockScanner.nextLine())
+            .thenReturn("invalidUser@example.com")
+            .thenReturn("wrongPassword")
+            .thenReturn("Q");
 
-        // Mock or simulate successful Resident authentication (assuming Resident.authentifier() returns a non-null object)
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outputStream));
+        when(mockAuthenticator.login("invalidUser@example.com", "wrongPassword")).thenReturn(null);
 
-        Method method = Main.class.getDeclaredMethod("afficherAccueil", Scanner.class);
-        method.setAccessible(true);
-        method.invoke(null, scanner);
+        // Act
+        boolean result = Main.login(mockScanner);
 
-        String output = outputStream.toString();
-        assertTrue(output.contains("Bienvenue"));  // Assuming the resident sees a welcome message in the menu
+        // Assert
+        assertTrue(result); // The application continues running after failed login
+        verify(mockAuthenticator).login("invalidUser@example.com", "wrongPassword");
+        // Optionally, verify the error message was displayed (if stdout is mocked)
     }
 
     @Test
-    public void testValidIntervenantLogin() throws Exception {
-        String input = "2\n" + "validIntervenant@mail.com\n" + "password123\n";  // Simulating valid login input
-        Scanner scanner = new Scanner(input);
+    public void testAfficherAccueil_UserQuits() {
+        // Arrange
+        when(mockScanner.nextLine()).thenReturn("q"); // User selects "Quit"
 
-        // Mock or simulate successful Intervenant authentication (assuming Intervenant.authentifier() returns a non-null object)
+        // Act
+        boolean result = Main.afficherAccueil(mockScanner);
+
+        // Assert
+        assertFalse(result); // The application stops running
+    }
+
+    @Test
+    public void testAfficherErreurAuth() {
+        // Arrange: Mock the System.out print stream to capture output
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStream));
 
-        Method method = Main.class.getDeclaredMethod("afficherAccueil", Scanner.class);
-        method.setAccessible(true);
-        method.invoke(null, scanner);
+        // Act: Call the method that prints the error message
+        Main.afficherErreurAuth();
 
-        String output = outputStream.toString();
-        assertTrue(output.contains("Bienvenue"));  // Assuming the intervenant sees a welcome message in the menu
+        // Assert: Verify if the expected message is in the output
+        String expectedMessage = "!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!\n" +
+                "!~   Échec de l'authentification, veuillez réessayer.  ~!\n" +
+                "!~          Retour à l'écran de connexion ...          ~!\n" +
+                "!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!";
+
+        assertTrue(outputStream.toString().contains(expectedMessage));
     }
 }

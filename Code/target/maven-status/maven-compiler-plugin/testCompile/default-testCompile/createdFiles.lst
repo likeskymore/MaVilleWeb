@@ -1,3 +1,6 @@
-IntervenantTest.class
+UserAuthenticatorTest.class
 MainTest.class
-ResidentTest.class
+MenuResidentTest.class
+RequeteTravailControllerTest.class
+AccountControllerTest.class
+MenuIntervenantTest.class

@@ -1,0 +1,489 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RequeteTravailController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Appli MaVille</a> &gt; <a href="index.source.html" class="el_package">Controller</a> &gt; <span class="el_source">RequeteTravailController.java</span></div><h1>RequeteTravailController.java</h1><pre class="source lang-java linenums">/**
+ * RequeteTravailController gère les requêtes de travail soumises par les résidents
+ * et leur interaction avec les intervenants. Elle prend en charge la création, la gestion,
+ * et le filtrage des requêtes de travail ainsi que la soumission des candidatures.
+ * 
+ * Cette classe utilise des fichiers JSON pour conserver les données des requêtes et
+ * des candidatures.
+ */
+package Controller;
+
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Scanner;
+import java.util.stream.Collectors;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import Model.Intervenant;
+import Model.RequeteTravail;
+import Model.Resident;
+import Model.TypeTravail;
+
+public class RequeteTravailController {
+    /**
+     * Chemin d'accès au fichier JSON contenant les requêtes de travail.
+     */
+    private static final String FILE_PATH = &quot;Code/src/main/java/Data/Requetes.json&quot;;
+
+    /**
+     * Chemin d'accès au fichier JSON contenant les candidatures.
+     */
+    private static final String FILE_PATH_CANDIDATURES = &quot;Code/src/main/java/Data/Candidature.json&quot;;
+    
+     /**
+     * Liste des requêtes de travail chargées en mémoire.
+     */
+    private static List&lt;RequeteTravail&gt; requetesTravail;
+    
+
+    /**
+     * Constructeur initialisant le contrôleur et chargeant les requêtes existantes.
+     */
+<span class="fc" id="L53">    public RequeteTravailController() {</span>
+<span class="fc" id="L54">        this.requetesTravail = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L55">        chargerRequetes();  // Charger les requêtes des la création du contrôleur  </span>
+<span class="fc" id="L56">    }</span>
+
+
+    /**
+     * Ajoute une nouvelle requête de travail à la liste des requêtes.
+     * 
+     * @param requete La requête de travail à ajouter.
+     */
+    public static void ajouterRequete(RequeteTravail requete) {
+<span class="fc" id="L65">        requetesTravail.add(requete);</span>
+<span class="fc" id="L66">    }</span>
+
+    /**
+     * Retourne la liste des requêtes de travail en mémoire.
+     * 
+     * @return Liste des requêtes de travail.
+     */
+    public static List&lt;RequeteTravail&gt; getRequetes() {
+<span class="fc" id="L74">        return requetesTravail;</span>
+    }
+
+    /**
+     * Permet à un résident de soumettre une nouvelle requête de travail.
+     * 
+     * @param scanner Scanner pour lire les entrées utilisateur.
+     * @param activeResident Le résident actuellement connecté.
+     */
+    public void soumettreRequete(Scanner scanner, Resident activeResident) {
+<span class="nc" id="L84">    System.out.println(&quot;                  --- Soumettre une Requête de Travail ---                 &quot;);</span>
+<span class="nc" id="L85">    System.out.println(&quot;* * * Vous pouvez annuler la soumission à tout moment en entrant 'A'. * * *&quot;);</span>
+
+    // Saisie du titre
+<span class="nc" id="L88">    String titre = null;</span>
+<span class="nc bnc" id="L89" title="All 4 branches missed.">    while (titre == null || titre.isEmpty()) {</span>
+<span class="nc" id="L90">        System.out.print(&quot;Titre du travail : &quot;);</span>
+<span class="nc" id="L91">        titre = scanner.nextLine().trim();</span>
+<span class="nc bnc" id="L92" title="All 2 branches missed.">        if (titre.equalsIgnoreCase(&quot;A&quot;)) {</span>
+<span class="nc" id="L93">            System.out.println(&quot;Soumission annulée. Retour au menu principal.&quot;);</span>
+<span class="nc" id="L94">            return;</span>
+        }
+<span class="nc bnc" id="L96" title="All 2 branches missed.">        if (titre.isEmpty()) {</span>
+<span class="nc" id="L97">            System.out.println(&quot;Erreur : Le titre ne peut pas être vide. Veuillez entrer un titre valide.&quot;);</span>
+        }
+    }
+
+    // Saisie de la description
+<span class="nc" id="L102">    String description = null;</span>
+<span class="nc bnc" id="L103" title="All 4 branches missed.">    while (description == null || description.isEmpty()) {</span>
+<span class="nc" id="L104">        System.out.print(&quot;Description détaillée : &quot;);</span>
+<span class="nc" id="L105">        description = scanner.nextLine().trim();</span>
+<span class="nc bnc" id="L106" title="All 2 branches missed.">        if (description.equalsIgnoreCase(&quot;A&quot;)) {</span>
+<span class="nc" id="L107">            System.out.println(&quot;Soumission annulée. Retour au menu principal.&quot;);</span>
+<span class="nc" id="L108">            return;</span>
+        }
+<span class="nc bnc" id="L110" title="All 2 branches missed.">        if (description.isEmpty()) {</span>
+<span class="nc" id="L111">            System.out.println(&quot;Erreur : La description ne peut pas être vide. Veuillez entrer une description valide.&quot;);</span>
+        }
+    }
+
+    // Sélection du type de travail
+<span class="nc" id="L116">    TypeTravail typeTravaux = null;</span>
+<span class="nc bnc" id="L117" title="All 2 branches missed.">    while (typeTravaux == null) {</span>
+<span class="nc" id="L118">        System.out.println(&quot;Entrez le numéro correspondant au type de travaux souhaité :&quot;);</span>
+<span class="nc" id="L119">        System.out.println(&quot;1. Travaux Routiers&quot;);</span>
+<span class="nc" id="L120">        System.out.println(&quot;2. Gaz et Électricité&quot;);</span>
+<span class="nc" id="L121">        System.out.println(&quot;3. Construction / Rénovation&quot;);</span>
+<span class="nc" id="L122">        System.out.println(&quot;4. Entretien Paysager&quot;);</span>
+<span class="nc" id="L123">        System.out.println(&quot;5. Transport en Commun&quot;);</span>
+<span class="nc" id="L124">        System.out.println(&quot;6. Signalisation et Éclairage&quot;);</span>
+<span class="nc" id="L125">        System.out.println(&quot;7. Travaux Souterrains&quot;);</span>
+<span class="nc" id="L126">        System.out.println(&quot;8. Travaux Résidentiels&quot;);</span>
+<span class="nc" id="L127">        System.out.println(&quot;9. Entretien Urbain&quot;);</span>
+<span class="nc" id="L128">        System.out.println(&quot;10. Réseaux de Télécommunication&quot;);</span>
+
+<span class="nc" id="L130">        String choix = scanner.nextLine().trim();</span>
+<span class="nc bnc" id="L131" title="All 2 branches missed.">        if (choix.equalsIgnoreCase(&quot;A&quot;)) {</span>
+<span class="nc" id="L132">            System.out.println(&quot;Soumission annulée. Retour au menu principal.&quot;);</span>
+<span class="nc" id="L133">            return;</span>
+        }
+
+<span class="nc bnc" id="L136" title="All 11 branches missed.">        switch (choix) {</span>
+<span class="nc" id="L137">            case &quot;1&quot;: typeTravaux = TypeTravail.ROUTIER; break;</span>
+<span class="nc" id="L138">            case &quot;2&quot;: typeTravaux = TypeTravail.GAZ_ELECTRIQUE; break;</span>
+<span class="nc" id="L139">            case &quot;3&quot;: typeTravaux = TypeTravail.CONSTRUCTION_RENOVATION; break;</span>
+<span class="nc" id="L140">            case &quot;4&quot;: typeTravaux = TypeTravail.ENTRETIEN_PAYSAGER; break;</span>
+<span class="nc" id="L141">            case &quot;5&quot;: typeTravaux = TypeTravail.TRANSPORT_COMMUN; break;</span>
+<span class="nc" id="L142">            case &quot;6&quot;: typeTravaux = TypeTravail.SIGNALISATION_ECLAIRAGE; break;</span>
+<span class="nc" id="L143">            case &quot;7&quot;: typeTravaux = TypeTravail.SOUTERRAINS; break;</span>
+<span class="nc" id="L144">            case &quot;8&quot;: typeTravaux = TypeTravail.RESIDENTIEL; break;</span>
+<span class="nc" id="L145">            case &quot;9&quot;: typeTravaux = TypeTravail.ENTRETIEN_URBAIN; break;</span>
+<span class="nc" id="L146">            case &quot;10&quot;: typeTravaux = TypeTravail.ENTRETIEN_RESEAU_TELECOMMUNICATION; break;</span>
+<span class="nc" id="L147">            default: System.out.println(&quot;Choix invalide. Veuillez entrer un numéro entre 1 et 10.&quot;);</span>
+        }
+<span class="nc" id="L149">    }</span>
+
+    // Saisie de la date de début (max 1 an dans le futur)
+<span class="nc" id="L152">    LocalDate dateDebut = null;</span>
+<span class="nc bnc" id="L153" title="All 2 branches missed.">    while (dateDebut == null) {</span>
+<span class="nc" id="L154">        System.out.print(&quot;Date de début espérée (format yyyy-mm-dd) : &quot;);</span>
+<span class="nc" id="L155">        String dateInput = scanner.nextLine();</span>
+
+<span class="nc bnc" id="L157" title="All 2 branches missed.">        if (dateInput.equalsIgnoreCase(&quot;A&quot;)) {</span>
+<span class="nc" id="L158">            System.out.println(&quot;Soumission annulée. Retour au menu principal.&quot;);</span>
+<span class="nc" id="L159">            return;</span>
+        }
+
+        try {
+<span class="nc" id="L163">            LocalDate dateSaisie = LocalDate.parse(dateInput);</span>
+
+            // Vérification si la date est dans le futur et dans un délai d'un an
+<span class="nc bnc" id="L166" title="All 4 branches missed.">            if (dateSaisie.isAfter(LocalDate.now()) &amp;&amp; dateSaisie.isBefore(LocalDate.now().plusYears(1))) {</span>
+<span class="nc" id="L167">                dateDebut = dateSaisie; // Date valide</span>
+<span class="nc bnc" id="L168" title="All 2 branches missed.">            } else if (dateSaisie.isBefore(LocalDate.now())) {</span>
+<span class="nc" id="L169">                System.out.println(&quot;Erreur : La date doit être dans le futur. Veuillez réessayer.&quot;);</span>
+            } else {
+<span class="nc" id="L171">                System.out.println(&quot;Erreur : La date ne peut pas dépasser un an à partir d'aujourd'hui. Veuillez réessayer.&quot;);</span>
+            }
+<span class="nc" id="L173">        } catch (DateTimeParseException e) {</span>
+<span class="nc" id="L174">            System.out.println(&quot;Format de date invalide. Veuillez entrer une date au format yyyy-mm-dd.&quot;);</span>
+<span class="nc" id="L175">        }</span>
+<span class="nc" id="L176">    }</span>
+
+    // Création de la requête de travail
+<span class="nc" id="L179">    RequeteTravail nouvelleRequete = new RequeteTravail(activeResident, titre, description, typeTravaux, dateDebut);</span>
+
+    // Charger les données JSON existantes
+<span class="nc" id="L182">    Gson gson = new Gson();</span>
+<span class="nc" id="L183">    JsonObject jsonData = new JsonObject();</span>
+<span class="nc" id="L184">    try (FileReader reader = new FileReader(FILE_PATH)) {</span>
+<span class="nc" id="L185">        jsonData = gson.fromJson(reader, JsonObject.class);</span>
+<span class="nc" id="L186">    } catch (IOException e) {</span>
+<span class="nc" id="L187">        System.out.println(&quot;Création d'un nouveau fichier JSON car aucun n'existe.&quot;);</span>
+<span class="nc" id="L188">    }</span>
+
+    // Initialisation des tableaux si non présents
+<span class="nc bnc" id="L191" title="All 2 branches missed.">    JsonArray requetesArray = jsonData.has(&quot;requetes&quot;) ? jsonData.getAsJsonArray(&quot;requetes&quot;) : new JsonArray();</span>
+
+    // Ajouter la nouvelle requête au tableau
+<span class="nc" id="L194">    JsonObject requeteJson = new JsonObject();</span>
+<span class="nc" id="L195">    requeteJson.addProperty(&quot;residentEmail&quot;, activeResident.getEmail());</span>
+<span class="nc" id="L196">    requeteJson.addProperty(&quot;titre&quot;, nouvelleRequete.getTitre());</span>
+<span class="nc" id="L197">    requeteJson.addProperty(&quot;description&quot;, nouvelleRequete.getDescription());</span>
+<span class="nc" id="L198">    requeteJson.addProperty(&quot;typeTravaux&quot;, nouvelleRequete.getTypeTravaux().toString());</span>
+<span class="nc" id="L199">    requeteJson.addProperty(&quot;dateDebut&quot;, nouvelleRequete.getDateDebut().toString());</span>
+
+<span class="nc" id="L201">    requetesArray.add(requeteJson);</span>
+
+    // Mettre à jour le JSON avec les nouvelles requêtes
+<span class="nc" id="L204">    jsonData.add(&quot;requetes&quot;, requetesArray);</span>
+
+    // Sauvegarder les données dans le fichier
+<span class="nc" id="L207">    try (FileWriter writer = new FileWriter(FILE_PATH)) {</span>
+<span class="nc" id="L208">        gson.toJson(jsonData, writer);</span>
+<span class="nc" id="L209">        System.out.println(&quot;\nRequête soumise et sauvegardée avec succès !&quot;);</span>
+<span class="nc" id="L210">    } catch (IOException e) {</span>
+<span class="nc" id="L211">        System.out.println(&quot;Erreur lors de la sauvegarde dans le fichier JSON.&quot;);</span>
+<span class="nc" id="L212">    }</span>
+<span class="nc" id="L213">}</span>
+
+    
+    /**
+     * Permet à un résident de consulter ses requêtes soumises.
+     * 
+     * @param scanner Scanner pour lire les entrées utilisateur.
+     * @param activeResident Le résident actuellement connecté.
+     */
+    public void consulterMesRequetes(Scanner scanner, Resident activeResident) {
+<span class="nc" id="L223">        List&lt;RequeteTravail&gt; mesRequetes = RequeteTravailController.getRequetesParResident(activeResident);</span>
+    
+<span class="nc bnc" id="L225" title="All 2 branches missed.">        if (mesRequetes.isEmpty()) {</span>
+<span class="nc" id="L226">            System.out.println(&quot;\nVous n'avez soumis aucune requête de travail.&quot;);</span>
+<span class="nc" id="L227">            return;</span>
+        }
+    
+<span class="nc" id="L230">        System.out.println(&quot;\n--- Vos Requêtes de Travail ---&quot;);</span>
+<span class="nc bnc" id="L231" title="All 2 branches missed.">        for (int i = 0; i &lt; mesRequetes.size(); i++) {</span>
+<span class="nc" id="L232">            System.out.println(&quot;[&quot; + (i + 1) + &quot;] &quot; + mesRequetes.get(i));</span>
+        }
+    
+<span class="nc" id="L235">        System.out.println(&quot;\nAppuyez sur 'Enter' pour revenir au menu principal.&quot;);</span>
+<span class="nc" id="L236">        scanner.nextLine();</span>
+<span class="nc" id="L237">    }</span>
+
+    /**
+     * Permet à un intervenant de consulter les requêtes disponibles et d'y postuler.
+     * 
+     * @param scanner Scanner pour lire les entrées utilisateur.
+     * @param activeIntervenant L'intervenant actuellement connecté.
+     */
+    public void consulterRequetes(Scanner scanner, Intervenant activeIntervenant) {
+<span class="nc" id="L246">        System.out.println(&quot;\n--- Liste des Requêtes de Travail ---&quot;);</span>
+<span class="nc" id="L247">        afficherRequetesDepuisJson(); // Affiche toutes les requêtes depuis le JSON</span>
+<span class="nc" id="L248">        System.out.println(&quot;Voulez-vous appliquer un filtre ?&quot;);</span>
+<span class="nc" id="L249">        System.out.println(&quot;1. Pas de filtre&quot;);</span>
+<span class="nc" id="L250">        System.out.println(&quot;2. Filtrer par type de travaux&quot;);</span>
+        
+<span class="nc" id="L252">        String choix = scanner.nextLine();</span>
+        
+<span class="nc bnc" id="L254" title="All 2 branches missed.">        switch (choix) {</span>
+            case &quot;2&quot;:
+<span class="nc" id="L256">                System.out.print(&quot;Entrez le type de travaux (ex : CONSTRUCTION_RENOVATION,ROUTIER, GAZ_ELECTRIQUE) : &quot;);</span>
+                try {
+<span class="nc" id="L258">                    TypeTravail type = TypeTravail.valueOf(scanner.nextLine().toUpperCase());</span>
+<span class="nc" id="L259">                    filtrerRequetesParType(type); // filtre par type</span>
+<span class="nc" id="L260">                } catch (IllegalArgumentException e) {</span>
+<span class="nc" id="L261">                    System.out.println(&quot;Type invalide. Affichage de toutes les requêtes.&quot;);</span>
+<span class="nc" id="L262">                    afficherRequetesDepuisJson(); // Affiche requetes si le type est invalide</span>
+<span class="nc" id="L263">                }</span>
+<span class="nc" id="L264">                break;</span>
+            default:
+<span class="nc" id="L266">                afficherRequetesDepuisJson(); // Affiche toutes les requetes</span>
+                break;
+        }
+        
+
+<span class="nc" id="L271">        System.out.println(&quot;Souhaitez-vous soumettre votre candidature à une de ces requêtes ? (O/N)&quot;);</span>
+<span class="nc" id="L272">        String decision = scanner.nextLine().trim().toUpperCase();</span>
+<span class="nc bnc" id="L273" title="All 2 branches missed.">        if (&quot;O&quot;.equals(decision)) {</span>
+<span class="nc" id="L274">            System.out.print(&quot;Entrez le numéro de la requête à laquelle vous souhaitez postuler : &quot;);</span>
+<span class="nc" id="L275">            int index = Integer.parseInt(scanner.nextLine()) - 1;</span>
+            
+<span class="nc bnc" id="L277" title="All 4 branches missed.">            if (index &gt;= 0 &amp;&amp; index &lt; requetesTravail.size()) {</span>
+<span class="nc" id="L278">                RequeteTravail requeteChoisie = requetesTravail.get(index);</span>
+<span class="nc" id="L279">                soumettreCandidature(requeteChoisie, activeIntervenant);</span>
+<span class="nc" id="L280">            } else {</span>
+<span class="nc" id="L281">                System.out.println(&quot;Numéro de requête invalide.&quot;); </span>
+            }
+        }
+
+<span class="nc" id="L285">        System.out.println(&quot;\nAppuyez sur 'Enter' pour revenir au menu principal.&quot;);        </span>
+<span class="nc" id="L286">        scanner.nextLine();</span>
+<span class="nc" id="L287">    }                 </span>
+    
+    /**
+     * Récupère les requêtes associées à un résident donné.
+     * 
+     * @param resident Le résident pour lequel rechercher les requêtes.
+     * @return Liste des requêtes associées au résident.
+     */
+    public static List&lt;RequeteTravail&gt; getRequetesParResident(Resident resident) {
+<span class="nc" id="L296">    return requetesTravail.stream()</span>
+<span class="nc" id="L297">            .filter(requete -&gt; requete.getResident().equals(resident.getEmail()))</span>
+<span class="nc" id="L298">            .collect(Collectors.toList());</span>
+    }
+
+    /**
+     * Filtre les requêtes de travail par type de travaux.
+     * 
+     * @param type Le type de travaux pour filtrer les requêtes.
+     */
+    public void filtrerRequetesParType(TypeTravail type) {       // filtrer par type
+<span class="nc" id="L307">        try (FileReader reader = new FileReader(FILE_PATH)) {</span>
+<span class="nc" id="L308">            JsonElement jsonElement = JsonParser.parseReader(reader);</span>
+<span class="nc bnc" id="L309" title="All 2 branches missed.">            if (jsonElement.isJsonObject()) {</span>
+<span class="nc" id="L310">                JsonObject jsonObject = jsonElement.getAsJsonObject();</span>
+<span class="nc bnc" id="L311" title="All 2 branches missed.">                if (jsonObject.has(&quot;requetes&quot;)) {</span>
+<span class="nc" id="L312">                    JsonArray requetesArray = jsonObject.getAsJsonArray(&quot;requetes&quot;);</span>
+<span class="nc" id="L313">                    boolean found = false;</span>
+<span class="nc bnc" id="L314" title="All 2 branches missed.">                    for (int i = 0; i &lt; requetesArray.size(); i++) {</span>
+<span class="nc" id="L315">                        JsonObject requete = requetesArray.get(i).getAsJsonObject();</span>
+<span class="nc" id="L316">                        String typeTravail = requete.get(&quot;typeTravaux&quot;).getAsString();</span>
+<span class="nc bnc" id="L317" title="All 2 branches missed.">                        if (typeTravail.equalsIgnoreCase(type.name())) {</span>
+<span class="nc" id="L318">                            found = true;</span>
+<span class="nc" id="L319">                            System.out.println(&quot;[&quot; + (i + 1) + &quot;]&quot;);</span>
+<span class="nc" id="L320">                            System.out.println(&quot;  - Résident : &quot; + requete.get(&quot;residentEmail&quot;).getAsString());</span>
+<span class="nc" id="L321">                            System.out.println(&quot;  - Titre : &quot; + requete.get(&quot;titre&quot;).getAsString());</span>
+<span class="nc" id="L322">                            System.out.println(&quot;  - Description : &quot; + requete.get(&quot;description&quot;).getAsString());</span>
+<span class="nc" id="L323">                            System.out.println(&quot;  - Type : &quot; + typeTravail);</span>
+<span class="nc" id="L324">                            System.out.println(&quot;  - Date de début : &quot; + requete.get(&quot;dateDebut&quot;).getAsString());</span>
+<span class="nc" id="L325">                            System.out.println();</span>
+                        }
+                    }
+<span class="nc bnc" id="L328" title="All 2 branches missed.">                    if (!found) {</span>
+<span class="nc" id="L329">                        System.out.println(&quot;\nAucune requête de type &quot; + type.name() + &quot; trouvée.&quot;);</span>
+                    }
+<span class="nc" id="L331">                } else {</span>
+<span class="nc" id="L332">                    System.out.println(&quot;\nAucune requête trouvée dans le fichier JSON.&quot;);</span>
+                }
+<span class="nc" id="L334">            } else {</span>
+<span class="nc" id="L335">                System.out.println(&quot;\nLe fichier JSON est mal formaté.&quot;);</span>
+            }
+<span class="fc" id="L337">        } catch (IOException e) {</span>
+<span class="fc" id="L338">            System.out.println(&quot;\nErreur lors de la lecture du fichier JSON : &quot; + e.getMessage());</span>
+<span class="nc" id="L339">        }</span>
+<span class="fc" id="L340">    }</span>
+    
+    /**
+     * Filtre les requêtes de travail par date de début, en les triant par ordre décroissant.
+     * 
+     * @return Liste triée des requêtes de travail par date de début.
+     */
+    public static List&lt;RequeteTravail&gt; filtrerRequetesParDate() {        // à changer
+<span class="nc" id="L348">        return requetesTravail.stream()</span>
+<span class="nc" id="L349">                .sorted(Comparator.comparing(RequeteTravail::getDateDebut).reversed())</span>
+<span class="nc" id="L350">                .collect(Collectors.toList());</span>
+    }
+
+    /**
+     * Affiche toutes les requêtes de travail depuis le fichier JSON.
+     */
+    public void afficherRequetesDepuisJson() {                            // affiche toutes les requetes
+<span class="nc" id="L357">        try (FileReader reader = new FileReader(FILE_PATH)) {</span>
+<span class="nc" id="L358">            JsonElement jsonElement = JsonParser.parseReader(reader);</span>
+<span class="nc bnc" id="L359" title="All 2 branches missed.">            if (jsonElement.isJsonObject()) {</span>
+<span class="nc" id="L360">                JsonObject jsonObject = jsonElement.getAsJsonObject();</span>
+<span class="nc bnc" id="L361" title="All 2 branches missed.">                if (jsonObject.has(&quot;requetes&quot;)) {</span>
+<span class="nc" id="L362">                    JsonArray requetesArray = jsonObject.getAsJsonArray(&quot;requetes&quot;);</span>
+<span class="nc bnc" id="L363" title="All 2 branches missed.">                    if (requetesArray.size() &gt; 0) {</span>
+<span class="nc" id="L364">                        System.out.println(&quot;\n--- Requêtes de Travail ---&quot;);</span>
+<span class="nc bnc" id="L365" title="All 2 branches missed.">                        for (int i = 0; i &lt; requetesArray.size(); i++) {</span>
+<span class="nc" id="L366">                            JsonObject requete = requetesArray.get(i).getAsJsonObject();</span>
+<span class="nc" id="L367">                            System.out.println(&quot;[&quot; + (i + 1) + &quot;]&quot;);</span>
+<span class="nc" id="L368">                            System.out.println(&quot;  - Résident : &quot; + requete.get(&quot;residentEmail&quot;).getAsString());</span>
+<span class="nc" id="L369">                            System.out.println(&quot;  - Titre : &quot; + requete.get(&quot;titre&quot;).getAsString());</span>
+<span class="nc" id="L370">                            System.out.println(&quot;  - Description : &quot; + requete.get(&quot;description&quot;).getAsString());</span>
+<span class="nc" id="L371">                            System.out.println(&quot;  - Type : &quot; + requete.get(&quot;typeTravaux&quot;).getAsString());</span>
+<span class="nc" id="L372">                            System.out.println(&quot;  - Date de début : &quot; + requete.get(&quot;dateDebut&quot;).getAsString());</span>
+<span class="nc" id="L373">                            System.out.println();</span>
+                        }
+                    } else {
+<span class="nc" id="L376">                        System.out.println(&quot;\nAucune requête à afficher.&quot;);</span>
+                    }
+<span class="nc" id="L378">                } else {</span>
+<span class="nc" id="L379">                    System.out.println(&quot;\nAucune requête trouvée dans le fichier JSON.&quot;);</span>
+                }
+<span class="nc" id="L381">            } else {</span>
+<span class="nc" id="L382">                System.out.println(&quot;\nLe fichier JSON est mal formaté.&quot;);</span>
+            }
+<span class="nc" id="L384">        } catch (IOException e) {</span>
+<span class="nc" id="L385">            System.out.println(&quot;\nErreur lors de la lecture du fichier JSON : &quot; + e.getMessage());</span>
+<span class="nc" id="L386">        }</span>
+<span class="nc" id="L387">    }</span>
+    
+
+    /**
+     * Permet à un intervenant de soumettre sa candidature pour une requête de travail.
+     * 
+     * @param requete La requête pour laquelle postuler.
+     * @param activeIntervenant L'intervenant actuellement connecté.
+     */
+    public void soumettreCandidature(RequeteTravail requete, Intervenant activeIntervenant) { 
+        // Permet à un intervenant de soumettre sa candidature
+<span class="nc" id="L398">        Gson gson = new Gson();</span>
+<span class="nc" id="L399">        JsonObject jsonData = new JsonObject();</span>
+        
+        // Lecture du fichier existant ou création d'un nouveau fichier JSON si non existant
+<span class="nc" id="L402">        try (FileReader reader = new FileReader(FILE_PATH_CANDIDATURES)) {</span>
+<span class="nc" id="L403">            jsonData = gson.fromJson(reader, JsonObject.class);</span>
+<span class="nc" id="L404">        } catch (IOException e) {</span>
+<span class="nc" id="L405">            System.out.println(&quot;Création d'un nouveau fichier JSON car aucun n'existe.&quot;);</span>
+<span class="nc" id="L406">            jsonData = new JsonObject(); </span>
+<span class="nc" id="L407">        }</span>
+    
+        // Initialise  tableaux si non présents
+<span class="nc bnc" id="L410" title="All 2 branches missed.">        JsonArray candidaturesArray = jsonData.has(&quot;candidatures&quot;) ? jsonData.getAsJsonArray(&quot;candidatures&quot;) : new JsonArray();</span>
+    
+        // Vérification si l'intervenant a déjà soumis une candidature pour cette requête
+<span class="nc bnc" id="L413" title="All 2 branches missed.">        for (int i = 0; i &lt; candidaturesArray.size(); i++) {</span>
+<span class="nc" id="L414">            JsonObject candidature = candidaturesArray.get(i).getAsJsonObject();</span>
+<span class="nc" id="L415">            String intervenantEmail = candidature.get(&quot;intervenantEmail&quot;).getAsString();</span>
+<span class="nc" id="L416">            String residentEmail = candidature.get(&quot;residentEmail&quot;).getAsString();</span>
+    
+            
+<span class="nc bnc" id="L419" title="All 4 branches missed.">            if (intervenantEmail.equals(activeIntervenant.getEmail()) &amp;&amp; residentEmail.equals(requete.getResident())) {</span>
+<span class="nc" id="L420">                System.out.println(&quot;Vous avez déjà postulé pour ce poste.&quot;);</span>
+<span class="nc" id="L421">                return;  </span>
+            }
+        }
+    
+        // Ajouter la nouvelle candidature au tableau si l'intervenant n'a pas encore postulé
+<span class="nc" id="L426">        JsonObject candidatureJson = new JsonObject();</span>
+<span class="nc" id="L427">        candidatureJson.addProperty(&quot;intervenantEmail&quot;, activeIntervenant.getEmail()); // email de l'intervenant</span>
+<span class="nc" id="L428">        candidatureJson.addProperty(&quot;residentEmail&quot;, requete.getResident()); // email du résident (poste)</span>
+<span class="nc" id="L429">        candidatureJson.addProperty(&quot;dateSoumission&quot;, LocalDate.now().toString()); // Date de soumission</span>
+    
+<span class="nc" id="L431">        candidaturesArray.add(candidatureJson);</span>
+    
+<span class="nc" id="L433">        jsonData.add(&quot;candidatures&quot;, candidaturesArray);</span>
+    
+        // Sauvegarder les données dans le fichier
+<span class="nc" id="L436">        try (FileWriter writer = new FileWriter(FILE_PATH_CANDIDATURES)) {</span>
+<span class="nc" id="L437">            gson.toJson(jsonData, writer);</span>
+<span class="nc" id="L438">            System.out.println(&quot;\nCandidature soumise et sauvegardée avec succès !&quot;);</span>
+<span class="nc" id="L439">        } catch (IOException e) {</span>
+<span class="nc" id="L440">            System.out.println(&quot;Erreur lors de la sauvegarde dans le fichier Candidature.json.&quot;);</span>
+<span class="nc" id="L441">        }</span>
+<span class="nc" id="L442">    }</span>
+    
+    
+    /**
+     * Charge les requêtes de travail depuis le fichier JSON en mémoire.
+     */
+    public void chargerRequetes() {  // à faire pour candidature aussi
+<span class="fc" id="L449">        Gson gson = new Gson();</span>
+<span class="fc" id="L450">        JsonObject jsonData = new JsonObject();</span>
+<span class="nc" id="L451">        try (FileReader reader = new FileReader(FILE_PATH)) {</span>
+<span class="nc" id="L452">            jsonData = gson.fromJson(reader, JsonObject.class);</span>
+<span class="fc" id="L453">        } catch (IOException e) {</span>
+<span class="fc" id="L454">            System.out.println(&quot;Aucun fichier JSON trouvé, ou erreur lors de la lecture.&quot;);</span>
+<span class="nc" id="L455">        }</span>
+
+        
+<span class="pc bpc" id="L458" title="1 of 2 branches missed.">        if (jsonData.has(&quot;requetes&quot;)) {</span>
+<span class="nc" id="L459">            JsonArray requetesArray = jsonData.getAsJsonArray(&quot;requetes&quot;);</span>
+<span class="nc bnc" id="L460" title="All 2 branches missed.">            for (int i = 0; i &lt; requetesArray.size(); i++) {</span>
+<span class="nc" id="L461">                JsonObject requeteJson = requetesArray.get(i).getAsJsonObject();</span>
+                
+               
+<span class="nc" id="L464">                String residentEmail = requeteJson.get(&quot;residentEmail&quot;).getAsString();</span>
+<span class="nc" id="L465">                String titre = requeteJson.get(&quot;titre&quot;).getAsString();</span>
+<span class="nc" id="L466">                String description = requeteJson.get(&quot;description&quot;).getAsString();</span>
+<span class="nc" id="L467">                String typeTravauxStr = requeteJson.get(&quot;typeTravaux&quot;).getAsString();</span>
+<span class="nc" id="L468">                String dateDebutStr = requeteJson.get(&quot;dateDebut&quot;).getAsString();</span>
+
+                
+<span class="nc" id="L471">                TypeTravail typeTravaux = TypeTravail.valueOf(typeTravauxStr);</span>
+                
+                
+<span class="nc" id="L474">                LocalDate dateDebut = LocalDate.parse(dateDebutStr);</span>
+
+                
+<span class="nc" id="L477">                Resident resident = new Resident();</span>
+<span class="nc" id="L478">                resident.setName(residentEmail);</span>
+
+                // Créer une nouvelle requête
+<span class="nc" id="L481">                RequeteTravail requete = new RequeteTravail(resident, titre, description, typeTravaux, dateDebut);</span>
+                
+                // Ajouter la requête à la liste
+<span class="nc" id="L484">                requetesTravail.add(requete);</span>
+            }
+        }
+<span class="fc" id="L487">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

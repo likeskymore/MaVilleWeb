@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Projet.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Appli MaVille</a> &gt; <a href="index.source.html" class="el_package">Model</a> &gt; <span class="el_source">Projet.java</span></div><h1>Projet.java</h1><pre class="source lang-java linenums">/**
+ * La classe Projet représente un projet dans le système, contenant des informations
+ * telles que les rues et quartiers affectés, ainsi que les horaires du projet.
+ * Elle hérite de la classe Travail et ajoute des attributs spécifiques aux projets.
+ */
+package Model;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Projet extends Travail {
+    /**
+     * Liste des rues affectées par le projet.
+     */
+    private List&lt;String&gt; ruesAffectees;     // List of affected streets
+
+    /**
+     * Liste des quartiers affectés par le projet.
+     */
+    private List&lt;String&gt; quartiersAffectes; // List of affected neighborhoods
+
+    /**
+     * Horaires prévus pour le projet.
+     */
+    private String horaires;                // Schedule for the project
+
+    /**
+     * Constructeur pour créer un projet avec tous les attributs.
+     * 
+     * @param id Identifiant unique du projet.
+     * @param titre Titre du projet.
+     * @param description Description du projet.
+     * @param dateDebut Date de début du projet.
+     * @param dateFin Date de fin du projet.
+     * @param statut Statut actuel du projet.
+     * @param type Type de travaux associé au projet.
+     * @param horaires Horaires prévus pour le projet.
+     */
+    public Projet(String id, String titre, String description, LocalDate dateDebut, LocalDate dateFin, StatutProjet statut, TypeTravail type, String horaires) {
+<span class="nc" id="L40">        super(id, titre, description, dateDebut, dateFin, statut, type);</span>
+<span class="nc" id="L41">        this.ruesAffectees = new ArrayList&lt;&gt;();       // Initialize lists to empty lists</span>
+<span class="nc" id="L42">        this.quartiersAffectes = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L43">        this.horaires = horaires;</span>
+<span class="nc" id="L44">    }</span>
+
+    /**
+     * Constructeur par défaut.
+     */
+<span class="nc" id="L49">    public Projet() {}</span>
+
+    /**
+     * Met à jour le statut du projet.
+     * 
+     * @param nouveauStatut Le nouveau statut du projet.
+     */
+    // Implementing the abstract method to update the project status
+    @Override
+    public void updateStatut(StatutProjet nouveauStatut) {
+<span class="nc" id="L59">        this.statut = nouveauStatut;</span>
+<span class="nc" id="L60">    }</span>
+
+    /**
+     * Modifie les dates de début et de fin du projet.
+     * 
+     * @param nouveauDateDebut La nouvelle date de début.
+     * @param nouveauDateFin La nouvelle date de fin.
+     * @throws IllegalArgumentException Si la date de début est postérieure à la date de fin.
+     */
+    // Implementing the abstract method to modify the project dates
+    @Override
+    public void modifierDate(LocalDate nouveauDateDebut, LocalDate nouveauDateFin) {
+<span class="nc bnc" id="L72" title="All 2 branches missed.">        if (nouveauDateDebut.isAfter(nouveauDateFin)) {</span>
+<span class="nc" id="L73">            throw new IllegalArgumentException(&quot;La date de début doit être avant la date de fin.&quot;);</span>
+        }
+<span class="nc" id="L75">        this.dateDebut = nouveauDateDebut;</span>
+<span class="nc" id="L76">        this.dateFin = nouveauDateFin;</span>
+<span class="nc" id="L77">    }</span>
+
+    /**
+     * Affiche les détails complets du projet.
+     */
+    // Implementing the abstract method to display project details
+    @Override
+    public void afficherDetails() {
+<span class="nc" id="L85">        System.out.println(</span>
+            &quot;Projet ID: &quot; + id +
+            &quot;\nTitre: &quot; + titre +
+            &quot;\nDescription: &quot; + description +
+            &quot;\nDate de début: &quot; + dateDebut +
+            &quot;\nDate de fin: &quot; + dateFin +
+            &quot;\nStatut: &quot; + statut +
+            &quot;\nType de travail: &quot; + type +
+            &quot;\nQuartiers affectés: &quot; + quartiersAffectes +
+            &quot;\nRues affectées: &quot; + ruesAffectees +
+            &quot;\nHoraires: &quot; + horaires
+        );
+<span class="nc" id="L97">    }</span>
+
+    // New methods specific to Projet
+
+    /**
+     * Ajoute un quartier affecté à la liste des quartiers impactés.
+     * 
+     * @param quartier Le nom du quartier à ajouter.
+     */
+    // Adds a new affected neighborhood to the list
+    public void ajouterQuartierAffecte(String quartier) {
+<span class="nc bnc" id="L108" title="All 2 branches missed.">        if (!quartiersAffectes.contains(quartier)) {</span>
+<span class="nc" id="L109">            quartiersAffectes.add(quartier);</span>
+        }
+<span class="nc" id="L111">    }</span>
+
+    /**
+     * Ajoute une rue affectée à la liste des rues impactées.
+     * 
+     * @param rue Le nom de la rue à ajouter.
+     */
+    // Adds a new affected street to the list
+    public void ajouterRueAffectee(String rue) {
+<span class="nc bnc" id="L120" title="All 2 branches missed.">        if (!ruesAffectees.contains(rue)) {</span>
+<span class="nc" id="L121">            ruesAffectees.add(rue);</span>
+        }
+<span class="nc" id="L123">    }</span>
+
+    /**
+     * Modifie les horaires du projet.
+     * 
+     * @param nouveauHoraire Le nouvel horaire du projet.
+     */
+    // Modifies the project schedule
+    public void modifierHoraire(String nouveauHoraire) {
+<span class="nc" id="L132">        this.horaires = nouveauHoraire;</span>
+<span class="nc" id="L133">    }</span>
+
+    // Getters for additional attributes
+    /**
+     * Retourne la liste des rues affectées par le projet.
+     * 
+     * @return Liste des rues affectées.
+     */
+    public List&lt;String&gt; getRuesAffectees() {
+<span class="nc" id="L142">        return ruesAffectees;</span>
+    }
+
+    /**
+     * Retourne la liste des quartiers affectés par le projet.
+     * 
+     * @return Liste des quartiers affectés.
+     */
+    public List&lt;String&gt; getQuartiersAffectes() {
+<span class="nc" id="L151">        return quartiersAffectes;</span>
+    }
+
+    /**
+     * Retourne les horaires prévus pour le projet.
+     * 
+     * @return Horaires du projet.
+     */
+    public String getHoraires() {
+<span class="nc" id="L160">        return horaires;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

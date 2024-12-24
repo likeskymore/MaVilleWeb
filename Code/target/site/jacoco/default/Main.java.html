@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Main.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Appli MaVille</a> &gt; <a href="index.source.html" class="el_package">default</a> &gt; <span class="el_source">Main.java</span></div><h1>Main.java</h1><pre class="source lang-java linenums">/**
+ * La classe Main est le point d'entrée principal de l'application MaVille.
+ * Elle gère le cycle de vie de l'application, incluant l'authentification,
+ * la navigation entre les menus, et la gestion des comptes utilisateurs.
+ * 
+ * Cette classe utilise les contrôleurs et les menus pour permettre
+ * aux utilisateurs (résidents et intervenants) d'interagir avec les fonctionnalités.
+ * 
+ * @author Olivier Simard
+ * @author Trung Nguyen
+ * @author Mamour Ndiaye
+ */
+import java.util.Scanner;
+
+import Controller.AccountController;
+import Model.*;
+import View.MenuIntervenant;
+import View.MenuResident;
+
+<span class="nc" id="L20">public class Main {</span>
+    /**
+     * Instance du contrôleur de gestion des comptes.
+     */
+<span class="fc" id="L24">    static AccountController accountController = new AccountController();   </span>
+
+    /**
+     * Méthode principale qui initialise et lance l'application.
+     * 
+     * @param args Arguments de ligne de commande (non utilisés dans cette application).
+     */
+    public static void main(String[] args) {
+<span class="nc" id="L32">        Scanner scanner = new Scanner(System.in);</span>
+<span class="nc" id="L33">        boolean applicationEnCours = true;</span>
+
+<span class="nc bnc" id="L35" title="All 2 branches missed.">        while (applicationEnCours) {</span>
+<span class="nc" id="L36">            applicationEnCours = afficherAccueil(scanner);  // Continue running if true</span>
+        }
+
+<span class="nc" id="L39">        scanner.close();</span>
+<span class="nc" id="L40">    }</span>
+
+    /**
+     * Affiche un message d'erreur en cas d'échec d'authentification.
+     */
+    public static void afficherErreurAuth() {
+<span class="fc" id="L46">        System.out.println(&quot;\n\n&quot; +</span>
+                &quot;!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!\n&quot; +
+                &quot;!~   Échec de l'authentification, veuillez réessayer.  ~!\n&quot; +
+                &quot;!~          Retour à l'écran de connexion ...          ~!\n&quot; +
+                &quot;!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!&quot;);
+<span class="fc" id="L51">    }</span>
+
+    /**
+     * Simule un effacement de l'écran de la console.
+     */
+    public static void clearScreen() {
+<span class="fc" id="L57">        System.out.print(&quot;--------------------------------------------------------------------------------&quot;);</span>
+<span class="fc" id="L58">        System.out.print(&quot;\n&quot;.repeat(5)); // Simulates clearing the console</span>
+<span class="fc" id="L59">        System.out.print(&quot;--------------------------------------------------------------------------------&quot;);</span>
+<span class="fc" id="L60">    }</span>
+
+    /**
+     * Affiche l'écran d'accueil et gère les options principales.
+     * 
+     * @param scanner Scanner pour lire les entrées utilisateur.
+     * @return True si l'application doit continuer à fonctionner, sinon False.
+     */
+    public static boolean afficherAccueil(Scanner scanner) {
+<span class="fc" id="L69">        System.out.println(&quot;+------------------------------------------+&quot;);</span>
+<span class="fc" id="L70">        System.out.println(&quot;|       Bienvenue dans l'application       |&quot;);</span>
+<span class="fc" id="L71">        System.out.println(&quot;|                 MaVille!                 |&quot;);</span>
+<span class="fc" id="L72">        System.out.println(&quot;+------------------------------------------+&quot;);</span>
+
+<span class="fc" id="L74">        System.out.print(&quot;\n\n&quot;);</span>
+<span class="fc" id="L75">        System.out.println(&quot;- - - - - - - - - - - - - - - - - - -&quot;);</span>
+<span class="fc" id="L76">        System.out.println(&quot;Veuillez vous connecter ou vous inscrire :&quot;);</span>
+<span class="fc" id="L77">        System.out.println(&quot;- - - - - - - - - - - - - - - - - - -&quot;);</span>
+<span class="fc" id="L78">        System.out.print(&quot;\n&quot;);</span>
+<span class="fc" id="L79">        System.out.println(&quot;  +-----------------+&quot;);</span>
+<span class="fc" id="L80">        System.out.println(&quot;  |[1] Se connecter |&quot;);</span>
+<span class="fc" id="L81">        System.out.println(&quot;  |-----------------|&quot;);</span>
+<span class="fc" id="L82">        System.out.println(&quot;  |[2] S'inscrire   |&quot;);</span>
+<span class="fc" id="L83">        System.out.println(&quot;  +-----------------+&quot;);</span>
+<span class="fc" id="L84">        System.out.print(&quot;\n\n&quot;);</span>
+<span class="fc" id="L85">        System.out.println(&quot;- - [Q] Quitter l'application - -&quot;);</span>
+
+<span class="fc" id="L87">        String choix = scanner.nextLine();</span>
+
+<span class="pc bpc" id="L89" title="3 of 4 branches missed.">        switch (choix) {</span>
+            case &quot;1&quot;:
+<span class="nc" id="L91">                return login(scanner);  // Return to login logic</span>
+            case &quot;2&quot;:
+<span class="nc" id="L93">                accountController.createAccount(scanner);</span>
+<span class="nc" id="L94">                return true;  // Keep running the application</span>
+            case &quot;Q&quot;:
+            case &quot;q&quot;:
+<span class="fc" id="L97">                System.out.print(&quot;\n\n&quot;);</span>
+<span class="fc" id="L98">                System.out.println(&quot;+--------------------------------+&quot;);</span>
+<span class="fc" id="L99">                System.out.println(&quot;| Merci d'avoir utilisé MaVille. |&quot;);</span>
+<span class="fc" id="L100">                System.out.println(&quot;|        À la prochaine!         |&quot;);</span>
+<span class="fc" id="L101">                System.out.println(&quot;+--------------------------------+&quot;);</span>
+<span class="fc" id="L102">                return false;  // Exit the application</span>
+            default:
+<span class="nc" id="L104">                clearScreen();</span>
+<span class="nc" id="L105">                System.out.print(&quot;\n\n&quot;);</span>
+<span class="nc" id="L106">                System.out.println(&quot;!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!&quot;);</span>
+<span class="nc" id="L107">                System.out.println(&quot;!~ Choix invalide, veuillez entrer une option valide (ex : 1)  ~!&quot;);</span>
+<span class="nc" id="L108">                System.out.println(&quot;!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!~ ~!&quot;);</span>
+<span class="nc" id="L109">                return true;  // Stay in the application</span>
+        }
+    }
+
+    /**
+     * Gère la connexion des utilisateurs (résidents ou intervenants).
+     * 
+     * @param scanner Instance de Scanner pour lire les entrées utilisateur.
+     * @return True pour rester dans l'application après connexion, False pour quitter.
+     */
+    public static boolean login(Scanner scanner) {
+<span class="fc" id="L120">        System.out.println(&quot;Veuillez entrer votre email :&quot;);</span>
+<span class="fc" id="L121">        String email = scanner.nextLine();</span>
+
+<span class="fc" id="L123">        System.out.println(&quot;Veuillez entrer votre mot de passe :&quot;);</span>
+<span class="fc" id="L124">        String password = scanner.nextLine();</span>
+
+<span class="fc" id="L126">        UserAuthenticator authenticator = UserAuthenticator.getInstance();</span>
+<span class="fc" id="L127">        User user = authenticator.login(email, password);</span>
+
+<span class="pc bpc" id="L129" title="1 of 2 branches missed.">        if (user != null) {</span>
+<span class="nc" id="L130">            clearScreen();</span>
+<span class="nc" id="L131">            System.out.println(&quot;\nConnexion réussie! Bienvenue, &quot; + user.getName() + &quot;!\n&quot;);</span>
+<span class="nc bnc" id="L132" title="All 2 branches missed.">            if (user instanceof Resident) {</span>
+<span class="nc" id="L133">                MenuResident residentMenu = new MenuResident();</span>
+<span class="nc" id="L134">                residentMenu.start();  // This starts the resident menu</span>
+<span class="nc" id="L135">            } else {</span>
+<span class="nc" id="L136">                MenuIntervenant intervenantMenu = new MenuIntervenant();</span>
+<span class="nc" id="L137">                intervenantMenu.start();  // Start the intervenant menu</span>
+            }
+<span class="nc" id="L139">            return true;  // After logging in, return to the main menu to allow logout</span>
+        } else {
+<span class="fc" id="L141">            clearScreen();</span>
+<span class="fc" id="L142">            afficherErreurAuth();</span>
+<span class="fc" id="L143">            return true;  // Retry login</span>
+        }
+    }
+
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
