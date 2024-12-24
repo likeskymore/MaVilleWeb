@@ -31,7 +31,8 @@ Ce dossier contient tout ce qui concerne le projet. Voici comment il est organis
     MaVille-groupe46-3.0.jar:
         - Contient l'application Java compilée pour simuler l'appli MaVille.
 
-## Fonctionnalités
+## Guide Prototype
+- Ouvrir la ligne de commande (Terminal ou Command Prompt), naviguer jusqu'à l'emplacement du fichier MaVille-Groupe-46-3.0.jar. Exécuter la commande suivante pour démarrer le prototype : java -jar MaVille-groupe46-3.0.jar
 
 ### Résidents :
 - Se connecter avec un courriel personnel et accéder à un menu contenant des options avec lesquelles le résident peut interagir.
