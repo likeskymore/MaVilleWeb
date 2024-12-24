@@ -3,18 +3,24 @@
 // import org.mockito.Mock;
 // import org.mockito.MockitoAnnotations;
 
+// import static org.mockito.Mockito.*;
+// import Controller.RequeteTravailController;
+// import Model.Intervenant;
+// import View.MenuIntervenant;
 // import java.util.Scanner;
 
-// import static org.mockito.Mockito.*;
-// import Controller.*;
-// import View.*;
+// import static org.junit.jupiter.api.Assertions.*;
 
 // class MenuIntervenantTest {
+
 //     @Mock
 //     private Scanner mockScanner;
 
 //     @Mock
 //     private RequeteTravailController mockController;
+
+//     @Mock
+//     private Intervenant mockIntervenant;
 
 //     private MenuIntervenant menuIntervenant;
 
@@ -28,32 +34,34 @@
 
 //     @Test
 //     void testStartMainMenu() {
-//         // Simulate user selecting option 1 and then exiting
-//         when(mockScanner.nextLine()).thenReturn("1", "D");
+//         // Simulate user selecting option 1 to consult requests
+//         when(mockScanner.nextLine()).thenReturn("1","1","N","","Q");
 
 //         menuIntervenant.start();
 
-//         verify(mockController, times(1)).consulterRequetes(mockScanner);
+//         // Verify that the controller's consulterRequetes method was called with the expected arguments
+//         verify(mockController, times(1)).consulterRequetes(mockScanner, mockIntervenant);
 //     }
 
 //     @Test
 //     void testQuitApplication() {
-//         // Simulate quitting
+//         // Simulate quitting the application
 //         when(mockScanner.nextLine()).thenReturn("Q");
 
 //         menuIntervenant.start();
 
-//         assert !menuIntervenant.isRunning();
+//         // Verify that the menu has stopped running and the exit method was called
+//         assertFalse(menuIntervenant.isRunning());
 //     }
 
 //     @Test
 //     void testReturnToMainMenu() {
-//         // Simulate navigating to a sub-menu and returning to the main menu
-//         when(mockScanner.nextLine()).thenReturn("1", "M", "Q");
+//         // Simulate navigating to sub-menu level 1 and then returning to the main menu
+//         when(mockScanner.nextLine()).thenReturn("2", "M", "Q");
 
 //         menuIntervenant.start();
 
-//         verify(mockController, times(1)).consulterRequetes(mockScanner);
-//         assert menuIntervenant.getCurrentLevel() == 0.0;
+//         // Check if we're back to the main menu (level 0)
+//         assertEquals(0.0, menuIntervenant.getCurrentLevel());
 //     }
 // }

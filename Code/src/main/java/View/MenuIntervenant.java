@@ -11,7 +11,7 @@ package View;
 import java.util.Scanner;
 import Controller.RequeteTravailController;
 import Model.Intervenant;
-import Model.User;
+import Model.UserAuthenticator;
 
 public class MenuIntervenant extends Menu {
     /**
@@ -37,17 +37,7 @@ public class MenuIntervenant extends Menu {
     /**
      * Utilisateur actuellement connecté (doit être un intervenant).
      */
-    private User user; //Pour stocker l'utilisateur connecté
-
-
-    /**
-     * Constructeur pour initialiser le menu avec l'utilisateur connecté.
-     * 
-     * @param user L'utilisateur connecté.
-     */
-    public MenuIntervenant(User user) {
-        this.user = user;  // Initialisation de l'utilisateur
-    }
+    private Intervenant user = (Intervenant) UserAuthenticator.getInstance().getConnectedUser(); //Pour stocker l'utilisateur connecté
 
     /**
      * Démarre la boucle principale du menu.
@@ -160,5 +150,21 @@ public class MenuIntervenant extends Menu {
         running = false;
         System.out.println("Application fermée. À bientôt !");
         scanner.close();
+    }
+
+    public double getCurrentLevel() {
+        return currentLevel;
+    }
+
+    public boolean isRunning() {
+        return running;
+    }
+    
+    public void setRequestController(RequeteTravailController requestController) {
+        this.requestController = requestController;
+    }
+
+    public void setScanner(Scanner scanner) {
+        this.scanner = scanner;
     }
 }

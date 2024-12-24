@@ -24,7 +24,7 @@ public class UserAuthenticator {
      */
     private static UserAuthenticator instance; 
     private User connectedUser;
-    private String filePath;
+    private String filePath = "Code/src/main/java/Data/Users.json";
     
     /**
      * Constructeur privé pour le pattern Singleton.
