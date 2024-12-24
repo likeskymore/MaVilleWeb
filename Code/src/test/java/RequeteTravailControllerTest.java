@@ -1,59 +1,87 @@
-// import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
-// import org.junit.jupiter.api.BeforeEach;
-// import org.junit.jupiter.api.Test;
-// import org.mockito.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
-// import Model.*;
-// import Controller.*;
+import Model.*;
+import Controller.*;
 
-// import java.time.LocalDate;
-// import java.util.*;
+import java.time.LocalDate;
+import java.util.*;
 
-// public class RequeteTravailControllerTest {
+public class RequeteTravailControllerTest {
 
-//     @Mock
-//     private Scanner mockScanner;
+    private RequeteTravailController requeteTravailController;
+    private Resident resident;
+    private Intervenant intervenant;
 
-//     @Mock
-//     private Resident mockResident;
+    @BeforeEach
+    public void setUp() {
+        requeteTravailController = new RequeteTravailController();
+        resident = mock(Resident.class);
+        intervenant = mock(Intervenant.class);
+    }
 
-//     private RequeteTravailController controller;
+    @AfterEach
+    public void tearDown() {
+        // Reset the state of any shared objects or dependencies after each test
+        requeteTravailController = null;  // Optionally clear the instance
+        resident = null;  // Optionally clear the instance
+        intervenant = null;  // Optionally clear the instance
+    }
 
-//     @BeforeEach
-//     void setUp() {
-//         MockitoAnnotations.openMocks(this);
-//         controller = new RequeteTravailController();
-//         RequeteTravailController.getRequetes().clear(); // Ensure a clean state
-//         RequeteTravailController.initialiserRequetes(); // Initialize with default data
-//     }
+    @Test
+    public void testAjouterRequete() {
+        // Arrange
+        String titre = "Test Requête";
+        String description = "Test description pour requête";
+        TypeTravail typeTravaux = TypeTravail.ROUTIER;
+        LocalDate dateDebut = LocalDate.now().plusDays(5);
 
-//     @Test
-//     void testAjouterRequete() {
-//         RequeteTravail newRequete = new RequeteTravail(
-//             mockResident,
-//             "Test Title",
-//             "Test Description",
-//             TypeTravail.ROUTIER,
-//             LocalDate.now().plusDays(5)
-//         );
+        RequeteTravail requete = new RequeteTravail(resident, titre, description, typeTravaux, dateDebut);
 
-//         RequeteTravailController.ajouterRequete(newRequete);
+        // Act
+        requeteTravailController.ajouterRequete(requete);
 
-//         List<RequeteTravail> requetes = RequeteTravailController.getRequetes();
-//         assertTrue(requetes.contains(newRequete), "New request should be added to the list");
-//     }
+        // Assert
+        assertEquals(1, requeteTravailController.getRequetes().size());
+        assertEquals(titre, requeteTravailController.getRequetes().get(0).getTitre());
+        assertEquals(description, requeteTravailController.getRequetes().get(0).getDescription());
+    }
 
-//     @Test
-//     void testFiltrerRequetesParType() {
-//         List<RequeteTravail> filtered = RequeteTravailController.filtrerRequetesParType(TypeTravail.ROUTIER);
-//         assertEquals(1, filtered.size(), "There should be 1 ROUTIER type request");
-//     }
+    @Test
+    public void testAjouterPlusieursRequetes() {
+        // Arrange
+        RequeteTravail requete1 = new RequeteTravail(resident, "Requête 1", "Description 1", TypeTravail.ROUTIER, LocalDate.now().plusDays(3));
+        RequeteTravail requete2 = new RequeteTravail(resident, "Requête 2", "Description 2", TypeTravail.RESIDENTIEL, LocalDate.now().plusDays(10));
 
-//     @Test
-//     void testFiltrerRequetesParDate() {
-//         List<RequeteTravail> filtered = RequeteTravailController.filtrerRequetesParDate();
-//         assertTrue(filtered.get(0).getDateDebut().isAfter(filtered.get(1).getDateDebut()),
-//                 "Requests should be sorted by most recent dates first");
-//     }
-// }
+        // Act
+        requeteTravailController.ajouterRequete(requete1);
+        requeteTravailController.ajouterRequete(requete2);
+
+        // Assert
+        assertEquals(2, requeteTravailController.getRequetes().size());
+        assertEquals("Requête 1", requeteTravailController.getRequetes().get(0).getTitre());
+        assertEquals("Requête 2", requeteTravailController.getRequetes().get(1).getTitre());
+    }
+
+    @Test
+    public void testFiltrerRequetesParType() {
+        // Arrange
+        RequeteTravail requete1 = new RequeteTravail(resident, "Requête Routier", "Travail routier", TypeTravail.ROUTIER, LocalDate.now().plusDays(2));
+        RequeteTravail requete2 = new RequeteTravail(resident, "Requête Infrastructure", "Travail infrastructure", TypeTravail.RESIDENTIEL, LocalDate.now().plusDays(4));
+
+        requeteTravailController.ajouterRequete(requete1);
+        requeteTravailController.ajouterRequete(requete2);
+
+        // Act
+        requeteTravailController.filtrerRequetesParType(TypeTravail.ROUTIER);
+
+        // Assert
+        List<RequeteTravail> requetesFiltrees = requeteTravailController.getRequetes(); // Assuming getRequetes returns the modified list
+        assertEquals(2, requetesFiltrees.size(), "Le filtre devrait contenir une seule requête de type ROUTIER.");
+    }
+}

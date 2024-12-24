@@ -9,6 +9,7 @@ Model\TravailDeserializer.class
 Main.class
 Model\Address.class
 Model\HttpClientApi.class
+Model\Candidature.class
 View\Menu.class
 View\MenuResident.class
 Model\Intervenant.class

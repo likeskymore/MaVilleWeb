@@ -65,7 +65,7 @@ public class Main {
      * @param scanner Scanner pour lire les entrées utilisateur.
      * @return True si l'application doit continuer à fonctionner, sinon False.
      */
-    private static boolean afficherAccueil(Scanner scanner) {
+    public static boolean afficherAccueil(Scanner scanner) {
         System.out.println("+------------------------------------------+");
         System.out.println("|       Bienvenue dans l'application       |");
         System.out.println("|                 MaVille!                 |");

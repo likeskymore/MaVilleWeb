@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MenuIntervenant.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Appli MaVille</a> &gt; <a href="index.source.html" class="el_package">View</a> &gt; <span class="el_source">MenuIntervenant.java</span></div><h1>MenuIntervenant.java</h1><pre class="source lang-java linenums">/**
+ * La classe MenuIntervenant gère l'interface utilisateur pour les intervenants.
+ * Elle permet à l'intervenant connecté d'accéder à des fonctionnalités spécifiques
+ * telles que consulter les requêtes de travail, soumettre un nouveau projet,
+ * ou mettre à jour les informations d'un chantier.
+ * 
+ * Cette classe hérite de la classe abstraite {@link Menu}.
+ */
+package View;
+
+import java.util.Scanner;
+import Controller.RequeteTravailController;
+import Model.Intervenant;
+import Model.UserAuthenticator;
+
+<span class="fc" id="L16">public class MenuIntervenant extends Menu {</span>
+    /**
+     * Contrôleur pour gérer les requêtes de travail.
+     */
+<span class="fc" id="L20">    private RequeteTravailController requestController = new RequeteTravailController();</span>
+    
+    /**
+     * Niveau actuel du menu (contexte).
+     */
+<span class="fc" id="L25">    private double currentLevel = 0.0;</span>
+
+    /**
+     * Indicateur pour maintenir le menu actif.
+     */
+<span class="fc" id="L30">    private boolean running = true;</span>
+
+    /**
+     * Scanner pour gérer les entrées utilisateur.
+     */
+<span class="fc" id="L35">    private Scanner scanner = new Scanner(System.in);</span>
+
+    /**
+     * Utilisateur actuellement connecté (doit être un intervenant).
+     */
+<span class="fc" id="L40">    private Intervenant user = (Intervenant) UserAuthenticator.getInstance().getConnectedUser(); //Pour stocker l'utilisateur connecté</span>
+
+    /**
+     * Démarre la boucle principale du menu.
+     * Affiche les options et gère les entrées utilisateur jusqu'à la déconnexion ou la fermeture.
+     */
+    @Override
+    public void start() {
+<span class="fc bfc" id="L48" title="All 2 branches covered.">        while (running) {</span>
+<span class="fc" id="L49">            showMenu(currentLevel);</span>
+<span class="fc" id="L50">            handleInput();</span>
+        }
+<span class="fc" id="L52">        exit();</span>
+<span class="fc" id="L53">    }</span>
+
+    /**
+     * Affiche le menu selon le niveau actuel.
+     * 
+     * @param level Le niveau ou contexte du menu.
+     */
+    @Override
+    public void showMenu(Double level) {
+<span class="fc bfc" id="L62" title="All 2 branches covered.">        if (level == 0.0) {</span>
+<span class="fc" id="L63">            System.out.print(&quot;\n\n&quot;);</span>
+<span class="fc" id="L64">            System.out.println(&quot;   -  -  -  Bienvenue intervenant!  -  -  -    &quot;);</span>
+<span class="fc" id="L65">            System.out.println(&quot;\n&quot;);</span>
+<span class="fc" id="L66">            System.out.println(&quot;- - - - - - - - - - - - - - - - - - - - - - - -&quot;);</span>
+<span class="fc" id="L67">            System.out.println(&quot;Veuillez choisir ce que vous voulez accomplir :&quot;);</span>
+<span class="fc" id="L68">            System.out.println(&quot;- - - - - - - - - - - - - - - - - - - - - - - -&quot;);</span>
+<span class="fc" id="L69">            System.out.println();</span>
+<span class="fc" id="L70">            System.out.println(&quot;  +-------------------------------------------------+&quot;);</span>
+<span class="fc" id="L71">            System.out.println(&quot;  |[1] Consulter les requêtes de travail ~ ~ ~ ~ ~ ~|&quot;);</span>
+<span class="fc" id="L72">            System.out.println(&quot;  |-------------------------------------------------|&quot;);</span>
+<span class="fc" id="L73">            System.out.println(&quot;  |[2] Soumettre un nouveau projet ~ ~ ~ ~ ~ ~ ~ ~ ~|&quot;);</span>
+<span class="fc" id="L74">            System.out.println(&quot;  |-------------------------------------------------|&quot;);</span>
+<span class="fc" id="L75">            System.out.println(&quot;  |[3] Mettre à jour les informations d'un chantier |&quot;);</span>
+<span class="fc" id="L76">            System.out.println(&quot;  +-------------------------------------------------+&quot;);</span>
+<span class="fc" id="L77">            System.out.print(&quot;\n\n&quot;);</span>
+<span class="fc" id="L78">            System.out.println(&quot;- - [D] Se déconnecter - -&quot;);</span>
+<span class="fc" id="L79">            System.out.println(&quot;- - [Q] Quitter l'application - -&quot;);</span>
+<span class="pc bpc" id="L80" title="1 of 2 branches missed.">        } else if (level == 1.0) {</span>
+<span class="nc" id="L81">            System.out.println(&quot;\n- - - Consulter les requêtes de travail - - -&quot;);</span>
+<span class="nc" id="L82">            System.out.println(&quot;Voici les requêtes disponibles :&quot;);</span>
+<span class="nc" id="L83">            requestController.consulterRequetes(scanner, (Intervenant)user); // &lt;--- à reverifier</span>
+<span class="nc" id="L84">            System.out.println(&quot;Tapez [M] pour retourner au menu principal.&quot;);</span>
+<span class="pc bpc" id="L85" title="1 of 2 branches missed.">        } else if (level == 2.0) {</span>
+<span class="fc" id="L86">            System.out.println(&quot;\n- - - Soumettre un nouveau projet - - -&quot;);</span>
+<span class="fc" id="L87">            System.out.println(&quot;Cette fonctionnalité sera implémentée prochainement.&quot;);</span>
+<span class="fc" id="L88">            System.out.println(&quot;Tapez [M] pour retourner au menu principal.&quot;);</span>
+<span class="nc bnc" id="L89" title="All 2 branches missed.">        } else if (level == 3.0) {</span>
+<span class="nc" id="L90">            System.out.println(&quot;\n- - - Mettre à jour un chantier - - -&quot;);</span>
+<span class="nc" id="L91">            System.out.println(&quot;Cette fonctionnalité sera implémentée prochainement.&quot;);</span>
+<span class="nc" id="L92">            System.out.println(&quot;Tapez [M] pour retourner au menu principal.&quot;);</span>
+        }
+<span class="fc" id="L94">    }</span>
+
+    /**
+     * Gère la sélection des options du menu.
+     * 
+     * @param option L'option sélectionnée par l'utilisateur.
+     */
+    @Override
+    public void select(int option) {
+<span class="pc bpc" id="L103" title="2 of 4 branches missed.">        switch (option) {</span>
+            case 1:
+<span class="fc" id="L105">                requestController.consulterRequetes(scanner, (Intervenant)user);</span>
+<span class="fc" id="L106">                break;</span>
+            case 2:
+<span class="fc" id="L108">                currentLevel = 2.0;</span>
+<span class="fc" id="L109">                break;</span>
+            case 3:
+<span class="nc" id="L111">                currentLevel = 3.0;</span>
+<span class="nc" id="L112">                break;</span>
+            default:
+<span class="nc" id="L114">                System.out.println(&quot;Option invalide. Veuillez réessayer.&quot;);</span>
+                break;
+        }
+<span class="fc" id="L117">    }</span>
+
+    /**
+     * Traite les entrées utilisateur et navigue dans le menu.
+     */
+    @Override
+    public void handleInput() {
+<span class="fc" id="L124">        System.out.print(&quot;Votre choix : &quot;);</span>
+<span class="fc" id="L125">        String input = scanner.nextLine().trim();</span>
+
+<span class="pc bpc" id="L127" title="1 of 4 branches missed.">        if (input.equalsIgnoreCase(&quot;M&quot;) &amp;&amp; currentLevel &gt; 0.0) {</span>
+<span class="fc" id="L128">            currentLevel = 0.0; // Retour au menu principal</span>
+<span class="pc bpc" id="L129" title="1 of 2 branches missed.">        } else if (input.equalsIgnoreCase(&quot;D&quot;)) {</span>
+<span class="nc" id="L130">            System.out.println(&quot;Déconnexion...&quot;);</span>
+<span class="nc" id="L131">            running = false; // Quitte la boucle principale</span>
+<span class="fc bfc" id="L132" title="All 2 branches covered.">        } else if (input.equalsIgnoreCase(&quot;Q&quot;)) {</span>
+<span class="fc" id="L133">            System.out.println(&quot;Quitter l'application...&quot;);</span>
+<span class="fc" id="L134">            exit();</span>
+        } else {
+            try {
+<span class="fc" id="L137">                int option = Integer.parseInt(input);</span>
+<span class="fc" id="L138">                select(option);</span>
+<span class="fc" id="L139">            } catch (NumberFormatException e) {</span>
+<span class="fc" id="L140">                System.out.println(&quot;Entrée invalide. Veuillez entrer un numéro.&quot;);</span>
+<span class="fc" id="L141">            }</span>
+        }
+<span class="fc" id="L143">    }</span>
+
+    /**
+     * Quitte le menu et affiche un message de confirmation.
+     */
+    @Override
+    public void exit() {
+<span class="fc" id="L150">        running = false;</span>
+<span class="fc" id="L151">        System.out.println(&quot;Application fermée. À bientôt !&quot;);</span>
+<span class="fc" id="L152">        scanner.close();</span>
+<span class="fc" id="L153">    }</span>
+
+    public double getCurrentLevel() {
+<span class="fc" id="L156">        return currentLevel;</span>
+    }
+
+    public boolean isRunning() {
+<span class="fc" id="L160">        return running;</span>
+    }
+    
+    public void setRequestController(RequeteTravailController requestController) {
+<span class="fc" id="L164">        this.requestController = requestController;</span>
+<span class="fc" id="L165">    }</span>
+
+    public void setScanner(Scanner scanner) {
+<span class="fc" id="L168">        this.scanner = scanner;</span>
+<span class="fc" id="L169">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

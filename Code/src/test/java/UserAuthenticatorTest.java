@@ -1,77 +1,146 @@
-// import org.junit.jupiter.api.*;
-// import static org.junit.jupiter.api.Assertions.*;
-// import java.io.FileWriter;
-// import java.io.IOException;
-// import Model.*;
-// @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-// public class UserAuthenticatorTest {
-//     private static final String TEST_FILE_PATH = "testUsers.json";
-//     private UserAuthenticator userAuthenticator;
+import static org.junit.jupiter.api.Assertions.*;
 
-//     @BeforeAll
-//     public void setupTestData() {
-//         // Create a test JSON file
-//         String testJsonData = """
-//         {
-//           "residents": [
-//             {
-//               "email": "resident1@example.com",
-//               "password": "password123",
-//               "name": "Resident One"
-//             }
-//           ],
-//           "intervenants": [
-//             {
-//               "email": "intervenant1@example.com",
-//               "password": "securepassword",
-//               "name": "Intervenant One"
-//             }
-//           ]
-//         }
-//         """;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
+import java.io.*;
+import java.nio.file.*;
 
-//         try (FileWriter writer = new FileWriter(TEST_FILE_PATH)) {
-//             writer.write(testJsonData);
-//         } catch (IOException e) {
-//             e.printStackTrace();
-//         }
-//     }
+import Model.*;
 
-//     @BeforeEach
-//     public void setup() {
-//         userAuthenticator = UserAuthenticator.getInstance();
-//         userAuthenticator.setPath(TEST_FILE_PATH);
-//     }
-//     @Test
-//     public void testLoginResidentSuccess() {
-//         User user = userAuthenticator.login("resident1@example.com", "password123");
-//         assertNotNull(user, "Login should return a user object for valid credentials");
-//         assertEquals("resident1@example.com", user.getEmail(), "Email should match the logged-in resident");
-//         assertEquals("Resident", userAuthenticator.getUserRole(), "Role should be Resident for a logged-in resident");
-//     }
+public class UserAuthenticatorTest {
 
-//     @Test
-//     public void testLoginIntervenantSuccess() {
-//         User user = userAuthenticator.login("intervenant1@example.com", "securepassword");
-//         assertNotNull(user, "Login should return a user object for valid credentials");
-//         assertEquals("intervenant1@example.com", user.getEmail(), "Email should match the logged-in intervenant");
-//         assertEquals("Intervenant", userAuthenticator.getUserRole(), "Role should be Intervenant for a logged-in intervenant");
-//     }
+    private UserAuthenticator userAuthenticator;
 
-//     @Test
-//     public void testLogoutSuccess() {
-//         User user = userAuthenticator.login("resident1@example.com", "password123");
-//         assertNotNull(user, "Login should return a user object for valid credentials");
-//         userAuthenticator.logout(user);
-//         assertNull(userAuthenticator.getConnectedUser(), "Connected user should be null after logout");
-//     }
+    @BeforeEach
+    public void setUp() {
+        userAuthenticator = UserAuthenticator.getInstance(); // Get a fresh instance
+    }
 
-//     @AfterAll
-//     public void cleanup() {
-//         // Clean up the test file
-//         java.io.File file = new java.io.File(TEST_FILE_PATH);
-//         if (file.exists()) {
-//             file.delete();
-//         }
-//     }
-// }
+    @AfterEach
+    public void tearDown() {
+        // Reset the path or any static state to avoid interference between tests
+        userAuthenticator.setPath(null); // Reset file path if it is set
+    }
+
+    // Test for successful Resident login
+    @Test
+    public void testLogin_SuccessfulResident() throws IOException {
+        // Arrange
+        String email = "resident@example.com";
+        String password = "validPassword";
+
+        // Mock JSON response for residents
+        String json = """
+        {
+            "residents": [
+                {
+                    "email": "resident@example.com",
+                    "password": "validPassword",
+                    "name": "Resident User"
+                }
+            ],
+            "intervenants": []
+        }
+        """; 
+
+        // Write the mock JSON to a temporary file
+        Path tempFile = Files.createTempFile("users", ".json");
+        Files.write(tempFile, json.getBytes());
+        
+        userAuthenticator.setPath(tempFile.toString());  // Set file path to the temp file
+
+        // Act
+        User user = userAuthenticator.login(email, password);
+
+        // Assert
+        assertNotNull(user);
+        assertEquals("Resident User", user.getName());  // Check that the user details match
+        assertTrue(user instanceof Resident);  // Ensure the user is a Resident
+
+        // Clean up
+        Files.delete(tempFile);
+    }
+
+    // Test for successful Intervenant login
+    @Test
+    public void testLogin_SuccessfulIntervenant() throws IOException {
+        // Arrange
+        String email = "intervenant@example.com";
+        String password = "validPassword";
+
+        // Mock JSON response for intervenants
+        String json = """
+        {
+            "residents": [],
+            "intervenants": [
+                {
+                    "email": "intervenant@example.com",
+                    "password": "validPassword",
+                    "name": "Intervenant User"
+                }
+            ]
+        }
+        """; 
+
+        // Write the mock JSON to a temporary file
+        Path tempFile = Files.createTempFile("users", ".json");
+        Files.write(tempFile, json.getBytes());
+        
+        userAuthenticator.setPath(tempFile.toString());  // Set file path to the temp file
+
+        // Act
+        User user = userAuthenticator.login(email, password);
+
+        // Assert
+        assertNotNull(user);
+        assertEquals("Intervenant User", user.getName());  // Check that the user details match
+        assertTrue(user instanceof Intervenant);  // Ensure the user is an Intervenant
+
+        // Clean up
+        Files.delete(tempFile);
+    }
+
+    // Test for failed login (invalid credentials)
+    @Test
+    public void testLogin_Failed() throws IOException {
+        // Arrange
+        String email = "nonexistent@example.com";
+        String password = "wrongPassword";
+
+        // Mock JSON response with no matching user
+        String json = """
+        {
+            "residents": [
+                {
+                    "email": "resident@example.com",
+                    "password": "validPassword",
+                    "name": "Resident User"
+                }
+            ],
+            "intervenants": [
+                {
+                    "email": "intervenant@example.com",
+                    "password": "validPassword",
+                    "name": "Intervenant User"
+                }
+            ]
+        }
+        """; 
+
+        // Write the mock JSON to a temporary file
+        Path tempFile = Files.createTempFile("users", ".json");
+        Files.write(tempFile, json.getBytes());
+
+        userAuthenticator.setPath(tempFile.toString());  // Set file path to the temp file
+
+        // Act
+        User user = userAuthenticator.login(email, password);
+
+        // Assert
+        assertNull(user);  // The login should fail, so the result should be null
+
+        // Clean up
+        Files.delete(tempFile);
+    }
+}

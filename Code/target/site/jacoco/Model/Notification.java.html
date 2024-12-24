@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Notification.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Appli MaVille</a> &gt; <a href="index.source.html" class="el_package">Model</a> &gt; <span class="el_source">Notification.java</span></div><h1>Notification.java</h1><pre class="source lang-java linenums">/**
+ * La classe Notification représente une notification dans le système.
+ * Elle contient des informations telles que l'identifiant unique, le message,
+ * l'état de lecture, et la date de création de la notification.
+ */
+package Model;
+
+import java.time.LocalDateTime;
+
+public class Notification {
+
+    /**
+     * Identifiant unique de la notification.
+     */
+    private String id;
+
+    /**
+     * Message contenu dans la notification.
+     */
+    private String message;
+
+    /**
+     * Indique si la notification a été lue.
+     */
+    private Boolean read;
+
+    /**
+     * Date de création de la notification.
+     */
+    private LocalDateTime creationDate;
+
+
+    /**
+     * Constructeur pour créer une notification avec des informations complètes.
+     * 
+     * @param id Identifiant unique de la notification.
+     * @param message Contenu du message de la notification.
+     * @param read Indique si la notification a été lue.
+     * @param creationDate Date et heure de création de la notification.
+     */
+    // Constructor
+<span class="nc" id="L42">    public Notification(String id, String message, Boolean read, LocalDateTime creationDate) {</span>
+<span class="nc" id="L43">        this.id = id;</span>
+<span class="nc" id="L44">        this.message = message;</span>
+<span class="nc" id="L45">        this.read = read;</span>
+<span class="nc" id="L46">        this.creationDate = creationDate;</span>
+<span class="nc" id="L47">    }</span>
+
+    /**
+     * Constructeur par défaut.
+     */
+    // Default constructor
+<span class="nc" id="L53">    public Notification() {}</span>
+
+    // Getters and setters
+
+    /**
+     * Retourne l'identifiant unique de la notification.
+     * 
+     * @return L'identifiant de la notification.
+     */
+    public String getId() {
+<span class="nc" id="L63">        return id;</span>
+    }
+
+    /**
+     * Modifie l'identifiant de la notification.
+     * 
+     * @param id Le nouvel identifiant de la notification.
+     */
+    public void setId(String id) {
+<span class="nc" id="L72">        this.id = id;</span>
+<span class="nc" id="L73">    }</span>
+
+    /**
+     * Retourne le message de la notification.
+     * 
+     * @return Le message de la notification.
+     */
+    public String getMessage() {
+<span class="nc" id="L81">        return message;</span>
+    }
+
+    /**
+     * Modifie le message de la notification.
+     * 
+     * @param message Le nouveau message de la notification.
+     */
+    public void setMessage(String message) {
+<span class="nc" id="L90">        this.message = message;</span>
+<span class="nc" id="L91">    }</span>
+
+    /**
+     * Indique si la notification a été lue.
+     * 
+     * @return True si la notification a été lue, sinon False.
+     */
+    public Boolean isRead() {
+<span class="nc" id="L99">        return read;</span>
+    }
+
+    /**
+     * Modifie l'état de lecture de la notification.
+     * 
+     * @param read Le nouvel état de lecture de la notification.
+     */
+    public void setRead(Boolean read) {
+<span class="nc" id="L108">        this.read = read;</span>
+<span class="nc" id="L109">    }</span>
+
+    /**
+     * Retourne la date de création de la notification.
+     * 
+     * @return La date de création de la notification.
+     */
+    public LocalDateTime getCreationDate() {
+<span class="nc" id="L117">        return creationDate;</span>
+    }
+
+    /**
+     * Modifie la date de création de la notification.
+     * 
+     * @param creationDate La nouvelle date de création de la notification.
+     */
+    public void setCreationDate(LocalDateTime creationDate) {
+<span class="nc" id="L126">        this.creationDate = creationDate;</span>
+<span class="nc" id="L127">    }</span>
+
+    /**
+     * Retourne une représentation sous forme de chaîne de caractères de la notification.
+     * 
+     * @return Une chaîne représentant la notification.
+     */
+    // toString method
+    @Override
+    public String toString() {
+<span class="nc" id="L137">        return &quot;Notification {&quot; +</span>
+                &quot;id='&quot; + id + '\'' +
+                &quot;, message='&quot; + message + '\'' +
+                &quot;, read=&quot; + read +
+                &quot;, creationDate=&quot; + creationDate +
+                '}';
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

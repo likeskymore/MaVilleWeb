@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TravailDeserializer.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Appli MaVille</a> &gt; <a href="index.source.html" class="el_package">Model</a> &gt; <span class="el_source">TravailDeserializer.java</span></div><h1>TravailDeserializer.java</h1><pre class="source lang-java linenums">/**
+ * La classe TravailDeserializer implémente l'interface {@link JsonDeserializer}
+ * pour désérialiser des objets JSON en instances de {@link Travail}.
+ * 
+ * Cette classe gère la désérialisation des catégories spécifiques telles que
+ * &quot;Travaux&quot; pour les projets et &quot;Entraves&quot; pour les contraintes liées aux travaux.
+ */
+package Model;
+import com.google.gson.*;
+
+import java.lang.reflect.Type;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+public class TravailDeserializer implements JsonDeserializer&lt;Travail&gt; {
+    /**
+     * Catégorie des objets à désérialiser (par exemple : &quot;Travaux&quot;, &quot;Entraves&quot;).
+     */
+    private final String category;
+
+    /**
+     * Constructeur pour initialiser le désérialiseur avec une catégorie spécifique.
+     * 
+     * @param category La catégorie des objets à désérialiser.
+     */
+<span class="nc" id="L26">    public TravailDeserializer(String category) {</span>
+<span class="nc" id="L27">        this.category = category;</span>
+<span class="nc" id="L28">    }</span>
+
+    /**
+     * Désérialise un objet JSON en une instance de {@link Travail} ou l'une de ses sous-classes.
+     * 
+     * @param json L'élément JSON à désérialiser.
+     * @param typeOfT Le type attendu de l'objet.
+     * @param context Le contexte de désérialisation.
+     * @return Une instance de {@link Travail}, {@link Projet} ou {@link Entraves}.
+     * @throws JsonParseException Si une erreur survient lors de la désérialisation.
+     */
+    @Override
+    public Travail deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+<span class="nc" id="L41">        JsonObject jsonObject = json.getAsJsonObject();</span>
+
+        // Extract shared attributes with null checks
+<span class="nc bnc" id="L44" title="All 4 branches missed.">        String id = jsonObject.has(&quot;id&quot;) &amp;&amp; !jsonObject.get(&quot;id&quot;).isJsonNull()</span>
+<span class="nc" id="L45">                ? jsonObject.get(&quot;id&quot;).getAsString()</span>
+<span class="nc" id="L46">                : &quot;Unknown ID&quot;;</span>
+
+<span class="nc bnc" id="L48" title="All 4 branches missed.">        String reasonCategory = jsonObject.has(&quot;reason_category&quot;) &amp;&amp; !jsonObject.get(&quot;reason_category&quot;).isJsonNull()</span>
+<span class="nc" id="L49">                ? jsonObject.get(&quot;reason_category&quot;).getAsString()</span>
+<span class="nc" id="L50">                : &quot;Unknown Category&quot;;</span>
+
+<span class="nc bnc" id="L52" title="All 4 branches missed.">        String occupancyName = jsonObject.has(&quot;occupancy_name&quot;) &amp;&amp; !jsonObject.get(&quot;occupancy_name&quot;).isJsonNull()</span>
+<span class="nc" id="L53">                ? jsonObject.get(&quot;occupancy_name&quot;).getAsString()</span>
+<span class="nc" id="L54">                : &quot;Unknown Occupancy&quot;;</span>
+
+<span class="nc" id="L56">        String titre = reasonCategory + &quot; --- &quot; + occupancyName;</span>
+<span class="nc" id="L57">        String description = reasonCategory;</span>
+
+<span class="nc bnc" id="L59" title="All 4 branches missed.">        LocalDate dateDebut = jsonObject.has(&quot;duration_start_date&quot;) &amp;&amp; !jsonObject.get(&quot;duration_start_date&quot;).isJsonNull()</span>
+<span class="nc" id="L60">                ? LocalDate.parse(jsonObject.get(&quot;duration_start_date&quot;).getAsString(), DateTimeFormatter.ISO_DATE_TIME)</span>
+<span class="nc" id="L61">                : LocalDate.now();</span>
+
+<span class="nc bnc" id="L63" title="All 4 branches missed.">        LocalDate dateFin = jsonObject.has(&quot;duration_end_date&quot;) &amp;&amp; !jsonObject.get(&quot;duration_end_date&quot;).isJsonNull()</span>
+<span class="nc" id="L64">                ? LocalDate.parse(jsonObject.get(&quot;duration_end_date&quot;).getAsString(), DateTimeFormatter.ISO_DATE_TIME)</span>
+<span class="nc" id="L65">                : LocalDate.now();</span>
+
+<span class="nc" id="L67">        StatutProjet statut = StatutProjet.EN_COURS;</span>
+<span class="nc" id="L68">        TypeTravail type = TypeTravail.ENTRETIEN_PAYSAGER;</span>
+
+<span class="nc bnc" id="L70" title="All 2 branches missed.">        if (category.equalsIgnoreCase(&quot;Travaux&quot;)) {</span>
+            // Create and populate a Projet instance
+<span class="nc" id="L72">            String horaires = generateHoraires(jsonObject);</span>
+<span class="nc" id="L73">            Projet projet = new Projet(id, titre, description, dateDebut, dateFin, statut, type, horaires);</span>
+
+            // Add specific attributes with null checks
+<span class="nc bnc" id="L76" title="All 4 branches missed.">            if (jsonObject.has(&quot;boroughid&quot;) &amp;&amp; !jsonObject.get(&quot;boroughid&quot;).isJsonNull()) {</span>
+<span class="nc" id="L77">                String quartier = jsonObject.get(&quot;boroughid&quot;).getAsString();</span>
+<span class="nc" id="L78">                projet.ajouterQuartierAffecte(quartier);</span>
+            }
+
+<span class="nc bnc" id="L81" title="All 4 branches missed.">            if (jsonObject.has(&quot;occupancy_name&quot;) &amp;&amp; !jsonObject.get(&quot;occupancy_name&quot;).isJsonNull()) {</span>
+<span class="nc" id="L82">                String rue = jsonObject.get(&quot;occupancy_name&quot;).getAsString();</span>
+<span class="nc" id="L83">                projet.ajouterRueAffectee(rue);</span>
+            }
+
+<span class="nc" id="L86">            return projet;</span>
+
+<span class="nc bnc" id="L88" title="All 2 branches missed.">        } else if (category.equalsIgnoreCase(&quot;Entraves&quot;)) {</span>
+            // Create and populate an Entraves instance
+<span class="nc bnc" id="L90" title="All 4 branches missed.">            String entraveId = jsonObject.has(&quot;id_request&quot;) &amp;&amp; !jsonObject.get(&quot;id_request&quot;).isJsonNull()</span>
+<span class="nc" id="L91">                    ? jsonObject.get(&quot;id_request&quot;).getAsString()</span>
+<span class="nc" id="L92">                    : &quot;Unknown Entrave ID&quot;;</span>
+
+<span class="nc bnc" id="L94" title="All 4 branches missed.">            String streetImpactWidth = jsonObject.has(&quot;streetimpactwidth&quot;) &amp;&amp; !jsonObject.get(&quot;streetimpactwidth&quot;).isJsonNull()</span>
+<span class="nc" id="L95">                    ? jsonObject.get(&quot;streetimpactwidth&quot;).getAsString()</span>
+<span class="nc" id="L96">                    : &quot;Unknown Width&quot;;</span>
+            
+<span class="nc bnc" id="L98" title="All 4 branches missed.">            String streetImpactType = jsonObject.has(&quot;streetimpacttype&quot;) &amp;&amp; !jsonObject.get(&quot;streetimpacttype&quot;).isJsonNull()</span>
+<span class="nc" id="L99">                    ? jsonObject.get(&quot;streetimpacttype&quot;).getAsString()</span>
+<span class="nc" id="L100">                    : &quot;Unknown Type&quot;;</span>
+
+<span class="nc" id="L102">            String niveauImpact = &quot;width: &quot;+ streetImpactWidth + &quot; --- &quot; + streetImpactType;</span>
+<span class="nc" id="L103">            String entraveTitre = &quot;L'entrave du projet &quot; + entraveId;</span>
+<span class="nc" id="L104">            String entraveDescription = &quot;None&quot;;</span>
+
+<span class="nc" id="L106">            Entraves entrave = new Entraves(entraveId, entraveTitre, entraveDescription, niveauImpact);</span>
+
+<span class="nc bnc" id="L108" title="All 4 branches missed.">            if (jsonObject.has(&quot;streetid&quot;) &amp;&amp; !jsonObject.get(&quot;streetid&quot;).isJsonNull()) {</span>
+<span class="nc" id="L109">                String street = jsonObject.get(&quot;streetid&quot;).getAsString();</span>
+<span class="nc" id="L110">                entrave.ajouterRueAffectee(street);</span>
+            }
+<span class="nc" id="L112">            return entrave;</span>
+
+        } else {
+<span class="nc" id="L115">            throw new JsonParseException(&quot;Unsupported category: &quot; + category);</span>
+        }
+    }
+
+    /**
+     * Génère une chaîne de caractères représentant les horaires d'un projet à partir
+     * des informations présentes dans l'objet JSON.
+     * 
+     * @param jsonObject L'objet JSON contenant les informations d'horaires.
+     * @return Une chaîne formatée représentant les horaires.
+     */
+    private String generateHoraires(JsonObject jsonObject) {
+<span class="nc" id="L127">        StringBuilder horaires = new StringBuilder();</span>
+<span class="nc" id="L128">        String[] days = {&quot;mon&quot;, &quot;tue&quot;, &quot;wed&quot;, &quot;thu&quot;, &quot;fri&quot;, &quot;sat&quot;, &quot;sun&quot;};</span>
+<span class="nc bnc" id="L129" title="All 2 branches missed.">        for (String day : days) {</span>
+<span class="nc bnc" id="L130" title="All 2 branches missed.">            boolean active = jsonObject.has(&quot;duration_days_&quot; + day + &quot;_active&quot;) </span>
+<span class="nc bnc" id="L131" title="All 2 branches missed.">                    &amp;&amp; &quot;t&quot;.equals(jsonObject.get(&quot;duration_days_&quot; + day + &quot;_active&quot;).getAsString());</span>
+    
+<span class="nc bnc" id="L133" title="All 2 branches missed.">            if (active) {</span>
+<span class="nc bnc" id="L134" title="All 2 branches missed.">                String startTime = jsonObject.has(&quot;duration_days_&quot; + day + &quot;_start_time&quot;) </span>
+<span class="nc bnc" id="L135" title="All 2 branches missed.">                        &amp;&amp; !jsonObject.get(&quot;duration_days_&quot; + day + &quot;_start_time&quot;).isJsonNull()</span>
+<span class="nc" id="L136">                        ? jsonObject.get(&quot;duration_days_&quot; + day + &quot;_start_time&quot;).getAsString()</span>
+<span class="nc" id="L137">                        : &quot;N/A&quot;;</span>
+    
+<span class="nc bnc" id="L139" title="All 2 branches missed.">                String endTime = jsonObject.has(&quot;duration_days_&quot; + day + &quot;_end_time&quot;) </span>
+<span class="nc bnc" id="L140" title="All 2 branches missed.">                        &amp;&amp; !jsonObject.get(&quot;duration_days_&quot; + day + &quot;_end_time&quot;).isJsonNull()</span>
+<span class="nc" id="L141">                        ? jsonObject.get(&quot;duration_days_&quot; + day + &quot;_end_time&quot;).getAsString()</span>
+<span class="nc" id="L142">                        : &quot;N/A&quot;;</span>
+    
+<span class="nc" id="L144">                horaires.append(day.substring(0, 1).toUpperCase()).append(day.substring(1)).append(&quot;: &quot;)</span>
+<span class="nc" id="L145">                        .append(startTime).append(&quot; - &quot;).append(endTime).append(&quot;; &quot;);</span>
+            }
+        }
+<span class="nc" id="L148">        return horaires.toString().trim();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

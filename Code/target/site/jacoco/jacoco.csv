@@ -1,0 +1,31 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+Appli MaVille,default,Main,66,122,8,2,25,41,8,5,2,5
+Appli MaVille,Model,UserAuthenticator.new TypeToken() {...},0,6,0,0,0,1,0,1,0,1
+Appli MaVille,Model,Entraves,83,0,6,0,22,0,12,0,9,0
+Appli MaVille,Model,IntervenantType,0,21,0,0,0,4,0,1,0,1
+Appli MaVille,Model,TravailDeserializer,390,0,64,0,69,0,35,0,3,0
+Appli MaVille,Model,Address,122,0,10,0,33,0,17,0,12,0
+Appli MaVille,Model,ApiResponse,29,0,0,0,9,0,5,0,5,0
+Appli MaVille,Model,Horaire,56,0,0,0,20,0,11,0,11,0
+Appli MaVille,Model,Subscription,3,0,0,0,1,0,1,0,1,0
+Appli MaVille,Model,Travail,92,0,2,0,36,0,18,0,17,0
+Appli MaVille,Model,UserAuthenticator.new TypeToken() {...},0,6,0,0,0,1,0,1,0,1
+Appli MaVille,Model,Notification,56,0,0,0,20,0,11,0,11,0
+Appli MaVille,Model,User,44,12,0,0,18,4,9,4,9,4
+Appli MaVille,Model,Intervenant,48,3,0,0,17,2,9,1,9,1
+Appli MaVille,Model,TypeTravail,0,63,0,0,0,11,0,1,0,1
+Appli MaVille,Model,Resident,48,3,0,0,17,2,9,1,9,1
+Appli MaVille,Model,UserAuthenticator.LocalDateAdapter,12,3,0,0,3,1,2,1,2,1
+Appli MaVille,Model,Projet,105,0,6,0,26,0,14,0,11,0
+Appli MaVille,Model,StatutProjet,0,33,0,0,0,6,0,1,0,1
+Appli MaVille,Model,UserAuthenticator,35,134,10,12,11,30,8,10,2,5
+Appli MaVille,Model,RequeteTravail,31,27,0,0,8,10,6,3,6,3
+Appli MaVille,Model,Candidature,39,0,0,0,13,0,7,0,7,0
+Appli MaVille,Model,HttpClientApi,62,0,2,0,17,0,3,0,2,0
+Appli MaVille,Controller,AccountController,157,508,46,42,50,130,44,18,3,13
+Appli MaVille,Controller,Controller,0,3,0,0,0,1,0,1,0,1
+Appli MaVille,Controller,TravailController,675,3,76,0,175,1,42,1,4,1
+Appli MaVille,Controller,RequeteTravailController,872,42,84,1,234,16,55,5,8,5
+Appli MaVille,View,Menu,4,7,0,0,2,3,1,2,1,2
+Appli MaVille,View,MenuIntervenant,45,202,8,14,13,65,7,15,0,10
+Appli MaVille,View,MenuResident,307,128,46,10,100,38,34,6,3,5

@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TravailController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Appli MaVille</a> &gt; <a href="index.source.html" class="el_package">Controller</a> &gt; <span class="el_source">TravailController.java</span></div><h1>TravailController.java</h1><pre class="source lang-java linenums">/**
+ * La classe TravailController gère les interactions liées aux projets et aux entraves
+ * dans l'application, notamment la consultation des projets en cours,
+ * le filtrage par quartier, et la gestion des entraves.
+ * 
+ * Cette classe fait appel à des APIs externes pour récupérer les données
+ * relatives aux travaux et aux entraves et fournit des méthodes permettant
+ * à l'utilisateur d'interagir avec ces données.
+ */
+package Controller;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
+
+import Model.ApiResponse;
+import Model.Entraves;
+import Model.HttpClientApi;
+import Model.Projet;
+import Model.TravailDeserializer;
+
+<span class="fc" id="L32">public class TravailController {</span>
+    /**
+     * Affiche les projets en cours en se basant sur les données récupérées via une API externe.
+     * 
+     * @param scanner Scanner pour lire les entrées utilisateur.
+     */
+    public void projetsEnCours(Scanner scanner){
+<span class="nc" id="L39">        HttpClientApi api = new HttpClientApi();</span>
+<span class="nc" id="L40">        String resourceId = &quot;cc41b532-f12d-40fb-9f55-eb58c9a2b12b&quot;;</span>
+<span class="nc" id="L41">        String category = &quot;Travaux&quot;;</span>
+    
+<span class="nc" id="L43">        ApiResponse response = api.getData(resourceId);</span>
+<span class="nc bnc" id="L44" title="All 4 branches missed.">        if (response != null &amp;&amp; response.getStatusCode() == 200) {</span>
+            try {
+<span class="nc" id="L46">                JsonObject jsonResponse = JsonParser.parseString(response.getBody()).getAsJsonObject();</span>
+<span class="nc" id="L47">                JsonArray records = jsonResponse.getAsJsonObject(&quot;result&quot;).getAsJsonArray(&quot;records&quot;);</span>
+<span class="nc" id="L48">                Gson gson = new GsonBuilder()</span>
+<span class="nc" id="L49">                        .registerTypeAdapter(Projet.class, new TravailDeserializer(category))</span>
+<span class="nc" id="L50">                        .create();</span>
+    
+<span class="nc" id="L52">                List&lt;Projet&gt; projetEnCours = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L53">                LocalDate now = LocalDate.now();</span>
+<span class="nc" id="L54">                LocalDate threeMonthsFromNow = now.plusMonths(3);</span>
+    
+<span class="nc bnc" id="L56" title="All 2 branches missed.">                for (JsonElement jsonElement : records) {</span>
+                    try {
+<span class="nc" id="L58">                        Projet projet = gson.fromJson(jsonElement, Projet.class);</span>
+<span class="nc bnc" id="L59" title="All 2 branches missed.">                        if (projet != null) {</span>
+<span class="nc" id="L60">                            LocalDate dateDebut = projet.getDateDebut();</span>
+<span class="nc" id="L61">                            LocalDate dateFin = projet.getDateFin();</span>
+<span class="nc bnc" id="L62" title="All 6 branches missed.">                            boolean isInNextThreeMonths = (dateDebut.isEqual(now) || dateDebut.isAfter(now)) &amp;&amp; dateDebut.isBefore(threeMonthsFromNow);</span>
+<span class="nc" id="L63">                            boolean isEndDateOngoing = dateFin.isAfter(now);</span>
+    
+<span class="nc bnc" id="L65" title="All 4 branches missed.">                            if (isInNextThreeMonths || isEndDateOngoing) {</span>
+<span class="nc" id="L66">                                projetEnCours.add(projet);</span>
+                            }
+                        }
+<span class="nc" id="L69">                    } catch (JsonParseException e) {</span>
+<span class="nc" id="L70">                        System.err.println(&quot;Error deserializing record: &quot; + e.getMessage());</span>
+<span class="nc" id="L71">                    }</span>
+<span class="nc" id="L72">                }</span>
+    
+<span class="nc bnc" id="L74" title="All 2 branches missed.">                if (projetEnCours.isEmpty()) {</span>
+<span class="nc" id="L75">                    System.out.println(&quot;Aucun projet ne correspond aux critères.&quot;);</span>
+<span class="nc" id="L76">                    return;</span>
+                }
+    
+                // Display the list of projects
+                while (true) { // Loop to allow returning to the project list
+<span class="nc" id="L81">                    int counter = 1;</span>
+<span class="nc" id="L82">                    System.out.println(&quot;\nListe des projets en cours : (Type Travaux --- Rue affectées)&quot;);</span>
+<span class="nc bnc" id="L83" title="All 2 branches missed.">                    for (Projet projet : projetEnCours) {</span>
+<span class="nc" id="L84">                        System.out.println(counter + &quot;. &quot; + projet.getTitre());</span>
+<span class="nc" id="L85">                        counter++;</span>
+<span class="nc" id="L86">                    }</span>
+    
+                    // Allow user to select a project by index or return to the previous menu
+<span class="nc" id="L89">                    System.out.println(&quot;\nEntrez le numéro du projet pour voir les détails ou '0' pour revenir au menu précédent :&quot;);</span>
+                    try {
+<span class="nc" id="L91">                        String input = scanner.nextLine();</span>
+<span class="nc" id="L92">                        int index = Integer.parseInt(input);</span>
+    
+<span class="nc bnc" id="L94" title="All 2 branches missed.">                        if (index == 0) {</span>
+<span class="nc" id="L95">                            return; // Exit to the previous menu immediately</span>
+                        }
+    
+<span class="nc bnc" id="L98" title="All 4 branches missed.">                        if (index &gt;= 1 &amp;&amp; index &lt;= projetEnCours.size()) {</span>
+<span class="nc" id="L99">                            Projet selectedProjet = projetEnCours.get(index - 1);</span>
+<span class="nc" id="L100">                            selectedProjet.afficherDetails(); // Display details of the selected project</span>
+    
+<span class="nc" id="L102">                            System.out.println(&quot;\nAppuyez sur 'Enter' pour retourner à la liste des projets...&quot;);</span>
+<span class="nc" id="L103">                            scanner.nextLine(); // Wait for user input to return to the list</span>
+<span class="nc" id="L104">                        } else {</span>
+<span class="nc" id="L105">                            System.out.println(&quot;Index invalide. Veuillez entrer un numéro valide.&quot;);</span>
+                        }
+<span class="nc" id="L107">                    } catch (NumberFormatException e) {</span>
+<span class="nc" id="L108">                        System.out.println(&quot;Entrée invalide. Veuillez entrer un numéro.&quot;);</span>
+<span class="nc" id="L109">                    }</span>
+<span class="nc" id="L110">                }</span>
+<span class="nc" id="L111">            } catch (JsonSyntaxException e) {</span>
+<span class="nc" id="L112">                System.err.println(&quot;Error parsing response body: &quot; + e.getMessage());</span>
+<span class="nc" id="L113">            }</span>
+        } else {
+<span class="nc bnc" id="L115" title="All 2 branches missed.">            System.err.println(&quot;Failed to fetch data or invalid response: &quot; + (response != null ? response.getMessage() : &quot;No response&quot;));</span>
+        }
+<span class="nc" id="L117">    }</span>
+
+    /**
+     * Permet à l'utilisateur de sélectionner un quartier et de filtrer les projets en fonction du quartier choisi.
+     * 
+     * @param scanner Scanner pour lire les entrées utilisateur.
+     */
+    public void selectBorough(Scanner scanner) {
+<span class="nc" id="L125">        String[] boroughs = {</span>
+            &quot;Ahuntsic-Cartierville&quot;, &quot;Anjou&quot;, &quot;Côte-des-Neiges–Notre-Dame-de-Grâce&quot;,
+            &quot;Lachine&quot;, &quot;LaSalle&quot;, &quot;Le Plateau-Mont-Royal&quot;, &quot;Le Sud-Ouest&quot;,
+            &quot;L'Île-Bizard–Sainte-Geneviève&quot;, &quot;Mercier–Hochelaga-Maisonneuve&quot;,
+            &quot;Montréal-Nord&quot;, &quot;Outremont&quot;, &quot;Pierrefonds-Roxboro&quot;, &quot;Rivière-des-Prairies–Pointe-aux-Trembles&quot;,
+            &quot;Rosemont–La Petite-Patrie&quot;, &quot;Saint-Laurent&quot;, &quot;Saint-Léonard&quot;, &quot;Verdun&quot;,
+            &quot;Ville-Marie&quot;, &quot;Villeray–Saint-Michel–Parc-Extension&quot;
+        };
+    
+        while (true) {
+<span class="nc" id="L135">            System.out.println(&quot;Choisissez un quartier :&quot;);</span>
+<span class="nc bnc" id="L136" title="All 2 branches missed.">            for (int i = 0; i &lt; boroughs.length; i++) {</span>
+<span class="nc" id="L137">                System.out.println((i + 1) + &quot;. &quot; + boroughs[i]);</span>
+            }
+<span class="nc" id="L139">            System.out.println(&quot;0. Retour au menu précédent&quot;);</span>
+    
+            try {
+<span class="nc" id="L142">                String input = scanner.nextLine();</span>
+<span class="nc" id="L143">                int choice = Integer.parseInt(input);</span>
+    
+<span class="nc bnc" id="L145" title="All 2 branches missed.">                if (choice == 0) {</span>
+<span class="nc" id="L146">                    return; // Return to the previous menu</span>
+<span class="nc bnc" id="L147" title="All 4 branches missed.">                } else if (choice &gt;= 1 &amp;&amp; choice &lt;= boroughs.length) {</span>
+<span class="nc" id="L148">                    String selectedBorough = boroughs[choice - 1];</span>
+<span class="nc" id="L149">                    filterByBorough(selectedBorough, scanner); // Call filter method with selected borough</span>
+<span class="nc" id="L150">                    break;</span>
+                } else {
+<span class="nc" id="L152">                    System.out.println(&quot;Choix invalide. Veuillez entrer un numéro valide.&quot;);</span>
+                }
+<span class="nc" id="L154">            } catch (NumberFormatException e) {</span>
+<span class="nc" id="L155">                System.out.println(&quot;Entrée invalide. Veuillez entrer un numéro.&quot;);</span>
+<span class="nc" id="L156">            }</span>
+        }
+<span class="nc" id="L158">    }</span>
+
+
+    /**
+     * Filtre les projets par quartier spécifié et affiche les résultats.
+     * 
+     * @param borough Nom du quartier choisi.
+     * @param scanner Scanner pour lire les entrées utilisateur.
+     */
+    private void filterByBorough(String borough, Scanner scanner) {
+<span class="nc" id="L168">        HttpClientApi api = new HttpClientApi();</span>
+<span class="nc" id="L169">        String resourceId = &quot;cc41b532-f12d-40fb-9f55-eb58c9a2b12b&quot;;</span>
+<span class="nc" id="L170">        String category = &quot;Travaux&quot;;</span>
+    
+        // Fetch the data using the HttpClientApi
+<span class="nc" id="L173">        ApiResponse response = api.getData(resourceId);</span>
+    
+<span class="nc bnc" id="L175" title="All 4 branches missed.">        if (response != null &amp;&amp; response.getStatusCode() == 200) {</span>
+            try {
+<span class="nc" id="L177">                JsonObject jsonResponse = JsonParser.parseString(response.getBody()).getAsJsonObject();</span>
+<span class="nc" id="L178">                JsonArray records = jsonResponse.getAsJsonObject(&quot;result&quot;).getAsJsonArray(&quot;records&quot;);</span>
+    
+<span class="nc" id="L180">                Gson gson = new GsonBuilder()</span>
+<span class="nc" id="L181">                    .registerTypeAdapter(Projet.class, new TravailDeserializer(category))</span>
+<span class="nc" id="L182">                    .create();</span>
+    
+<span class="nc" id="L184">                List&lt;Projet&gt; filteredProjects = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L185" title="All 2 branches missed.">                for (JsonElement jsonElement : records) {</span>
+                    try {
+<span class="nc" id="L187">                        Projet projet = gson.fromJson(jsonElement, Projet.class);</span>
+<span class="nc bnc" id="L188" title="All 4 branches missed.">                        if (projet != null &amp;&amp; projet.getQuartiersAffectes().contains(borough)) {</span>
+<span class="nc" id="L189">                            filteredProjects.add(projet);</span>
+                        }
+<span class="nc" id="L191">                    } catch (JsonParseException e) {</span>
+<span class="nc" id="L192">                        System.err.println(&quot;Erreur de désérialisation : &quot; + e.getMessage());</span>
+<span class="nc" id="L193">                    }</span>
+<span class="nc" id="L194">                }</span>
+    
+<span class="nc bnc" id="L196" title="All 2 branches missed.">                if (filteredProjects.isEmpty()) {</span>
+<span class="nc" id="L197">                    System.out.println(&quot;Aucun projet trouvé pour le quartier &quot; + borough + &quot;.&quot;);</span>
+                } 
+
+                while (true) { // Loop to allow returning to the project list
+<span class="nc" id="L201">                    int counter = 1;</span>
+<span class="nc" id="L202">                    System.out.println(&quot;\nListe des projets en cours : (Type Travaux --- Rue affectées)&quot;);</span>
+<span class="nc bnc" id="L203" title="All 2 branches missed.">                    for (Projet projet : filteredProjects) {</span>
+<span class="nc" id="L204">                        System.out.println(counter + &quot;. &quot; + projet.getTitre());</span>
+<span class="nc" id="L205">                        counter++;</span>
+<span class="nc" id="L206">                    }</span>
+    
+                    // Allow user to select a project by index
+<span class="nc" id="L209">                    System.out.println(&quot;\nEntrez le numéro du projet pour voir les détails ou '0' pour revenir au menu precedent :&quot;);</span>
+                    try {
+<span class="nc" id="L211">                        String input = scanner.nextLine();</span>
+<span class="nc" id="L212">                        int index = Integer.parseInt(input);</span>
+    
+<span class="nc bnc" id="L214" title="All 2 branches missed.">                        if (index == 0) {</span>
+<span class="nc" id="L215">                            return; // Exit to the previous menu immediately</span>
+                        }
+    
+<span class="nc bnc" id="L218" title="All 4 branches missed.">                        if (index &gt;= 1 &amp;&amp; index &lt;= filteredProjects.size()) {</span>
+<span class="nc" id="L219">                            Projet selectedProjet = filteredProjects.get(index - 1);</span>
+<span class="nc" id="L220">                            selectedProjet.afficherDetails();</span>
+    
+<span class="nc" id="L222">                            System.out.println(&quot;\nAppuyez sur 'Enter' pour retourner à la liste des projets...&quot;);</span>
+<span class="nc" id="L223">                            scanner.nextLine(); // Wait for user input to return to the list</span>
+<span class="nc" id="L224">                        } else {</span>
+<span class="nc" id="L225">                            System.out.println(&quot;Index invalide. Veuillez entrer un numéro valide.&quot;);</span>
+                        }
+<span class="nc" id="L227">                    } catch (NumberFormatException e) {</span>
+<span class="nc" id="L228">                        System.out.println(&quot;Entrée invalide. Veuillez entrer un numéro.&quot;);</span>
+<span class="nc" id="L229">                    }</span>
+<span class="nc" id="L230">                }</span>
+    
+<span class="nc" id="L232">            } catch (JsonSyntaxException e) {</span>
+<span class="nc" id="L233">                System.err.println(&quot;Erreur d'analyse de la réponse : &quot; + e.getMessage());</span>
+<span class="nc" id="L234">            }</span>
+        } else {
+<span class="nc" id="L236">            System.err.println(&quot;Échec de récupération des données ou réponse invalide.&quot;);</span>
+        }
+    
+<span class="nc" id="L239">        System.out.println(&quot;\nAppuyez sur 'Entrée' pour revenir au menu précédent...&quot;);</span>
+<span class="nc" id="L240">        scanner.nextLine(); // Wait for user input to continue</span>
+<span class="nc" id="L241">    }</span>
+
+        /**
+        * Affiche les entraves en cours en se basant sur les données récupérées via une API externe.
+        * 
+        * @param scanner Scanner pour lire les entrées utilisateur.
+        */
+        public void consulterEntraves(Scanner scanner) {
+<span class="nc" id="L249">        HttpClientApi api = new HttpClientApi();</span>
+<span class="nc" id="L250">        String resourceId = &quot;a2bc8014-488c-495d-941b-e7ae1999d1bd&quot;;</span>
+<span class="nc" id="L251">        String category = &quot;Entraves&quot;;</span>
+    
+        // Fetch the data using the HttpClientApi
+<span class="nc" id="L254">        ApiResponse response = api.getData(resourceId);</span>
+    
+<span class="nc bnc" id="L256" title="All 4 branches missed.">        if (response != null &amp;&amp; response.getStatusCode() == 200) {</span>
+            try {
+<span class="nc" id="L258">                JsonObject jsonResponse = JsonParser.parseString(response.getBody()).getAsJsonObject();</span>
+<span class="nc" id="L259">                JsonArray records = jsonResponse.getAsJsonObject(&quot;result&quot;).getAsJsonArray(&quot;records&quot;);</span>
+    
+                // Create Gson instance with custom deserializer for Entraves
+<span class="nc" id="L262">                Gson gson = new GsonBuilder()</span>
+<span class="nc" id="L263">                    .registerTypeAdapter(Entraves.class, new TravailDeserializer(category))</span>
+<span class="nc" id="L264">                    .create();</span>
+    
+<span class="nc" id="L266">                List&lt;Entraves&gt; entravesEnCours = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L267" title="All 2 branches missed.">                for (JsonElement jsonElement : records) {</span>
+                    try {
+<span class="nc" id="L269">                        Entraves entrave = gson.fromJson(jsonElement, Entraves.class);</span>
+<span class="nc bnc" id="L270" title="All 2 branches missed.">                        if (entrave != null) {</span>
+<span class="nc" id="L271">                            entravesEnCours.add(entrave);</span>
+                        }
+<span class="nc" id="L273">                    } catch (JsonParseException e) {</span>
+<span class="nc" id="L274">                        System.err.println(&quot;Erreur de désérialisation : &quot; + e.getMessage());</span>
+<span class="nc" id="L275">                    }</span>
+<span class="nc" id="L276">                }</span>
+    
+<span class="nc bnc" id="L278" title="All 2 branches missed.">                if (entravesEnCours.isEmpty()) {</span>
+<span class="nc" id="L279">                    System.out.println(&quot;Aucune entrave trouvée.&quot;);</span>
+<span class="nc" id="L280">                    return;</span>
+                }
+    
+                while (true) { // Loop to allow returning to the entrave list
+<span class="nc" id="L284">                    int counter = 1;</span>
+<span class="nc" id="L285">                    System.out.println(&quot;\nListe des entraves en cours : (Type Entrave --- Rue affectées)&quot;);</span>
+<span class="nc bnc" id="L286" title="All 2 branches missed.">                    for (Entraves entrave : entravesEnCours) {</span>
+<span class="nc" id="L287">                        System.out.println(counter + &quot;. &quot; + entrave.getTitre());</span>
+<span class="nc" id="L288">                        counter++;</span>
+<span class="nc" id="L289">                    }</span>
+    
+                    // Allow user to select an entrave by index
+<span class="nc" id="L292">                    System.out.println(&quot;\nEntrez le numéro de l'entrave pour voir les détails ou '0' pour revenir au menu precedent :&quot;);</span>
+                    try {
+<span class="nc" id="L294">                        String input = scanner.nextLine();</span>
+<span class="nc" id="L295">                        int index = Integer.parseInt(input);</span>
+    
+<span class="nc bnc" id="L297" title="All 2 branches missed.">                        if (index == 0) {</span>
+<span class="nc" id="L298">                            return; // Exit to the previous menu immediately</span>
+                        }
+    
+<span class="nc bnc" id="L301" title="All 4 branches missed.">                        if (index &gt;= 1 &amp;&amp; index &lt;= entravesEnCours.size()) {</span>
+<span class="nc" id="L302">                            Entraves selectedEntrave = entravesEnCours.get(index - 1);</span>
+<span class="nc" id="L303">                            selectedEntrave.afficherDetails();</span>
+    
+<span class="nc" id="L305">                            System.out.println(&quot;\nAppuyez sur 'Enter' pour retourner à la liste des entraves...&quot;);</span>
+<span class="nc" id="L306">                            scanner.nextLine(); // Wait for user input to return to the list</span>
+<span class="nc" id="L307">                        } else {</span>
+<span class="nc" id="L308">                            System.out.println(&quot;Index invalide. Veuillez entrer un numéro valide.&quot;);</span>
+                        }
+<span class="nc" id="L310">                    } catch (NumberFormatException e) {</span>
+<span class="nc" id="L311">                        System.out.println(&quot;Entrée invalide. Veuillez entrer un numéro.&quot;);</span>
+<span class="nc" id="L312">                    }</span>
+<span class="nc" id="L313">                }</span>
+    
+<span class="nc" id="L315">            } catch (JsonSyntaxException e) {</span>
+<span class="nc" id="L316">                System.err.println(&quot;Erreur d'analyse de la réponse : &quot; + e.getMessage());</span>
+<span class="nc" id="L317">            }</span>
+        } else {
+<span class="nc" id="L319">            System.err.println(&quot;Échec de récupération des données ou réponse invalide.&quot;);</span>
+        }
+    
+<span class="nc" id="L322">        System.out.println(&quot;\nAppuyez sur 'Entrée' pour revenir au menu précédent...&quot;);</span>
+<span class="nc" id="L323">        scanner.nextLine(); // Wait for user input to continue</span>
+<span class="nc" id="L324">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
