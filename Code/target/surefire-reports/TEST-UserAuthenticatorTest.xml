@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="UserAuthenticatorTest" time="0.078" tests="3" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="UserAuthenticatorTest" time="0.098" tests="3" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -15,7 +15,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="CA"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-17\bin"/>
-    <property name="sun.java.command" value="C:\Users\Asus\AppData\Local\Temp\surefire12393369466212281337\surefirebooter-20241223221226446_3.jar C:\Users\Asus\AppData\Local\Temp\surefire12393369466212281337 2024-12-23T22-12-25_941-jvmRun1 surefire-20241223221226446_1tmp surefire_0-20241223221226446_2tmp"/>
+    <property name="sun.java.command" value="C:\Users\Asus\AppData\Local\Temp\surefire2138837634684309382\surefirebooter-20241223230519190_3.jar C:\Users\Asus\AppData\Local\Temp\surefire2138837634684309382 2024-12-23T23-05-18_922-jvmRun1 surefire-20241223230519190_1tmp surefire_0-20241223230519190_2tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="E:\2255\images\MaVille-Groupe-46\Code\target\test-classes;E:\2255\images\MaVille-Groupe-46\Code\target\classes;C:\Users\Asus\.m2\repository\com\google\code\gson\gson\2.11.0\gson-2.11.0.jar;C:\Users\Asus\.m2\repository\com\google\errorprone\error_prone_annotations\2.27.0\error_prone_annotations-2.27.0.jar;C:\Users\Asus\.m2\repository\org\junit\jupiter\junit-jupiter\5.11.3\junit-jupiter-5.11.3.jar;C:\Users\Asus\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.11.3\junit-jupiter-api-5.11.3.jar;C:\Users\Asus\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\Asus\.m2\repository\org\junit\platform\junit-platform-commons\1.11.3\junit-platform-commons-1.11.3.jar;C:\Users\Asus\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\Asus\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.11.3\junit-jupiter-params-5.11.3.jar;C:\Users\Asus\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.11.3\junit-jupiter-engine-5.11.3.jar;C:\Users\Asus\.m2\repository\org\junit\platform\junit-platform-engine\1.11.3\junit-platform-engine-1.11.3.jar;C:\Users\Asus\.m2\repository\org\mockito\mockito-core\5.5.0\mockito-core-5.5.0.jar;C:\Users\Asus\.m2\repository\net\bytebuddy\byte-buddy\1.14.6\byte-buddy-1.14.6.jar;C:\Users\Asus\.m2\repository\net\bytebuddy\byte-buddy-agent\1.14.6\byte-buddy-agent-1.14.6.jar;C:\Users\Asus\.m2\repository\org\objenesis\objenesis\3.3\objenesis-3.3.jar;C:\Users\Asus\.m2\repository\org\mockito\mockito-junit-jupiter\5.5.0\mockito-junit-jupiter-5.5.0.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -30,7 +30,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\Asus\AppData\Local\Temp\surefire12393369466212281337\surefirebooter-20241223221226446_3.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\Asus\AppData\Local\Temp\surefire2138837634684309382\surefirebooter-20241223230519190_3.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="17.0.12+8-LTS-286"/>
@@ -56,7 +56,7 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="testLogin_SuccessfulIntervenant" classname="UserAuthenticatorTest" time="0.053"/>
-  <testcase name="testLogin_Failed" classname="UserAuthenticatorTest" time="0.009"/>
+  <testcase name="testLogin_SuccessfulIntervenant" classname="UserAuthenticatorTest" time="0.058"/>
+  <testcase name="testLogin_Failed" classname="UserAuthenticatorTest" time="0.024"/>
   <testcase name="testLogin_SuccessfulResident" classname="UserAuthenticatorTest" time="0.008"/>
 </testsuite>
