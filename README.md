@@ -4,6 +4,9 @@
 **MaVille** est une application en ligne de commande permettant aux résidents de Montréal de consulter, signaler et soumettre des requêtes de travaux publics, tandis que les intervenants peuvent soumettre des projets de travaux et gérer leur progression.
 
 Ce projet est réalisé dans le cadre du **Devoir 3 - Conception de la solution** du cours *IFT2255 - Génie Logiciel*, Automne 2024.
+L'application utilise des **API** pour :  
+- La liste des travaux en cours.  
+- La liste des entraves causées par les travaux en cours.  
 
 ## Organisation du Répertoire
 
@@ -58,7 +61,7 @@ Ce dossier contient tout ce qui concerne le projet. Voici comment il est organis
 
 ## Services Utilisés
 ### Travaux en cours :
-- **URL** : Liste des travaux en cours.
+- [**URL**](https://donnees.montreal.ca/api/3/action/datastore_search?resource_id=cc41b532-f12d-40fb-9f55-eb58c9a2b12b) : Liste des travaux en cours.
 
 ### Entraves liées aux travaux :
-- **URL** : Liste des entraves causées par les travaux en cours.
+- [**URL**](https://donnees.montreal.ca/api/3/action/datastore_search?resource_id=a2bc8014-488c-495d-941b-e7ae1999d1bd) : Liste des entraves causées par les travaux en cours.
