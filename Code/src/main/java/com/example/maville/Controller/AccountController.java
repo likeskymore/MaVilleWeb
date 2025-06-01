@@ -19,7 +19,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-import Model.User;
+import com.example.maville.Model.User;
 
 public class AccountController extends Controller {
     /**

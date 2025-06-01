@@ -9,9 +9,9 @@
     package com.example.maville.View;
 
     import java.util.Scanner;
-    import Controller.RequeteTravailController;
-    import Model.Intervenant;
-    import Model.UserAuthenticator;
+    import com.example.maville.Controller.RequeteTravailController;
+    import com.example.maville.Model.Intervenant;
+    import com.example.maville.Model.UserAuthenticator;
 
 public class MenuIntervenant extends Menu {
     /**

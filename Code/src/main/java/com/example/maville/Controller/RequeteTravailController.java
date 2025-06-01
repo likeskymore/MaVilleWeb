@@ -25,10 +25,10 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import Model.Intervenant;
-import Model.RequeteTravail;
-import Model.Resident;
-import Model.TypeTravail;
+import com.example.maville.Model.Intervenant;
+import com.example.maville.Model.RequeteTravail;
+import com.example.maville.Model.Resident;
+import com.example.maville.Model.TypeTravail;
 
 public class RequeteTravailController {
     /**

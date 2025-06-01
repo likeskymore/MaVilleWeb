@@ -23,11 +23,11 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 
-import Model.ApiResponse;
-import Model.Entraves;
-import Model.HttpClientApi;
-import Model.Projet;
-import Model.TravailDeserializer;
+import com.example.maville.Model.ApiResponse;
+import com.example.maville.Model.Entraves;
+import com.example.maville.Model.HttpClientApi;
+import com.example.maville.Model.Projet;
+import com.example.maville.Model.TravailDeserializer;
 
 public class TravailController {
     /**

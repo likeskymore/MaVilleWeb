@@ -8,9 +8,9 @@
 package com.example.maville.View;
 
 import java.util.Scanner;
-import Controller.RequeteTravailController;
-import Controller.TravailController;
-import Model.*;
+import com.example.maville.Controller.RequeteTravailController;
+import com.example.maville.Controller.TravailController;
+import com.example.maville.Model.*;
 
 public class MenuResident extends Menu {
     /**
