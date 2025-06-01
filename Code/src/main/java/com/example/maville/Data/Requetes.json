@@ -1,0 +1,41 @@
+{
+    
+    "requetes": [
+      {
+        "residentEmail": "resident1@mail.com",
+        "titre": "Rénovation",
+        "description": "Travaux pour rénover la toiture du bâtiment.",
+        "typeTravaux": "CONSTRUCTION_RENOVATION",
+        "dateDebut": "2025-01-16"
+      },    
+      {
+        "residentEmail": "resident2@mail.com",
+        "titre": "Rénovation de toiture",
+        "description": "Travaux pour rénover la toiture du bâtiment.",
+        "typeTravaux": "CONSTRUCTION_RENOVATION",
+        "dateDebut": "2025-01-15"
+      },
+      {
+        "residentEmail": "resident3@mail.com",
+        "titre": "Rénovation intérieure complète",
+        "description": "Travaux de rénovation pour améliorer l'esthétique et la fonctionnalité de l'intérieur de la maison.",
+        "typeTravaux": "RESIDENTIEL",
+        "dateDebut": "2025-08-10"
+      },
+      {
+        "residentEmail": "resident4@mail.com",
+        "titre": "Réaménagement de la cuisine et salon",
+        "description": "Réaménagement de la cuisine et des espaces de vie, avec ajout d'armoires et remplacement des sols.",
+        "typeTravaux": "RESIDENTIEL",
+        "dateDebut": "2025-08-11"
+      },
+      {
+        "residentEmail": "resident5@mail.com",
+        "titre": "Installation de système de chauffage et ventilation",
+        "description": "Installation d'un nouveau système de chauffage et de ventilation pour améliorer l'efficacité énergétique de la maison.",
+        "typeTravaux": "GAZ_ELECTRIQUE",
+        "dateDebut": "2025-08-12"
+      }
+    ]
+  }
+  
