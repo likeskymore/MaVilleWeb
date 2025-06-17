@@ -24,7 +24,7 @@ public class AccountController extends Controller {
     /**
     * Chemin d'accès au fichier JSON où les données utilisateur sont stockées.
     */
-    private String FILE_PATH = "Code/src/main/java/Data/Users.json";
+    private String FILE_PATH = "src/main/resources/Users.json";
 
     /**
      * Crée un nouveau compte pour un Résident ou un Intervenant.

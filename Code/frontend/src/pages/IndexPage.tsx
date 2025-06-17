@@ -11,12 +11,19 @@ const IndexPage: React.FC = () => {
         Gérez facilement les travaux et entraves dans votre ville avec notre application simple et efficace.
       </p>
 
-      {/* Example call to action */}
+
       <button
         onClick={() => navigate('/login')}  // or change to wherever your login page is
         className="bg-white text-blue-600 font-semibold px-6 py-3 rounded shadow hover:bg-gray-100 transition"
       >
         Se connecter
+      </button>
+
+      <button
+        onClick={() => navigate('/sign-up')}  // or change to wherever your login page is
+        className="bg-white text-blue-600 font-semibold px-6 py-3 rounded shadow hover:bg-gray-100 transition"
+      >
+        S'inscrire
       </button>
 
       <section className="mt-16 max-w-4xl text-center">

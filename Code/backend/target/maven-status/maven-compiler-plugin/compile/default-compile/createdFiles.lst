@@ -1,7 +1,5 @@
 com\maville\Model\Resident.class
-com\maville\Model\UserAuthenticator$1.class
 com\maville\Model\ApiResponse.class
-com\maville\Controller\RouteController.class
 com\maville\Model\Projet.class
 com\maville\Model\Intervenant.class
 com\maville\Model\Candidature.class
@@ -14,14 +12,11 @@ com\maville\Model\Subscription.class
 com\maville\MaVilleGroupe46Application.class
 com\maville\Model\TravailDeserializer.class
 com\maville\Controller\AccountController.class
-com\maville\Model\UserAuthenticator$LocalDateAdapter.class
 com\maville\Model\Horaire.class
-com\maville\Model\UserAuthenticator$2.class
 com\maville\Controller\RequeteTravailController.class
 com\maville\Model\Address.class
 com\maville\Model\HttpClientApi.class
 com\maville\Model\Travail.class
-com\maville\Model\UserAuthenticator.class
 com\maville\View\MenuIntervenant.class
 com\maville\View\MenuResident.class
 com\maville\Model\Notification.class

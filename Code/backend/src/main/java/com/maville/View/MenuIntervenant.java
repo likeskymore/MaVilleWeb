@@ -12,7 +12,7 @@
 
 import com.maville.Controller.RequeteTravailController;
 import com.maville.Model.Intervenant;
-import com.maville.Model.UserAuthenticator;
+import com.maville.service.UserAuthenticator;
 
 public class MenuIntervenant extends Menu {
     /**

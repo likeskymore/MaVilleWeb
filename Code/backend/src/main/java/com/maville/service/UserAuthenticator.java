@@ -5,7 +5,11 @@
  * de l'authentificateur est utilisée. Elle fournit des méthodes pour se connecter,
  * déterminer le rôle de l'utilisateur connecté, et se déconnecter.
  */
-package com.maville.Model;
+package com.maville.service;
+import com.maville.Model.User;
+import com.maville.Model.Intervenant;
+import com.maville.Model.Resident;
+import org.springframework.stereotype.Service;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
@@ -17,6 +21,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+
+@Service
 public class UserAuthenticator {
     // Singleton instance
     /**
@@ -24,7 +30,7 @@ public class UserAuthenticator {
      */
     private static UserAuthenticator instance; 
     private User connectedUser;
-    private String filePath = "Code/src/main/java/Data/Users.json";
+    private String filePath = "src/main/resources/Users.json";
     
     /**
      * Constructeur privé pour le pattern Singleton.

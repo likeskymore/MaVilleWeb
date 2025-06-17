@@ -8,7 +8,7 @@
 package com.maville.View;
 
 import java.util.Scanner;
-
+import com.maville.service.UserAuthenticator;
 import com.maville.Controller.RequeteTravailController;
 import com.maville.Controller.TravailController;
 import com.maville.Model.*;

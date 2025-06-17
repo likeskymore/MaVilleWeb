@@ -3,8 +3,8 @@
         {
             "id": "1",
             "name": "Resident 1",
-            "email": "resident1@mail.com",
-            "password": "password1",
+            "email": "test",
+            "password": "123",
             "phone": "514-123-4567",
             "address": {
                 "streetNumber": "13170",

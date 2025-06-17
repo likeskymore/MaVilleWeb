@@ -34,12 +34,12 @@ public class RequeteTravailController {
     /**
      * Chemin d'accès au fichier JSON contenant les requêtes de travail.
      */
-    private static final String FILE_PATH = "Code/src/main/java/Data/Requetes.json";
+    private static final String FILE_PATH = "src/main/resources/Requetes.json";
 
     /**
      * Chemin d'accès au fichier JSON contenant les candidatures.
      */
-    private static final String FILE_PATH_CANDIDATURES = "Code/src/main/java/Data/Candidature.json";
+    private static final String FILE_PATH_CANDIDATURES = "src/main/resources/Candidature.json";
     
      /**
      * Liste des requêtes de travail chargées en mémoire.
